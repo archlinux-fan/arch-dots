@@ -1,0 +1,7 @@
+# GitHub Pages (Jekyll), built from this docs/ folder (Settings → Pages → main, /docs).
+title: arch-dots
+description: Hyprland desktop with Nord themes for Arch Linux, screenshots and wallpapers.
+repo_url: https://github.com/archlinux-fan/arch-dots
+install_url: https://archlinux-fan.github.io/arch-install/
+# Large pictures come straight from the repo, so they are not copied here
+raw: https://raw.githubusercontent.com/archlinux-fan/arch-dots/main

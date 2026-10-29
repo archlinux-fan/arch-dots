@@ -1,0 +1,36 @@
+#!/bin/bash
+# Centered "Reboot?" / "Power off?" question in a small floating terminal.
+# Enter confirms, any other key cancels. Used by keybindings.lua and the waybar power icon.
+# Usage: power-confirm reboot|poweroff
+
+case $1 in
+    reboot)   question="Reboot?" ;;
+    poweroff) question="Power off?" ;;
+    *)        exit 1 ;;
+esac
+hint="Enter = yes   ·   any other key = cancel"
+
+# Started from a keybind or waybar: reopen inside a foot window, marked by IN_POPUP.
+# The hypr-confirm window rule floats, sizes and centers it; foot gets that size
+# a moment after the script started.
+[[ $IN_POPUP ]] || exec footclient --title hypr-confirm env IN_POPUP=1 "$0" "$@"
+
+# Clear, hide cursor, bold question in the middle, hint two lines below.
+draw() {
+    local rows=$1 cols=$2
+    printf '\e[2J\e[?25l\e[%d;%dH\e[1m%s\e[0m\e[%d;%dH%s' \
+        $(( rows / 2 )) $(( (cols - ${#question}) / 2 + 1 )) "$question" \
+        $(( rows / 2 + 2 )) $(( (cols - ${#hint}) / 2 + 1 )) "$hint"
+}
+
+# Wait for a key; meanwhile draw once the size has settled (same twice in a row) and
+# again if it changes. read can't be interrupted by a resize, so it waits 0.2 s at a time
+# (timeout = status > 128).
+while true; do
+    size=$(stty size)
+    [[ $size == "$last" && $size != "$drawn" ]] && draw $size && drawn=$size
+    last=$size
+    IFS= read -rsn1 -t 0.2 key; status=$?     # IFS= keeps space and Tab, so only Enter is empty
+    (( status > 128 )) || break
+done
+(( status == 0 )) && [[ -z $key ]] && systemctl "$1"

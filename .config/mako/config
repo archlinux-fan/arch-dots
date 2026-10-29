@@ -1,0 +1,89 @@
+anchor=top-right
+font=Noto Sans 10
+border-size=1
+border-radius=8
+padding=10,16
+margin=2
+
+width=300
+height=800
+max-visible=5
+
+text-alignment=center
+
+default-timeout=5000
+ignore-timeout=0
+
+# Nord0 background, Nord4 text, Nord8 border
+background-color=#2E3440
+text-color=#d8dee9
+border-color=#81A1C1
+progress-color=over #5e81ac66
+
+[urgency=low]
+background-color=#2E3440
+text-color=#4c566a
+border-color=#434c5e
+default-timeout=3000
+
+[urgency=high]
+background-color=#2E3440
+text-color=#eceff4
+border-color=#bf616a
+default-timeout=0
+
+# --- OSD: volume, mic, brightness ---
+[app-name="volume"]
+width=140
+history=0
+border-color=#81a1c1
+progress-color=over #81a1c155
+default-timeout=2000
+
+[app-name="volume" summary~=".*[Mm]uted.*"]
+border-color=#bf616a
+text-color=#bf616a
+progress-color=over #bf616a22
+
+[app-name="mic-volume"]
+width=140
+history=0
+border-color=#a3be8c
+progress-color=over #a3be8c22
+default-timeout=2000
+
+[app-name="mic-volume" summary~=".*[Mm]uted.*"]
+border-color=#bf616a
+text-color=#bf616a
+progress-color=over #bf616a22
+
+[app-name="brightness"]
+width=140
+history=0
+border-color=#ebcb8b
+progress-color=over #ebcb8b22
+default-timeout=2000
+
+# --- Other ---
+# Mako has no automatic width, so short messages get their own
+# hyprland: keybinds (Hyprland and waybar reload, color picker)
+[app-name="hyprland"]
+width=200
+
+[app-name="bluetooth"]
+width=260
+
+
+[summary~="Screenshot *"]
+width=420
+border-color=#b48ead
+
+[app-name="Spotify"]
+width=300
+border-color=#a3be8c
+
+[app-name="discord"]
+border-color=#5e81ac
+
+[category="device"]
+border-color=#8fbcbb

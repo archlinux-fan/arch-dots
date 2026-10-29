@@ -1,0 +1,10 @@
+# Replaces stow's built-in ignore list, so the needed defaults are repeated here
+\.git
+\.gitignore
+^/README.*
+^/\.stow-local-ignore
+# Per-machine local settings files stay out of ~
+settings\.local\.json
+^/screenshots
+# GitHub Pages site
+^/docs

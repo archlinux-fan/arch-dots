@@ -1,0 +1,22 @@
+#!/bin/bash
+# Volume and microphone keys, with a notification showing the level.
+# The output is the default device (see ~/.config/wireplumber), the mic the default input.
+#   sound up | down | mute
+#   sound mic-up | mic-down | mic-mute
+
+case $1 in
+    up|down|mute) dev=@DEFAULT_AUDIO_SINK@;   name=Volume; app=volume ;;
+    mic-*)        dev=@DEFAULT_AUDIO_SOURCE@; name=Mic;    app=mic-volume ;;
+esac
+
+case $1 in
+    up|mic-up)     wpctl set-mute $dev 0; wpctl set-volume -l 1.0 $dev 5%+ ;;
+    down|mic-down) wpctl set-mute $dev 0; wpctl set-volume $dev 5%- ;;
+    mute|mic-mute) wpctl set-mute $dev toggle ;;
+    *) echo "Usage: sound up|down|mute|mic-up|mic-down|mic-mute"; exit 1 ;;
+esac
+
+out=$(wpctl get-volume $dev) || exit
+v=$(awk '{printf "%d", $2*100}' <<< "$out")
+case $out in *MUTED*) text="$name: muted" ;; *) text="$name: $v%" ;; esac
+notify-send -h string:x-canonical-private-synchronous:$app -h int:value:$v -t 2000 --app-name=$app "$text"

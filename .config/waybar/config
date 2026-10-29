@@ -1,0 +1,245 @@
+{
+	"layer": "top",
+	"position": "top",
+	"reload_style_on_change": true,
+
+	"height": 30,
+
+	"modules-left": [
+		"wlr/taskbar",
+		"hyprland/submap"
+	],
+
+	"modules-right": [
+		"tray",
+		"hyprland/language",
+		"systemd-failed-units",
+		"custom/webcam",
+		"custom/firewall",
+		"wireplumber",
+		"wireplumber#source",
+		"bluetooth",
+		"network",
+		"custom/pacman",
+		"custom/aur",
+		"group/clock",
+		"battery",
+		"custom/power"
+	],
+
+	// ── Left ──
+	"wlr/taskbar": {
+		"all-outputs": false,
+		"format": "{name}",
+		"icon-size": 20,
+		"tooltip-format": "{title}",
+		"active-first": false,
+		"on-click": "activate",
+		"on-click-middle": "close",
+		"on-click-right": "minimize",
+		"rewrite": {
+			"Thunar File Manager": "  Thunar",
+			"Brave": "  Brave",
+			"Brave Origin": "  Brave",
+			"Foot": "  Foot",
+			"Mousepad": "  Mousepad",
+			"Lite XL": "  Lite XL",
+			"Steam": "  Steam",
+		}
+	},
+
+	// ── Right ──
+	"tray": {
+		"icon-size": 16,
+		"spacing": 10
+	},
+
+	// Layout name; format-<lang> shortens known ones
+	"hyprland/language": {
+		"format": " {}",
+		"format-sl": "SI",
+		"format-es": "ES"
+	},
+
+	"hyprland/submap": {
+		"format": "✌️ {}",
+		"max-length": 8,
+		"tooltip": false
+	},
+
+	"systemd-failed-units": {
+		"hide-on-ok": true,
+		"format": " {nr_failed}",
+		"format-ok": "",
+		"system": true,
+		"user": true,
+		"tooltip": true,
+		"tooltip-format": "<b>Failed system units:</b>\n{system}\n\n<b>Failed user units:</b>\n{user}\n\nRight click: details",
+		"critical-threshold": 1,
+		"on-click-right": "footclient --title='hypr-update' -e sh -c 'echo === SYSTEM FAILED ===; systemctl --failed; echo; echo === USER FAILED ===; systemctl --user --failed; echo; echo Press any key to close window...; read -n 1'"
+	},
+
+	// Webcam: driver unloaded (off), in use (active) or idle. Right click loads/unloads the driver.
+	"custom/webcam": {
+		"exec": "sh -c 'if ! lsmod | grep -q \"^uvcvideo\"; then echo \"{\\\"text\\\":\\\"\\\",\\\"tooltip\\\":\\\"<b>Webcam:</b> off (driver unloaded)\\n\\nRight click: turn on\\\",\\\"class\\\":\\\"off\\\"}\"; elif fuser /dev/video* >/dev/null 2>&1; then echo \"{\\\"text\\\":\\\"\\\",\\\"tooltip\\\":\\\"<b>Webcam:</b> in use\\n\\nRight click: turn off\\\",\\\"class\\\":\\\"active\\\"}\"; else echo \"{\\\"text\\\":\\\"\\\",\\\"tooltip\\\":\\\"<b>Webcam:</b> idle (driver loaded)\\n\\nRight click: turn off\\\",\\\"class\\\":\\\"idle\\\"}\"; fi'",
+		"return-type": "json",
+		"interval": 60,
+		"on-click-right": "footclient --title='hypr-update' -e sh -c 'if lsmod | grep -q uvcvideo; then sudo rmmod uvcvideo; else sudo modprobe uvcvideo; fi ; pkill -SIGRTMIN+9 waybar'",
+
+		"signal": 9
+	},
+
+	// Firewall on/off; middle click opens the settings, right click toggles the service
+	"custom/firewall": {
+		"exec": "systemctl is-active firewalld >/dev/null && echo '{\"text\":\"\",\"class\":\"on\"}' || echo '{\"text\":\"\",\"class\":\"off\"}'",
+		"return-type": "json",
+		"interval": 60,
+		"tooltip-format": "<b>Firewall:</b> firewalld\n\nMiddle click: settings\nRight click: on / off",
+		"on-click-middle": "firewall-config",
+		"on-click-right": "footclient --title='hypr-update' -e sh -c 'if systemctl is-active firewalld >/dev/null; then sudo systemctl stop firewalld; else sudo systemctl start firewalld; fi ; pkill -SIGRTMIN+10 waybar'",
+		"signal": 10
+	},
+
+	"wireplumber": {
+		"scroll-step": 2, // %, can be a float
+		"format": "{icon} {volume}%",
+		"format-muted": " {volume}%",
+		"format-icons": ["", "", ""],
+		"tooltip-format": "Output: {node_name}\n\nLeft click: mute\nMiddle click: mixer\nScroll: volume",
+		"on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+		"on-click-middle": "pavucontrol"
+	},
+
+	"wireplumber#source": {
+		"node-type": "Audio/Source",
+		"scroll-step": 2,
+		"format": " {volume}%",
+		"format-muted": " {volume}%",
+		"tooltip-format": "Input: {node_name}\n\nLeft click: mute\nMiddle click: mixer\nScroll: volume",
+		"on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+		"on-click-middle": "pavucontrol"
+	},
+
+	"bluetooth": {
+		"format": "{icon}",
+		"format-icons": "",
+		"format-disabled": "", // an empty format will hide the module
+		"format-connected": "{icon} {num_connections}",
+		"tooltip-format": "<b>Bluetooth:</b> {controller_alias}\n\nLeft click: restart Bluetooth\nMiddle click: bluetui\nRight click: connect headphones again",
+		"tooltip-format-connected": "<b>Bluetooth:</b> {controller_alias}\n\n{device_enumerate}\n\nLeft click: restart Bluetooth\nMiddle click: bluetui\nRight click: connect headphones again",
+		"tooltip-format-enumerate-connected": "<b>{device_alias}</b>",
+		"tooltip-format-enumerate-connected-battery": "<b>{device_alias}:</b> {device_battery_percentage}%",
+		"on-click-middle": "footclient --title hypr-update sh -c 'bluetui'",
+		"on-click": "bt restart",
+		"on-click-right": "bt headphones"
+	},
+
+	// No "interface": follows the default route, so Wi-Fi or a docked cable works on any computer
+	"network": {
+		"format-wifi": " {signalStrength}%",
+		"format-alt": "{essid}  {ipaddr}/{cidr}",
+		"tooltip-format": "<b>Network:</b> {ifname}\n<b>IP:</b> {ipaddr}/{cidr}\n<b>Down:</b> {bandwidthDownBits} <b>Up:</b> {bandwidthUpBits}\n\nLeft click: name and IP\nMiddle click: nm-applet",
+		"tooltip-format-wifi": "<b>Wi-Fi:</b> {essid} ({ifname})\n<b>IP:</b> {ipaddr}/{cidr}\n<b>Signal:</b> {signaldBm} dBm\n<b>Frequency:</b> {frequency} GHz\n<b>Down:</b> {bandwidthDownBits} <b>Up:</b> {bandwidthUpBits}\n\nLeft click: name and IP\nMiddle click: nm-applet",
+		"format-disconnected": "",
+		"interval": 2,
+		"format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
+		"format-ethernet": "",
+		"on-click-middle": "nm-applet"
+	},
+
+	// Time; hover shows the date, the tooltip a calendar
+	"group/clock": {
+		"orientation": "horizontal",
+		"drawer": {
+			"transition-duration": 500,
+			"children-class": "not-power",
+			"transition-left-to-right": false,
+		},
+		"modules": [
+			"clock#time",
+			"clock#date"
+		]
+	},
+	"clock#time": {
+		"format": "{:L%H:%M:%S}",
+		"interval": 1,
+		"tooltip": true,
+		"tooltip-format": "<span font='Noto Sans Mono' size='11pt'>{calendar}</span>\n\nMiddle click: back to today\nRight click: month / year\nScroll: other months",
+		"calendar": {
+			"mode": "month",
+			"mode-mon-col": 3,
+			"iso8601": true,
+			"on-scroll": 1,
+			"weeks-pos": "left",
+			"format": {
+				"weeks": 		"<span color='#d8dee9'><b>{}</b></span>", // nordic light gray
+				"months":   "<span color='#81a1c1'><b>{}</b></span>", // nordic blue
+				"days":     "<span color='#81a1c1'><b>{}</b></span>", // nordic light blue
+				"weekdays": "<span color='#d8dee9'><b>{}</b></span>", // nordic light gray
+				"today":    "<span color='#bf616a'><b>{}</b></span>", // nordic red
+			}
+		},
+		"actions": {
+			"on-click-right": "mode",
+			"on-scroll-up": "shift_down",
+			"on-scroll-down": "shift_up",
+			"on-click-middle": "shift_reset"
+		},
+	},
+	"clock#date": {
+		"format": "<span font=\"Font Awesome Free\"></span> {:L%e %B %Y}",
+		"interval": 60,
+		"tooltip": true,
+		"tooltip-format": "{:L%A, %d %B %Y, %H:%M}"
+	},
+
+	// Updates: count from scripts/updates.sh; click lists them, right click installs
+	"custom/pacman": {
+		"format": "  {}",
+		"return-type": "json",
+		"exec": "~/.config/waybar/scripts/updates.sh pacman",
+		"interval": 3600,
+		"on-click": "pkill -SIGRTMIN+8 waybar",
+		"on-click-right": "footclient --title=hypr-update -e ~/.config/waybar/scripts/updates.sh upgrade",
+		"signal": 8
+	},
+
+	"custom/aur": {
+		"format": "  {}",
+		"return-type": "json",
+		"exec": "~/.config/waybar/scripts/updates.sh aur",
+		"interval": 3600,
+		"on-click": "pkill -SIGRTMIN+8 waybar",
+		"on-click-right": "footclient --title='hypr-update' -e sh -c 'yay -Sua; pkill -SIGRTMIN+8 waybar'",
+		"signal": 8
+	},
+
+	// Middle click reboots, right click powers off; both ask first
+	"custom/power": {
+		"format": "{icon}",
+		"format-icons": {"default": [""]},
+		"tooltip-format": "<b>Power</b>\n\nMiddle click: reboot\nRight click: power off",
+		"on-click-middle": "power-confirm reboot",
+		"on-click-right": "power-confirm poweroff"
+	},
+
+	// No "bat": Waybar finds the battery itself
+	"battery": {
+		"states": {
+			"good": 75,
+			"warning": 30,
+			"critical": 15
+		},
+		"events": {
+			"on-discharging-warning": "hyprctl notify 2 2500 'rgb(D08770)' fontsize:7 'Low Battery'",
+			"on-discharging-critical": "hyprctl notify 5 5000 'rgb(BF616A)' fontsize:7 'Very Low Battery'",
+			"on-charging-100": "hyprctl notify 2 2500 'rgb(A3BE8C)' fontsize:7 'Battery Full!'"
+		},
+		"format": "{capacity}% {power:.0f}W {icon}",
+		"format-charging": "{capacity}% {power:.0f}W ",
+		"format-plugged": "{capacity}% ",
+		"format-alt": "{time} {power:.0f}W {icon}",
+		"tooltip-format": "<b>Battery:</b> {timeTo}\n\nLeft click: time left",
+		"format-icons": [" ", " ", " ", " ", " "],
+	}
+}

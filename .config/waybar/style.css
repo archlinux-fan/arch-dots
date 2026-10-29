@@ -1,0 +1,220 @@
+* {
+    font-family: "Noto Sans", "Font Awesome 7 Free";
+    font-size: 12px;
+    font-weight: bold;
+    min-height: 0;
+    border-radius: 0;
+    padding: 0;
+}
+
+/* Nord */
+@define-color norddarkest #2E3440;
+@define-color norddark #3B4252;
+@define-color nordbright #616E88;   /* nord3 brightened, as in Nord's own vim and VS Code themes */
+@define-color darkwhite #D8DEE9;
+@define-color white #E5E9F0;
+@define-color whitest #ECEFF4;
+@define-color aqua #8FBCBB;
+@define-color cyan #88C0D0;
+@define-color blue #81A1C1;
+@define-color darkblue #5E81AC;
+@define-color red #BF616A;
+@define-color orange #D08770;
+@define-color yellow #EBCB8B;
+@define-color green #A3BE8C;
+
+window#waybar {
+    background-color: @norddarkest;
+    color: @whitest;    /* modules without their own colour */
+    padding: 0px 15px;
+    margin: 0px 10px;
+}
+
+/* Hover texts look like the mako notifications */
+tooltip {
+    background-color: @norddarkest;
+    border: 1px solid @blue;
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: @darkwhite;
+    font-size: 13px;
+    font-weight: normal;
+    padding: 4px 8px;
+}
+
+/* Every module is a rounded pill on the bar */
+#taskbar,
+#tray,
+#systemd-failed-units,
+#custom-webcam,
+#custom-firewall,
+#wireplumber,
+#bluetooth,
+#network,
+#clock,
+#custom-power {
+    background: @norddark;
+    padding: 0px 8px;
+    margin: 4px;
+    border-radius: 15px;
+}
+
+/* ── Left ─────────────────────────────────────────────────── */
+
+#taskbar {
+    padding: 0px 4px;
+}
+
+#taskbar button {
+    color: @blue;
+    padding: 0px 4px;
+    border-radius: 15px;
+}
+
+#taskbar button.active {
+    color: @darkwhite;
+}
+
+#taskbar button:hover {
+    background: @norddark;
+    color: @whitest;
+}
+
+/* ── Right ────────────────────────────────────────────────── */
+
+#tray {
+    color: @whitest;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: @cyan;
+}
+
+#language {
+    padding: 0px 5px;
+}
+
+#systemd-failed-units {
+    color: @red;
+}
+
+#systemd-failed-units.critical {
+    background: @red;
+    color: @white;
+}
+
+#custom-webcam,
+#wireplumber {
+    padding: 0px 10px;
+}
+
+#custom-webcam.off {
+    color: @red;
+    text-decoration: line-through;
+}
+
+#custom-webcam.active {
+    color: @red;
+}
+
+#custom-webcam.idle {
+    color: @nordbright;
+}
+
+#custom-firewall.on {
+    color: @green;
+}
+
+#custom-firewall.off {
+    color: @red;
+    text-decoration: line-through;
+}
+
+#wireplumber {
+    color: @yellow;
+}
+
+/* Speaker and mic (#wireplumber.source) turn red on their own when muted */
+#wireplumber.muted {
+    background: @red;
+    color: @white;
+}
+
+#bluetooth {
+    color: @darkblue;
+}
+
+#network {
+    color: @aqua;
+    margin: 4px 5px;
+}
+
+/* Update counters: grey 0, green some, orange many, red a lot (classes from updates.sh) */
+#custom-pacman,
+#custom-aur {
+    color: @white;
+    padding: 0px 4px;
+    margin: 4px 0px;
+}
+
+#custom-pacman.white,
+#custom-aur.white {
+    color: @nordbright;
+}
+
+#custom-pacman.green,
+#custom-aur.green {
+    color: @green;
+}
+
+#custom-pacman.yellow,
+#custom-aur.yellow {
+    color: @orange;
+}
+
+#custom-pacman.red,
+#custom-aur.red {
+    color: @red;
+}
+
+#clock {
+    color: @whitest;
+    padding: 0px 4px;
+}
+
+#battery {
+    padding: 0px 4px;
+    border-radius: 15px;
+    color: @darkwhite;
+}
+
+#battery.charging,
+#battery.good {
+    color: @green;
+}
+
+#battery.discharging,
+#battery.warning {
+    color: @yellow;
+}
+
+#battery.full {
+    color: @cyan;
+}
+
+#battery.critical {
+    background-color: @red;
+    color: @white;
+}
+
+#custom-power {
+    color: @red;
+    margin: 4px 8px 4px 4px;
+}

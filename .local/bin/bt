@@ -1,0 +1,34 @@
+#!/bin/bash
+# Bluetooth fixes.
+#   bt headphones  headphones connected but silent: connect them again
+#   bt restart     mouse, keyboard or headphones won't connect: Bluetooth off and on
+#                  (like the airplane key, but Wi-Fi stays on), headphones connect again
+#   bt watch       started by Hyprland: runs "bt headphones" when the music link hangs
+
+# Connected audio devices, not a Bluetooth keyboard or mouse
+audio() {
+    for d in $(bluetoothctl devices Connected | awk '{print $2}'); do
+        bluetoothctl info "$d" | grep -q "Audio Sink" && echo "$d"
+    done
+}
+
+case $1 in
+    headphones)
+        for d in $(audio); do
+            bluetoothctl disconnect "$d" >/dev/null; sleep 3
+            bluetoothctl connect "$d" >/dev/null && notify-send --app-name=bluetooth "Headphones connected again"
+        done ;;
+    restart)
+        devices=$(audio)
+        rfkill block bluetooth; sleep 2; rfkill unblock bluetooth
+        for i in 1 2 3 4 5; do bluetoothctl show | grep -q "Powered: yes" && break; sleep 1; done
+        for d in $devices; do bluetoothctl connect "$d" >/dev/null; done
+        notify-send --app-name=bluetooth "Bluetooth restarted" ;;
+    watch)
+        # Headphones and BlueZ sometimes start the music link at the same moment:
+        # BlueZ logs "a2dp-sink profile connect failed ... busy" and the link hangs silent
+        journalctl -u bluetooth -f -n 0 -o cat | while read -r line; do
+            [[ $line == *"a2dp-sink profile connect failed"*busy* ]] && { sleep 2; "$0" headphones; }
+        done ;;
+    *) echo "Usage: bt headphones|restart|watch"; exit 1 ;;
+esac

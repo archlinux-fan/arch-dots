@@ -1,0 +1,2 @@
+# Thunar rewrites it in random order on every save; it holds only commented defaults
+.config/Thunar/accels.scm

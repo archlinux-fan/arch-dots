@@ -1,0 +1,83 @@
+# --- INTERFACE & VIEW --------------------------------------------------------
+set minibar             # Show a modern feedback bar at the bottom
+set constantshow        # Constantly show cursor position (line, column)
+set stateflags          # Show modified/view status in the top right corner
+set nohelp              # Hide the two help lines at the bottom for more space
+#set zero               # Use the entire terminal for editing (hides all bars)
+#set emptyline          # Keep the line below the title bar empty
+
+# --- BEHAVIOR & EDITING ------------------------------------------------------
+set mouse               # Enable mouse support for clicking and scrolling
+set zap                 # Let Backspace/Delete erase a marked region
+set autoindent          # Indent new lines to the previous line's level
+set tabsize 2           # Make a tab this number of columns wide
+set noconvert           # Don't convert files from DOS/Mac format
+set afterends           # Make Ctrl+Right stop at word ends instead of beginnings
+#set showcursor         # Keep the cursor visible in file browser/help
+
+# --- LINE WRAPPING -----------------------------------------------------------
+set softwrap            # Display overlong lines on multiple rows
+set atblanks            # Wrap lines at whitespace instead of at the edge
+
+# --- COLORS & STYLING --------------------------------------------------------
+set titlecolor     white,black    # Colors for the top title bar
+set statuscolor    white,black    # Colors for the status bar
+set numbercolor    cyan,black     # Colors for line numbers
+set keycolor       cyan,black     # Colors for the shortcut key combos
+set functioncolor  white,black    # Colors for the shortcut descriptions
+set selectedcolor  black,yellow   # Colors for text marked with the mouse/keys
+set spotlightcolor black,pink     # Colors for search matches and current line
+set stripecolor    yellow         # Color for the vertical guiding bar
+set errorcolor     black,red      # Color for error messages in the status bar
+
+# --- KEY BINDINGS ------------------------------------------------------------
+# bind ^S savefile main   # Bind Ctrl+S to save the current file
+# bind ^Q exit main       # Bind Ctrl+Q to exit the editor
+# bind ^F whereis main    # Bind Ctrl+F to find text
+
+# --- SYNTAX HIGHLIGHTING & FIXES ---------------------------------------------
+include "/usr/share/nano/*.nanorc"
+
+# FIX: Set trailing whitespace to brightblack for all available syntaxes
+extendsyntax asm        color ,brightblack "[[:space:]]+$"
+extendsyntax autoconf   color ,brightblack "[[:space:]]+$"
+extendsyntax awk        color ,brightblack "[[:space:]]+$"
+extendsyntax c          color ,brightblack "[[:space:]]+$"
+extendsyntax changelog  color ,brightblack "[[:space:]]+$"
+extendsyntax cmake      color ,brightblack "[[:space:]]+$"
+extendsyntax css        color ,brightblack "[[:space:]]+$"
+extendsyntax default    color ,brightblack "[[:space:]]+$"
+extendsyntax email      color ,brightblack "[[:space:]]+$"
+extendsyntax go         color ,brightblack "[[:space:]]+$"
+extendsyntax groff      color ,brightblack "[[:space:]]+$"
+extendsyntax guile      color ,brightblack "[[:space:]]+$"
+extendsyntax html       color ,brightblack "[[:space:]]+$"
+extendsyntax java       color ,brightblack "[[:space:]]+$"
+extendsyntax javascript color ,brightblack "[[:space:]]+$"
+extendsyntax json       color ,brightblack "[[:space:]]+$"
+extendsyntax lua        color ,brightblack "[[:space:]]+$"
+extendsyntax makefile   color ,brightblack "[[:space:]]+$"
+extendsyntax man        color ,brightblack "[[:space:]]+$"
+extendsyntax markdown   color ,brightblack "[[:space:]]+$"
+extendsyntax nanohelp   color ,brightblack "[[:space:]]+$"
+extendsyntax nanorc     color ,brightblack "[[:space:]]+$"
+extendsyntax nftables   color ,brightblack "[[:space:]]+$"
+extendsyntax ocaml      color ,brightblack "[[:space:]]+$"
+extendsyntax patch      color ,brightblack "[[:space:]]+$"
+extendsyntax perl       color ,brightblack "[[:space:]]+$"
+extendsyntax php        color ,brightblack "[[:space:]]+$"
+extendsyntax po         color ,brightblack "[[:space:]]+$"
+extendsyntax python     color ,brightblack "[[:space:]]+$"
+extendsyntax ruby       color ,brightblack "[[:space:]]+$"
+extendsyntax rust       color ,brightblack "[[:space:]]+$"
+extendsyntax sh         color ,brightblack "[[:space:]]+$"
+extendsyntax sql        color ,brightblack "[[:space:]]+$"
+extendsyntax tcl        color ,brightblack "[[:space:]]+$"
+extendsyntax texinfo    color ,brightblack "[[:space:]]+$"
+extendsyntax tex        color ,brightblack "[[:space:]]+$"
+extendsyntax xml        color ,brightblack "[[:space:]]+$"
+extendsyntax yaml       color ,brightblack "[[:space:]]+$"
+
+
+# OR use color normal (without ,comma) to get rid of trailing space color 
+#extendsyntax asm        color normal "[[:space:]]+$"
