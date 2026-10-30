@@ -186,7 +186,6 @@ tooltip label {
 
 #clock {
     color: @whitest;
-    padding: 0px 4px;
 }
 
 #battery {

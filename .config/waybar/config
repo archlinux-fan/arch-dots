@@ -22,7 +22,7 @@
 		"network",
 		"custom/pacman",
 		"custom/aur",
-		"group/clock",
+		"clock",
 		"battery",
 		"custom/power"
 	],
@@ -147,24 +147,12 @@
 		"on-click-middle": "nm-applet"
 	},
 
-	// Time; hover shows the date, the tooltip a calendar
-	"group/clock": {
-		"orientation": "horizontal",
-		"drawer": {
-			"transition-duration": 500,
-			"children-class": "not-power",
-			"transition-left-to-right": false,
-		},
-		"modules": [
-			"clock#time",
-			"clock#date"
-		]
-	},
-	"clock#time": {
+	// Time; the tooltip shows a calendar
+	"clock": {
 		"format": "{:L%H:%M:%S}",
 		"interval": 1,
 		"tooltip": true,
-		"tooltip-format": "<span font='Noto Sans Mono' size='11pt'>{calendar}</span>\n\nMiddle click: back to today\nRight click: month / year\nScroll: other months",
+		"tooltip-format": "<span font='Noto Sans Mono' size='11pt'>{calendar}</span>\n\nScroll: other months\nMiddle click: back to today\nRight click: month / year",
 		"calendar": {
 			"mode": "month",
 			"mode-mon-col": 3,
@@ -176,7 +164,7 @@
 				"months":   "<span color='#81a1c1'><b>{}</b></span>", // nordic blue
 				"days":     "<span color='#81a1c1'><b>{}</b></span>", // nordic light blue
 				"weekdays": "<span color='#d8dee9'><b>{}</b></span>", // nordic light gray
-				"today":    "<span color='#bf616a'><b>{}</b></span>", // nordic red
+				"today":    "<span color='#a3be8c'><b>{}</b></span>", // nordic green
 			}
 		},
 		"actions": {
@@ -186,13 +174,6 @@
 			"on-click-middle": "shift_reset"
 		},
 	},
-	"clock#date": {
-		"format": "<span font=\"Font Awesome Free\"></span> {:L%e %B %Y}",
-		"interval": 60,
-		"tooltip": true,
-		"tooltip-format": "{:L%A, %d %B %Y, %H:%M}"
-	},
-
 	// Updates: count from scripts/updates.sh; click lists them, right click installs
 	"custom/pacman": {
 		"format": "  {}",
