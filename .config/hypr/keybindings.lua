@@ -249,18 +249,20 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 -- SCREENSHOTS  (via hyprshot)
 -- ============================================================
 
-hl.bind("Print", hl.dsp.exec_cmd(
-    "hyprshot -m region --freeze -o ~/pictures/screenshots --filename \"screenshot_$(date +%Y-%m-%d_%H-%M-%S).png\""
-))
-hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd(
-    "hyprshot -m window --freeze -o ~/pictures/screenshots --filename \"screenshot_$(date +%Y-%m-%d_%H-%M-%S).png\""
-))
-hl.bind("SHIFT + Print", hl.dsp.exec_cmd(
-    "hyprshot -m region --freeze --raw | satty --filename - --output-filename \"$HOME/pictures/screenshots/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png\""
-))
-hl.bind(mainMod .. " + SHIFT + Print", hl.dsp.exec_cmd(
-    "hyprshot -m output -o ~/pictures/screenshots --filename \"screenshot_$(date +%Y-%m-%d_%H-%M-%S).png\""
-))
+-- Files: ~/pictures/screenshots/YYYYMMDD-HHMMSS_WxH.png; size is added after capture
+local function shot(cmd)
+    return "d=$HOME/pictures/screenshots n=$(date +%Y%m%d-%H%M%S); " .. cmd
+        .. "; f=$d/$n.png; [ -f $f ] && mv $f $d/${n}_$(file -b $f | grep -o '[0-9]* x [0-9]*' | tr -d ' ').png"
+end
+
+-- Print: select a region, save + copy to clipboard
+hl.bind("Print", hl.dsp.exec_cmd(shot("hyprshot -m region --freeze -o $d --filename $n.png")))
+-- Super+Print: click a window, save + copy to clipboard
+hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd(shot("hyprshot -m window --freeze -o $d --filename $n.png")))
+-- Shift+Print: select a region and edit it in satty
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd(shot("hyprshot -m region --freeze --raw | satty --filename - --output-filename $d/$n.png")))
+-- Super+Shift+Print: click a monitor, save + copy to clipboard
+hl.bind(mainMod .. " + SHIFT + Print", hl.dsp.exec_cmd(shot("hyprshot -m output -o $d --filename $n.png")))
 
 
 -- ============================================================
