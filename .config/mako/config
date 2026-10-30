@@ -74,9 +74,15 @@ width=200
 width=260
 
 
-[summary~="Screenshot *"]
-width=420
+# Hyprshot: short text, no thumbnail
+[app-name="Hyprshot"]
+width=240
 border-color=#b48ead
+text-alignment=left
+icons=0
+format=<b>Screenshot done</b>\nSaved to folder\nCopied to clipboard
+ignore-timeout=1
+default-timeout=2500
 
 [app-name="Spotify"]
 width=300
