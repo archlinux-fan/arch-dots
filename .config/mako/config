@@ -76,7 +76,7 @@ width=260
 
 # Hyprshot: short text, no thumbnail
 [app-name="Hyprshot"]
-width=240
+width=160
 border-color=#b48ead
 text-alignment=left
 icons=0
