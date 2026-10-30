@@ -64,8 +64,8 @@ dark (nord1) logo. A logo colour as third argument keeps the colour as is (botto
 
 ## Use them
 
-`~/.config/hypr/keybindings.lua` picks one wallpaper per workspace (the `wallpapers` list),
-`~/.config/hypr/hyprpaper.conf` preloads the same files. Try one right away:
+`~/.config/hypr/keybindings.lua` picks one wallpaper per workspace (the `wallpapers` list).
+Try one right away:
 
 ```bash
 hyprctl hyprpaper wallpaper ",$HOME/pictures/wallpapers/webp/arch_nord11_2160p.webp"
