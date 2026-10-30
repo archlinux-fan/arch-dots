@@ -27,11 +27,30 @@ local wallpapers = {
     wp .. "arch_nord11_2160p.webp",  -- 5 red
     wp .. "arch_nord8_2160p.webp",   -- 6 cyan
     wp .. "arch_nord12_2160p.webp",  -- 7 orange
+    wp .. "arch_nord15_2160p.webp",  -- 8 purple
+    wp .. "arch_nord6_light_2160p.webp",  -- 9 white
+    wp .. "arch_nord7_2160p.webp",   -- 0 frost
 }
 
-local function setWallpaper(path)
-    hl.exec_cmd("hyprctl hyprpaper wallpaper '," .. path .. "'")
+-- Wallpaper of a workspace on its own monitor; retries up to 5 s while hyprpaper starts
+local function setWallpaper(ws)
+    local path = ws and wallpapers[ws.id]
+    if path and ws.monitor then
+        hl.exec_cmd("for i in $(seq 25); do hyprctl hyprpaper wallpaper '" .. ws.monitor.name .. "," .. path .. "' && break; sleep 0.2; done")
+    end
 end
+
+-- The wallpaper follows the active workspace, however you get there
+hl.on("workspace.active", setWallpaper)
+
+-- At login and when a monitor appears (lid opened), every monitor gets the wallpaper of its workspace
+local function setAll()
+    hl.timer(function()
+        for _, m in ipairs(hl.get_monitors()) do setWallpaper(m.active_workspace) end
+    end, { timeout = 1000, type = "oneshot" })
+end
+hl.on("hyprland.start", setAll)
+hl.on("monitor.added", setAll)
 
 -- ============================================================
 -- WINDOW / SESSION MANAGEMENT
@@ -181,34 +200,18 @@ hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- WORKSPACES
 -- ============================================================
 
-for i = 1, 7 do
-    local key    = tostring(i % 10)
-    local wp_path = wallpapers[i]
+-- Workspaces 1-9 and 0 (= 10)
+for i = 1, 10 do
+    local key = tostring(i % 10)
 
     -- Switch to workspace
-    hl.bind(mainMod .. " + " .. key, function()
-        hl.dispatch(hl.dsp.focus({ workspace = i }))
-        if wp_path then setWallpaper(wp_path) end
-    end)
+    hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
 
     -- Move window + follow
-    hl.bind(mainMod .. " + CTRL + " .. key, function()
-        hl.dispatch(hl.dsp.window.move({ workspace = i }))
-        if wp_path then setWallpaper(wp_path) end
-    end)
+    hl.bind(mainMod .. " + CTRL + " .. key, hl.dsp.window.move({ workspace = i }))
 
     -- Move window + do not follow
-    hl.bind(mainMod .. " + ALT + " .. key, function()
-        hl.dispatch(hl.dsp.window.move({ workspace = i, follow = false }))
-    end)
-end
-
--- Workspaces 8, 9, 0
-for _, v in ipairs({ {8,"8"}, {9,"9"}, {10,"0"} }) do
-    local num, key = v[1], v[2]
-    hl.bind(mainMod .. " + ALT + " .. key,
-        hl.dsp.window.move({ workspace = num, follow = false })
-    )
+    hl.bind(mainMod .. " + ALT + " .. key, hl.dsp.window.move({ workspace = i, follow = false }))
 end
 
 -- Relative workspace navigation
