@@ -249,10 +249,9 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 -- SCREENSHOTS  (via hyprshot)
 -- ============================================================
 
--- Files: ~/pictures/screenshots/YYYYMMDD-HHMMSS_WxH.png; size is added after capture
+-- Files: ~/pictures/screenshots/YYYYMMDD-HHMMSS.png
 local function shot(cmd)
     return "d=$HOME/pictures/screenshots n=$(date +%Y%m%d-%H%M%S); " .. cmd
-        .. "; f=$d/$n.png; [ -f $f ] && mv $f $d/${n}_$(file -b $f | grep -o '[0-9]* x [0-9]*' | tr -d ' ').png"
 end
 
 -- Print: select a region, save + copy to clipboard
