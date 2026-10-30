@@ -76,13 +76,28 @@ width=260
 
 # Hyprshot: short text, no thumbnail
 [app-name="Hyprshot"]
+width=230
+border-color=#b48ead
+text-alignment=left
+icons=0
+format=<b>Screenshot done</b>\nSaved to folder and clipboard
+ignore-timeout=1
+default-timeout=2500
+
+# Satty: same look as Hyprshot
+[app-name="satty"]
 width=160
 border-color=#b48ead
 text-alignment=left
 icons=0
-format=<b>Screenshot done</b>\nSaved to folder\nCopied to clipboard
 ignore-timeout=1
 default-timeout=2500
+
+[app-name="satty" body~="File saved.*"]
+format=<b>Screenshot done</b>\nSaved to folder
+
+[app-name="satty" body~="Copied to clipboard.*"]
+format=<b>Screenshot done</b>\nCopied to clipboard
 
 [app-name="Spotify"]
 width=300
