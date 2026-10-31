@@ -216,11 +216,11 @@
 			"on-discharging-critical": "hyprctl notify 5 5000 'rgb(BF616A)' fontsize:7 'Very Low Battery'",
 			"on-charging-100": "hyprctl notify 2 2500 'rgb(A3BE8C)' fontsize:7 'Battery Full!'"
 		},
-		"format": "{capacity}% {power:.0f}W {icon}",
-		"format-charging": "{capacity}% {power:.0f}W ",
+		"format": "{capacity}% {icon}",
+		"format-charging": "{capacity}% ",
 		"format-plugged": "{capacity}% ",
-		"format-alt": "{time} {power:.0f}W {icon}",
-		"tooltip-format": "<b>Battery:</b> {timeTo}\n\nLeft click: time left",
+		"format-alt": "{power:.0f}W {icon}",
+		"tooltip-format": "<b>Battery:</b> {timeTo}\n\nLeft click: watts",
 		"format-icons": ["","","","",""],
 	}
 }
