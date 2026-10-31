@@ -138,8 +138,9 @@
 	// No "interface": follows the default route, so Wi-Fi or a docked cable works on any computer
 	"network": {
 		"format-wifi": " {signalStrength}%",
-		"tooltip-format": "<b>Network:</b> {ifname}\n<b>IP:</b> {ipaddr}/{cidr}\n<b>Down:</b> {bandwidthDownBits} <b>Up:</b> {bandwidthUpBits}\n\nMiddle click: nm-applet",
-		"tooltip-format-wifi": "<b>Wi-Fi:</b> {essid} ({ifname})\n<b>IP:</b> {ipaddr}/{cidr}\n<b>Signal:</b> {signaldBm} dBm\n<b>Frequency:</b> {frequency} GHz\n<b>Down:</b> {bandwidthDownBits} <b>Up:</b> {bandwidthUpBits}\n\nMiddle click: nm-applet",
+		"format-alt": " ↓{bandwidthDownBytes} ↑{bandwidthUpBytes}",
+		"tooltip-format": "<b>Network:</b> {ifname}\n<b>IP:</b> {ipaddr}/{cidr}\n<b>Down:</b> {bandwidthDownBits} <b>Up:</b> {bandwidthUpBits}\n\nLeft click: speed\nMiddle click: nm-applet",
+		"tooltip-format-wifi": "<b>Wi-Fi:</b> {essid}\n<b>Wlan card:</b> {ifname}\n<b>IP:</b> {ipaddr}/{cidr}\n<b>Signal:</b> {signaldBm} dBm\n<b>Frequency:</b> {frequency} GHz\n<b>Down:</b> {bandwidthDownBits} <b>Up:</b> {bandwidthUpBits}\n\nLeft click: speed\nMiddle click: nm-applet",
 		"format-disconnected": "",
 		"format-disabled": "",
 		"interval": 2,

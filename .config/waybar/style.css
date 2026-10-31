@@ -206,6 +206,7 @@ tooltip label {
 #custom-aur:hover,
 #wireplumber:hover,
 #bluetooth:hover,
+#network:hover,
 #clock:hover,
 #battery:hover {
     color: @aqua;
