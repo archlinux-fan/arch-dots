@@ -44,19 +44,33 @@ tooltip label {
     padding: 4px 8px;
 }
 
-/* Every module is a rounded pill on the bar */
-#taskbar,
+/* Right side: no pills, the same space around every module */
 #tray,
+#language,
 #systemd-failed-units,
-#custom-webcam,
+#custom-pacman,
+#custom-aur,
 #custom-firewall,
+#custom-webcam,
 #wireplumber,
 #bluetooth,
 #network,
+#battery,
 #clock,
 #custom-power {
-    background: @norddark;
     padding: 0px 8px;
+    margin: 4px 0px;
+}
+
+/* Pairs closer together: speaker and mic, pacman and AUR updates */
+#wireplumber,
+#custom-pacman { padding: 0px 3px 0px 8px; }
+#wireplumber.source,
+#custom-aur { padding: 0px 8px 0px 3px; }
+
+/* A pill only for what needs attention (failed units, critical battery) */
+#systemd-failed-units.critical,
+#battery.critical {
     margin: 4px;
     border-radius: 15px;
 }
@@ -64,7 +78,10 @@ tooltip label {
 /* ── Left ─────────────────────────────────────────────────── */
 
 #taskbar {
+    background: @norddark;
     padding: 0px 4px;
+    margin: 4px;
+    border-radius: 15px;
 }
 
 #taskbar button {
@@ -98,7 +115,7 @@ tooltip label {
 }
 
 #language {
-    padding: 0px 5px;
+    color: @nordbright;
 }
 
 #systemd-failed-units {
@@ -108,11 +125,6 @@ tooltip label {
 #systemd-failed-units.critical {
     background: @red;
     color: @white;
-}
-
-#custom-webcam,
-#wireplumber {
-    padding: 0px 10px;
 }
 
 #custom-webcam.off {
@@ -134,34 +146,39 @@ tooltip label {
 
 #custom-firewall.off {
     color: @red;
-    text-decoration: line-through;
 }
 
 #wireplumber {
-    color: @yellow;
+    color: @blue;
 }
 
-/* Speaker and mic (#wireplumber.source) turn red on their own when muted */
+/* Speaker and mic (#wireplumber.source) go grey on their own when muted */
 #wireplumber.muted {
-    background: @red;
-    color: @white;
+    color: @nordbright;
 }
 
+/* Grey without a connected device */
 #bluetooth {
+    color: @nordbright;
+}
+
+#bluetooth.connected {
     color: @darkblue;
 }
 
 #network {
-    color: @aqua;
-    margin: 4px 5px;
+    color: @blue;
+}
+
+#network.disconnected,
+#network.disabled {
+    color: @nordbright;
 }
 
 /* Update counters: grey 0, green some, orange many, red a lot (classes from updates.sh) */
 #custom-pacman,
 #custom-aur {
     color: @white;
-    padding: 0px 4px;
-    margin: 4px 0px;
 }
 
 #custom-pacman.white,
@@ -184,19 +201,29 @@ tooltip label {
     color: @red;
 }
 
-#clock {
-    color: @whitest;
+/* Cyan on hover for what a left click does something on; low battery keeps its colour */
+#custom-pacman:hover,
+#custom-aur:hover,
+#wireplumber:hover,
+#bluetooth:hover,
+#clock:hover,
+#battery:hover {
+    color: @aqua;
 }
 
-/* Battery: green, orange from 30 % (warning), red background from 15 % (critical) */
+#clock {
+    color: @darkwhite;
+}
+
+/* Battery: blue, orange from 30 % (warning), red pill from 15 % (critical) */
 #battery {
-    padding: 0px 8px;
-    border-radius: 15px;
-    color: @green;
+    background: none;   /* the GTK theme marks low battery */
+    border: none;
+    box-shadow: none;
+    color: @blue;
 }
 
 #battery.warning {
-    background: none;   /* the GTK theme colours .warning */
     color: @orange;
 }
 
@@ -206,6 +233,10 @@ tooltip label {
 }
 
 #custom-power {
+    color: @blue;
+    margin-right: 4px;
+}
+
+#custom-power:hover {
     color: @red;
-    margin: 4px 8px 4px 4px;
 }
