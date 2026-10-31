@@ -18,9 +18,9 @@ A shared Hyprland desktop for Arch Linux: waybar, rofi, foot, mako, Thunar and N
 It is installed by [arch-install]({{ site.install_url }}). Click a picture to see it large;
 ‹ › or the arrow keys go to the next one.
 
-![waybar: keyboard layout, webcam, firewall, sound, mic, Bluetooth, Wi-Fi, updates, clock, battery, power]({{ site.raw }}/screenshots/waybar.png)
+![waybar: keyboard layout, updates, webcam, firewall, sound, mic, Bluetooth, Wi-Fi, clock, battery, power]({{ site.raw }}/screenshots/waybar.png)
 
-Muted sound or mic turns red, the update counters go green, orange, red; hover shows what each click does.
+Muted sound or mic turns grey, the update counters go green, orange, red; hover shows what each click does.
 
 <ul class="photos">
 {% for s in page.screenshots %}  <li><figure><a href="{{ site.raw }}/screenshots/{{ s.file }}.png"><img src="{{ '/assets/thumbs/' | append: s.file | append: '.webp' | relative_url }}" alt="{{ s.text }}" loading="lazy"></a><figcaption>{{ s.text }}</figcaption></figure></li>

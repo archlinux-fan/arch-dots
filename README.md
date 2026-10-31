@@ -8,8 +8,8 @@ Screenshots and wallpapers as a website: [archlinux-fan.github.io/arch-dots](htt
 ![Desktop with the Nord wallpaper and waybar](screenshots/desktop.png)
 
 ![waybar](screenshots/waybar.png)
-waybar: tray, keyboard layout, webcam, firewall, sound, mic, Bluetooth, Wi-Fi, updates (official repos, AUR), clock, battery, power.
-Muted sound or mic turns red, the update counters go green, orange, red; hover shows what each click does.
+waybar: tray, keyboard layout, updates (official repos, AUR), webcam, firewall, sound, mic, Bluetooth, Wi-Fi, clock, battery, power.
+Muted sound or mic turns grey, the update counters go green, orange, red; hover shows what each click does.
 
 | | |
 |---|---|
