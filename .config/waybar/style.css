@@ -188,24 +188,16 @@ tooltip label {
     color: @whitest;
 }
 
+/* Battery: green, orange from 30 % (warning), red background from 15 % (critical) */
 #battery {
-    padding: 0px 4px;
+    padding: 0px 8px;
     border-radius: 15px;
-    color: @darkwhite;
-}
-
-#battery.charging,
-#battery.good {
     color: @green;
 }
 
-#battery.discharging,
 #battery.warning {
-    color: @yellow;
-}
-
-#battery.full {
-    color: @cyan;
+    background: none;   /* the GTK theme colours .warning */
+    color: @orange;
 }
 
 #battery.critical {

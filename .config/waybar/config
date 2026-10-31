@@ -221,6 +221,6 @@
 		"format-plugged": "{capacity}% ",
 		"format-alt": "{time} {power:.0f}W {icon}",
 		"tooltip-format": "<b>Battery:</b> {timeTo}\n\nLeft click: time left",
-		"format-icons": [" ", " ", " ", " ", " "],
+		"format-icons": ["","","","",""],
 	}
 }
