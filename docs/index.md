@@ -5,11 +5,12 @@ screenshots:
   - { file: fastfetch, text: "fastfetch in foot, Nord palette" }
   - { file: thunar, text: "Thunar; mic muted, 42 updates listed on hover" }
   - { file: rofi, text: "rofi app launcher; webcam driver unloaded" }
-  - { file: ristretto, text: "Ristretto image viewer; Bluetooth devices on hover" }
-  - { file: btop, text: "btop; an AUR update on hover" }
-  - { file: satty, text: "satty screenshot editor; sound muted, firewall on hover" }
+  - { file: ristretto, text: "Ristretto image viewer" }
+  - { file: btop, text: "btop; an AUR update" }
+  - { file: satty, text: "satty screenshot editor; sound muted" }
   - { file: lock, text: "hyprlock lock screen" }
   - { file: confirm, text: "Reboot / power off asks first (power-confirm); power icon on hover" }
+  - { file: brave, text: "Brave with the startpage, vertical tabs collapsed" }
 ---
 
 # arch-dots

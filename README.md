@@ -16,11 +16,13 @@ Muted sound or mic turns grey, the update counters go green, orange, red; hover 
 | ![fastfetch in foot](screenshots/fastfetch.png) | ![Thunar](screenshots/thunar.png) |
 | fastfetch in foot, Nord palette | Thunar; mic muted, 42 updates listed on hover |
 | ![rofi app launcher](screenshots/rofi.png) | ![Ristretto](screenshots/ristretto.png) |
-| rofi app launcher; webcam driver unloaded | Ristretto image viewer; Bluetooth devices on hover |
+| rofi app launcher; webcam driver unloaded | Ristretto image viewer |
 | ![btop](screenshots/btop.png) | ![satty](screenshots/satty.png) |
-| btop; an AUR update on hover | satty screenshot editor; sound muted, firewall on hover |
+| btop; an AUR update | satty screenshot editor; sound muted |
 | ![Lock screen](screenshots/lock.png) | ![Reboot confirmation](screenshots/confirm.png) |
 | hyprlock lock screen | Reboot / power off asks first (`power-confirm`); power icon on hover |
+| ![Brave](screenshots/brave.png) | |
+| Brave with the startpage, vertical tabs collapsed | |
 
 Screenshots are 4K (3840x2160); click one for full size.
 
