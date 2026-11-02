@@ -1,4 +1,5 @@
-# tty1 autologin -> Hyprland; hyprlock (autostart.lua) is the login screen
+## tty1 autologin -> Hyprland; hyprlock (autostart.lua) is the login screen
 #[ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && exec start-hyprland
-[ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && exec mango
 
+# tty1 autologin -> mango; hyprlock (autostart.toml) is the login screen
+[ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ] && exec mango
