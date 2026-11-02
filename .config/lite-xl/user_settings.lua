@@ -64,6 +64,7 @@ return {
       ["reflow"] = true,
       ["reopen_tab"] = true,
       ["scale"] = true,
+      ["scalestatus"] = true,
       ["tetris"] = true,
       ["treeview_fileops"] = true,
       ["treeview_otherfiles"] = true
@@ -149,7 +150,7 @@ return {
         ["filemanager"] = "xdg-open"
       },
       ["scale"] = {
-        ["default_scale"] = 2.0,
+        ["default_scale"] = 1.0,
         ["mode"] = "ui",
         ["use_mousewheel"] = false
       },
