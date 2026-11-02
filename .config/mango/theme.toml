@@ -1,0 +1,119 @@
+# ============================================================
+# theme.toml  –  Look & feel: borders, colours, gaps, corners,
+#                opacity, blur, shadows, animations, cursor
+# Nord palette, as hypr/theme.lua. Colours are 0xRRGGBBAA.
+# ============================================================
+
+[global]
+
+# ── Borders & gaps ──────────────────────────────────────────
+border_px            = 2
+gap_inner_horizontal = 6     # between windows (Hyprland gaps_in = 3 on each side)
+gap_inner_vertical   = 6
+gap_outer_horizontal = 8     # to the screen edges
+gap_outer_vertical   = 8
+smart_gaps            = 0    # 1 = no gaps with a single window
+no_border_when_single = 0    # 1 = no border with a single window
+
+# ── Colours ─────────────────────────────────────────────────
+focus_color  = 0x81a1c1ff    # active window: nord9 frost blue
+border_color = 0x4c566acc    # other windows: nord3 (mango has no gradients)
+urgent_color = 0xbf616aff    # nord11 red
+root_color   = 0x2e3440ff    # behind the wallpaper: nord0
+# Border of a window in a special state
+maximized_screen_color = 0x88c0d0ff   # maximized (Super+Z), nord8
+global_color           = 0xb48eadff   # on every tag (Super+G), nord15
+overlay_color          = 0xa3be8cff   # always on top, nord14
+scratchpad_color       = 0x5e81acff   # scratchpad, nord10
+drop_color             = 0x88c0d055   # drag a tiled window: drop preview
+split_color            = 0xd08770ff   # dwindle manual split preview, nord12
+
+# ── Corners & opacity ───────────────────────────────────────
+border_radius         = 10
+no_radius_when_single = 0
+focused_opacity       = 1.0
+unfocused_opacity     = 0.95   # rules can change it per app (focused_opacity / unfocused_opacity)
+
+# Dim inactive windows instead of making them see-through
+dim_enable          = 0
+dim_focused_color   = 0x00000000
+dim_unfocused_color = 0x2e344055
+
+# ── Blur (behind see-through windows and bars) ──────────────
+blur                   = 1
+blur_layer             = 1   # waybar, rofi ...; exceptions in windowrules.toml
+blur_optimized         = 1   # blurs the wallpaper only: much cheaper, keep it on
+blur_params_radius     = 6
+blur_params_num_passes = 3
+blur_params_noise      = 0.02
+blur_params_brightness = 0.9
+blur_params_contrast   = 0.9
+blur_params_saturation = 1.2
+
+# ── Shadows ─────────────────────────────────────────────────
+shadows              = 1
+shadow_only_floating = 0     # 1 = floating windows only (cheaper)
+layer_shadows        = 0
+shadows_size         = 4
+shadows_blur         = 8
+shadows_position_x   = 0
+shadows_position_y   = 0
+shadows_color        = 0x1d2129ee   # nord0, darker
+
+# ── Animations ──────────────────────────────────────────────
+# Types: slide, zoom, fade, none. Durations in ms (Hyprland speed 4.5 = 450 ms).
+# Curves: cubic bezier [x1, y1, x2, y2], the hl.curve values from theme.lua.
+animations                 = 1
+layer_animations           = 1
+animation_type_open        = "slide"
+animation_type_close       = "slide"
+layer_animation_type_open  = "fade"
+layer_animation_type_close = "fade"
+animation_fade_in          = 1
+animation_fade_out         = 1
+fade_in_begin_opacity      = 0.5
+fade_out_begin_opacity     = 0.8
+zoom_initial_ratio         = 0.4   # zoom type only
+zoom_end_ratio             = 0.8
+tag_animation_direction    = 1     # tag switch slides: 1 sideways, 0 up/down
+
+animation_duration_open  = 450
+animation_duration_close = 450
+animation_duration_move  = 300
+animation_duration_tag   = 450
+animation_duration_focus = 200     # opacity change on focus, 0 = instant
+
+animation_curve_open             = [0.1, 1.1, 0.1, 1.1]     # winIn
+animation_curve_close            = [0.3, 0, 0, 1]           # winOut without its dip (no negatives here)
+animation_curve_move             = [0.05, 0.9, 0.1, 1.05]   # wind
+animation_curve_tag              = [0.05, 0.9, 0.1, 1.05]   # wind
+animation_curve_focus            = [0.5, 0.5, 0.75, 1]      # almostLinear
+animation_curve_opacity_fade_in  = [0.5, 0.5, 0.75, 1]
+animation_curve_opacity_fade_out = [0.5, 0.5, 0.75, 1]
+
+# ── Cursor ──────────────────────────────────────────────────
+cursor_theme = "Nordzy-cursors-white"
+cursor_size  = 24
+
+# ── Overview jump labels (Super+Shift+D) ────────────────────
+jump_label_decorate_fg_color       = 0xd8dee9ff
+jump_label_decorate_bg_color       = 0x3b4252ff
+jump_label_decorate_focus_fg_color = 0x2e3440ff
+jump_label_decorate_focus_bg_color = 0x88c0d0ff
+jump_label_decorate_border_color   = 0x81a1c1ff
+jump_label_decorate_font_desc      = "Noto Sans Bold 16"
+
+# ── Tab bar (monocle and deck layouts) ──────────────────────
+tab_bar_decorate_fg_color       = 0xd8dee9ff
+tab_bar_decorate_bg_color       = 0x3b4252ff
+tab_bar_decorate_focus_fg_color = 0x2e3440ff
+tab_bar_decorate_focus_bg_color = 0x88c0d0ff
+tab_bar_decorate_border_color   = 0x4c566aff
+tab_bar_decorate_font_desc      = "Noto Sans Bold 11"
+
+# ── Window title under the switcher (Alt+Tab) ───────────────
+title_message_bar_decorate_fg_color       = 0xd8dee9ff
+title_message_bar_decorate_bg_color       = 0x3b4252ff
+title_message_bar_decorate_focus_fg_color = 0xeceff4ff
+title_message_bar_decorate_focus_bg_color = 0x434c5eff
+title_message_bar_decorate_font_desc      = "Noto Sans Bold 12"

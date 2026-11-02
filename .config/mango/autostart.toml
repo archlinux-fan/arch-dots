@@ -1,0 +1,40 @@
+# ============================================================
+# autostart.toml  –  Programs started with mango
+# exec_once: once at login.  exec: at login and after every reload.
+# Commands run through sh -c, so ~, $VAR, && and | work.
+# mango itself passes WAYLAND_DISPLAY etc. to systemd and D-Bus and
+# starts graphical-session.target, so portals start on their own.
+# ============================================================
+
+[global]
+exec_once = [
+    # Login screen (tty1 autologin starts mango unlocked)
+    "hyprlock",
+
+    # Polkit agent (password prompts); mango imports the environment at the
+    # same moment, so import WAYLAND_DISPLAY first or the service won't start
+    "systemctl --user import-environment WAYLAND_DISPLAY && systemctl --user start hyprpolkitagent",
+
+    # Wallpaper of the active tag on every monitor (swaybg)
+    "~/.config/mango/wallpaper.sh",
+
+    # Clipboard keeps its content after the app that copied it closes
+    "wl-clip-persist --clipboard regular",
+
+    # Notification daemon
+    "mako",
+
+    # Lock and screens off when idle (mango version of hypr/hypridle.conf)
+    "hypridle -c ~/.config/mango/hypridle.conf",
+
+    # Foot terminal server, footclient windows open at once
+    "foot --server",
+
+    # Status bar
+    "waybar",
+
+    # Connects Bluetooth headphones again when their music link hangs (~/.local/bin/bt)
+    "bt watch",
+]
+
+# exec = ["notify-send -a mango 'Config reloaded'"]

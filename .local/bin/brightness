@@ -1,0 +1,20 @@
+#!/bin/bash
+# Brightness keys, with a notification showing the level.
+# Set through logind, so no root and no brightnessctl; first device in /sys/class/backlight.
+#   brightness up | down     (10 % steps)
+
+d=(/sys/class/backlight/*)
+[[ -e $d ]] || exit 1   # no backlight (desktop)
+read -r c < "$d/brightness"
+read -r m < "$d/max_brightness"
+
+case $1 in
+    up)   n=$(( c + m/10 > m ? m : c + m/10 )) ;;
+    down) n=$(( c - m/10 < 0 ? 0 : c - m/10 )) ;;
+    *) echo "Usage: brightness up|down"; exit 1 ;;
+esac
+
+busctl call org.freedesktop.login1 /org/freedesktop/login1/session/auto org.freedesktop.login1.Session \
+    SetBrightness ssu backlight "${d##*/}" "$n"
+b=$(( (n*100 + m/2) / m ))
+notify-send -h string:x-canonical-private-synchronous:brightness -h int:value:$b -t 2000 --app-name=brightness "Brightness: $b%"

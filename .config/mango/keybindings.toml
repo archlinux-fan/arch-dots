@@ -1,0 +1,258 @@
+# ============================================================
+# keybindings.toml  –  Keys, mouse buttons, scroll, gestures
+# Same keys as hypr/keybindings.lua where mango can do it.
+#
+#   "MOD+MOD+key" = "dispatcher,arguments"         (wiki: keys)
+#   spawn        runs a program: quotes, ~ and $VAR work, no | ; &&
+#   spawn_shell  runs it through sh -c: pipes, ;, && ...
+# Tables: [bind.default.lock] also works on the lock screen,
+#         [bind.default.conflict] one key with a list of actions.
+# A held key repeats its action (volume, brightness).
+# The same key bound twice (also with local.toml) is an error.
+# A command may be 255 characters long between two commas.
+# Key names: wev. Find what is bound: grep here and in local.toml.
+# ============================================================
+
+# ── Helpers for the commands below ──────────────────────────
+[var]
+# Screenshot file
+shot   = 'f=$HOME/pictures/screenshots/$(date +%Y%m%d-%H%M%S).png;'
+# Freeze the screen while you select (as hyprshot --freeze); kill $! thaws it
+freeze = 'hyprpicker -rz & sleep 0.2;'
+# Copy the screenshot, show it in a notification
+copy   = 'wl-copy < "$f" && notify-send -i "$f" -a screenshot Screenshot "$f"'
+# All monitors off / on, as in hypridle.conf; a disabled panel (lid) stays off
+screens_off = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.width>0).name'); do mmsg dispatch sleep_monitor,^$m$; done"
+screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.width>0).name'); do mmsg dispatch wakeup_monitor,^$m$; done"
+
+[bind.default]
+
+# ============================================================
+# WINDOW / SESSION
+# ============================================================
+
+"SUPER+q"       = "killclient"
+"SUPER+SHIFT+q" = "killclient,force"               # kill -9 the focused window (Hyprland: hyprctl kill)
+"SUPER+f"       = "togglefullscreen"
+"SUPER+v"       = "togglefloating"
+"SUPER+c"       = "centerwin"
+"SUPER+k"       = "dwindle_toggle_current_split"   # Hyprland togglesplit
+"SUPER+j"       = "exchange_stack_client,next"     # swap with the next window (closest to swapsplit)
+"SUPER+Tab"     = "focusstack,next"
+
+# ── Lock / screens off ──────────────────────────────────────
+"SUPER+l" = "spawn,hyprlock"
+# Screens off after 0.5 s (key release would wake them); hypridle skips its
+# media checks until you are back. The first key press turns them on again.
+"SUPER+x" = "spawn_shell,touch /tmp/hypr_idle_override; sleep 0.5; $screens_off; mmsg watch all-devices | grep -qm1 type.:.keyboard; $screens_on"
+
+# ── Waybar restart ──────────────────────────────────────────
+"SUPER+CTRL+SHIFT+w" = "spawn_shell,pkill -x waybar; waybar & notify-send -t 5000 -a mango 'Waybar was reloaded'"
+
+# ── Color picker ────────────────────────────────────────────
+# The colour is copied (-a) and shown; Escape cancels without a message
+"SUPER+p" = 'spawn_shell,c=$(hyprpicker -a) && [ -n "$c" ] && notify-send -t 5000 -a mango "Color picked: $c"'
+
+# ============================================================
+# APPLICATIONS  ($term, $files ... are set in env.toml)
+# ============================================================
+
+"SUPER+Return" = "spawn,$term"
+"SUPER+t"      = "spawn,$files"
+"SUPER+e"      = "spawn,$editor"
+"SUPER+m"      = "spawn,$editor2"
+"SUPER+space"  = "spawn,$menu"
+
+# As root
+"SUPER+SHIFT+t" = "spawn,$root $files"
+"SUPER+SHIFT+e" = "spawn,$root $editor"
+"SUPER+SHIFT+m" = "spawn,$root $editor2"
+"SUPER+SHIFT+f" = "spawn,$root firewall-config"
+
+# Brave ($browser: local.toml can set a profile)
+"SUPER+b"       = "spawn,$browser"
+"SUPER+SHIFT+b" = "spawn,$browser --incognito"
+
+# Open only if not running yet
+"SUPER+a" = "spawn_shell,mmsg get all-clients | grep -qi audacious || audacious"
+"SUPER+o" = "spawn_shell,mmsg get all-clients | grep -qi obsidian || obsidian"
+
+# System monitors
+"CTRL+SHIFT+Escape"  = "spawn,$term --title btop -e btop"
+"SUPER+SHIFT+Escape" = "spawn,$term --title btop -e htop"
+"SUPER+CTRL+Escape"  = "spawn,$term --title fastfetch -e sh -c 'fastfetch; read -n 1'"
+
+# Reboot / power off, with a question (~/.local/bin/power-confirm, also in waybar)
+"SUPER+CTRL+SHIFT+r" = "spawn,power-confirm reboot"
+"SUPER+CTRL+SHIFT+p" = "spawn,power-confirm poweroff"
+
+# Package updates, as the right click on the counters in waybar
+"SUPER+u" = "spawn,$term --title hypr-update -e $HOME/.config/waybar/scripts/updates.sh upgrade"
+"SUPER+y" = "spawn,$term --title hypr-update -e sh -c 'yay -Sua'"
+
+# ============================================================
+# FOCUS AND MOVING WINDOWS
+# ============================================================
+
+"SUPER+Left"  = "focusdir,left"
+"SUPER+Right" = "focusdir,right"
+"SUPER+Up"    = "focusdir,up"
+"SUPER+Down"  = "focusdir,down"
+
+# Tiled: swap in that direction. Floating: nudge 30 px
+"SUPER+SHIFT+CTRL+Left"  = "spawn_shell,mmsg get focusing-client | grep -q is_floating.:true && mmsg dispatch movewin,-30,+0 || mmsg dispatch move_client,left"
+"SUPER+SHIFT+CTRL+Right" = "spawn_shell,mmsg get focusing-client | grep -q is_floating.:true && mmsg dispatch movewin,+30,+0 || mmsg dispatch move_client,right"
+"SUPER+SHIFT+CTRL+Up"    = "spawn_shell,mmsg get focusing-client | grep -q is_floating.:true && mmsg dispatch movewin,+0,-30 || mmsg dispatch move_client,up"
+"SUPER+SHIFT+CTRL+Down"  = "spawn_shell,mmsg get focusing-client | grep -q is_floating.:true && mmsg dispatch movewin,+0,+30 || mmsg dispatch move_client,down"
+
+# Other monitor: focus it / move the window there
+"SUPER+ALT+Left"        = "focusmon,left"
+"SUPER+ALT+Right"       = "focusmon,right"
+"SUPER+ALT+SHIFT+Left"  = "tagmon,left"
+"SUPER+ALT+SHIFT+Right" = "tagmon,right"
+
+# ============================================================
+# TAGS  (workspaces; each monitor has its own 1-10)
+# ============================================================
+
+# Show tag
+"SUPER+1" = "view,1,0"
+"SUPER+2" = "view,2,0"
+"SUPER+3" = "view,3,0"
+"SUPER+4" = "view,4,0"
+"SUPER+5" = "view,5,0"
+"SUPER+6" = "view,6,0"
+"SUPER+7" = "view,7,0"
+"SUPER+8" = "view,8,0"
+"SUPER+9" = "view,9,0"
+"SUPER+0" = "view,10,0"
+
+# Move window there and follow
+"SUPER+CTRL+1" = "tag,1,0"
+"SUPER+CTRL+2" = "tag,2,0"
+"SUPER+CTRL+3" = "tag,3,0"
+"SUPER+CTRL+4" = "tag,4,0"
+"SUPER+CTRL+5" = "tag,5,0"
+"SUPER+CTRL+6" = "tag,6,0"
+"SUPER+CTRL+7" = "tag,7,0"
+"SUPER+CTRL+8" = "tag,8,0"
+"SUPER+CTRL+9" = "tag,9,0"
+"SUPER+CTRL+0" = "tag,10,0"
+
+# Move window there, stay here
+"SUPER+ALT+1" = "tagsilent,1"
+"SUPER+ALT+2" = "tagsilent,2"
+"SUPER+ALT+3" = "tagsilent,3"
+"SUPER+ALT+4" = "tagsilent,4"
+"SUPER+ALT+5" = "tagsilent,5"
+"SUPER+ALT+6" = "tagsilent,6"
+"SUPER+ALT+7" = "tagsilent,7"
+"SUPER+ALT+8" = "tagsilent,8"
+"SUPER+ALT+9" = "tagsilent,9"
+"SUPER+ALT+0" = "tagsilent,10"
+
+# Next / previous tag, first empty tag
+"SUPER+CTRL+Right" = "viewtoright,0"
+"SUPER+CTRL+Left"  = "viewtoleft,0"
+"SUPER+CTRL+Down"  = 'spawn_shell,mmsg dispatch view,$(mmsg get all-monitors | jq ".monitors[]|select(.active).tags|map(select(.client_count==0))[0].index")'
+
+# Move window to the next / previous tag
+"SUPER+CTRL+ALT+Right" = "tagtoright,0"
+"SUPER+CTRL+ALT+Left"  = "tagtoleft,0"
+
+# ============================================================
+# SCREENSHOTS  (grim + slurp; ~/pictures/screenshots/YYYYMMDD-HHMMSS.png)
+# ============================================================
+
+# Print: select a region, save + copy
+"Print"             = 'spawn_shell,$shot $freeze g=$(slurp -d) && grim -g "$g" "$f"; kill $!; $copy'
+# Super+Print: click a window, save + copy
+"SUPER+Print"       = 'spawn_shell,$shot $freeze g=$(mmsg get all-clients | jq -r ".clients[]|select(.is_visible)|\"\(.x),\(.y) \(.width)x\(.height)\"" | slurp -r) && grim -g "$g" "$f"; kill $!; $copy'
+# Shift+Print: select a region and edit it in satty (saves when you save there)
+"SHIFT+Print"       = 'spawn_shell,$shot $freeze g=$(slurp -d) && grim -g "$g" /tmp/shot.png; kill $!; [ -n "$g" ] && satty --filename /tmp/shot.png --output-filename "$f"'
+# Super+Shift+Print: click a monitor, save + copy
+"SUPER+SHIFT+Print" = 'spawn_shell,$shot g=$(slurp -or) && grim -g "$g" "$f"; $copy'
+
+# ============================================================
+# MANGO EXTRAS  (not in the Hyprland config)
+# ============================================================
+
+"SUPER+g"       = "toggleglobal"           # window on every tag (like Hyprland pin)
+"SUPER+z"       = "togglemaximizescreen"   # maximize, bar and gaps stay
+"SUPER+n"       = "switch_layout"          # next layout of circle_layout (general.toml)
+"SUPER+d"       = "toggleoverview"         # every window of this monitor; click one
+"SUPER+SHIFT+d" = "togglejump"             # overview, press the letter on a window
+"ALT+Tab"       = "switcher,next"          # thumbnails; let go of Alt to pick
+"ALT+SHIFT+Tab" = "switcher,prev"
+"SUPER+s"       = "toggle_special_tag"     # show / hide the special tag
+"SUPER+SHIFT+s" = "tag_special_tag"        # move the window to the special tag / back
+
+# More dispatchers to try (wiki: keys):
+#   "SUPER+minus" = "minimized"            # hide the window in the scratchpad
+#   "SUPER+equal" = "toggle_scratchpad"    # show / hide scratchpad windows
+#   "SUPER+r"     = "setlayout,scroller"   # one layout directly
+#   "SUPER+comma" = "setmfact,-0.05"       # master area smaller (tile)
+#   "SUPER+F1"    = "toggle_named_scratchpad,scratch,none,foot --app-id scratch"
+#   "SUPER+F2"    = "setkeymode,resize"    # then [bind.resize] keys, e.g.
+#                                          # "Left" = "resizewin,-50,+0", "Escape" = "setkeymode,default"
+
+# ── Reload (one key, two actions) ───────────────────────────
+# Saving a config file reloads too. reload_config must come last.
+[bind.default.conflict]
+"SUPER+CTRL+SHIFT+h" = [
+    "spawn,notify-send -t 5000 -a mango 'mango config reloaded'",
+    "reload_config",
+]
+
+# ============================================================
+# AUDIO, MEDIA, BRIGHTNESS  (also on the lock screen)
+# ============================================================
+
+[bind.default.lock]
+# ~/.local/bin/sound: default output and mic (see ~/.config/wireplumber); with Super
+# the keys are for the microphone; Super+Shift+Mute connects silent Bluetooth
+# headphones again (~/.local/bin/bt)
+"XF86AudioRaiseVolume"       = "spawn,sound up"
+"XF86AudioLowerVolume"       = "spawn,sound down"
+"XF86AudioMute"              = "spawn,sound mute"
+"SUPER+XF86AudioRaiseVolume" = "spawn,sound mic-up"
+"SUPER+XF86AudioLowerVolume" = "spawn,sound mic-down"
+"SUPER+XF86AudioMute"        = "spawn,sound mic-mute"
+"SUPER+SHIFT+XF86AudioMute"  = "spawn,bt headphones"
+
+"Pause"         = "spawn,playerctl play-pause"
+"XF86AudioNext" = "spawn,playerctl next"
+"XF86AudioPrev" = "spawn,playerctl previous"
+
+# ~/.local/bin/brightness: 10 % steps through logind
+"XF86MonBrightnessUp"   = "spawn,brightness up"
+"XF86MonBrightnessDown" = "spawn,brightness down"
+
+# Play and Pause share one key code, so these two match the key symbol (.sym)
+[bind.default.lock.sym]
+"XF86AudioPlay"  = "spawn,playerctl play-pause"
+"XF86AudioPause" = "spawn,playerctl play-pause"
+
+# ============================================================
+# MOUSE, SCROLL, TRACKPAD GESTURES
+# ============================================================
+
+[mousebind.default]
+"SUPER+btn_left"  = "moveresize,curmove"     # drag: move (a tiled window floats or swaps)
+"SUPER+btn_right" = "moveresize,curresize"   # drag: resize
+
+[axisbind.default]
+"SUPER+UP"   = "viewtoleft_have_client"      # Super+scroll: previous / next busy tag
+"SUPER+DOWN" = "viewtoright_have_client"
+
+[gesturebind.default]
+# 3 fingers: sideways = next / previous busy tag, up or down = overview
+"none+left+3"  = "viewnext_have_client"
+"none+right+3" = "viewprev_have_client"
+"none+up+3"    = "toggleoverview"
+"none+down+3"  = "toggleoverview"
+# 4 fingers: focus in that direction
+"none+left+4"  = "focusdir,left"
+"none+right+4" = "focusdir,right"
+"none+up+4"    = "focusdir,up"
+"none+down+4"  = "focusdir,down"

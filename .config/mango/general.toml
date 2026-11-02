@@ -1,0 +1,124 @@
+# ============================================================
+# general.toml  –  Behaviour: tags, layouts, focus, input,
+#                  overview, system
+# ============================================================
+
+[global]
+
+# ── Tags (mango's workspaces) ───────────────────────────────
+# Every monitor has its own tags 1-10 (Super+1..9, Super+0 = 10).
+tag_num              = 10
+view_current_to_back = 0   # 1 = Super+N on the shown tag goes back to the previous one
+tag_gather           = 0   # 1 = busy tags are renumbered 1, 2, 3 ... without gaps
+tag_carousel         = 0   # 1 = next / previous tag wraps around
+
+# ── Layouts ─────────────────────────────────────────────────
+# Each tag starts in dwindle (tag_rule in windowrules.toml);
+# Super+N cycles through these:
+circle_layout = ["dwindle", "tile", "scroller", "monocle", "grid"]
+# All layouts: tile, scroller, monocle, grid, deck, center_tile, right_tile,
+# vertical_tile, vertical_scroller, vertical_grid, vertical_deck, dwindle,
+# fair, vertical_fair
+
+# Dwindle: binary splits, like Hyprland's dwindle
+dwindle_preserve_split    = 1     # a split keeps its direction when a window closes
+dwindle_split_ratio       = 0.5
+dwindle_smart_split       = 0     # 1 = the new window goes to the cursor's side
+dwindle_horizontal_split  = 1     # side by side: new window right (2 left, 0 cursor)
+dwindle_vertical_split    = 1     # stacked: new window below (2 above, 0 cursor)
+dwindle_smart_resize      = 0
+dwindle_drop_simple_split = 1     # drag-to-tile preview: 2 zones (0 = 4 quadrants)
+dwindle_manual_split      = 0     # 1 = you pick the next split direction
+
+# Master and stack (tile, center_tile, right_tile ...)
+new_is_master            = 1      # Hyprland master new_status = master
+default_master_factor    = 0.55
+default_master_count     = 1
+center_master_overspread = 0
+center_when_single_stack = 1
+
+# Scroller: columns in a strip wider than the screen (like PaperWM)
+scroller_default_proportion        = 0.8
+scroller_proportion_preset         = [0.5, 0.8, 1.0]
+scroller_ignore_proportion_single  = 1   # a single window fills the screen
+scroller_default_proportion_single = 1.0
+scroller_prefer_overspread         = 1
+scroller_focus_center              = 0
+scroller_prefer_center             = 0
+scroller_structs                   = 20
+edge_scroller_pointer_focus        = 1
+
+# Monocle and deck: one big window, the others as tabs
+monocle_tab_mode           = 1
+monocle_right_button_close = 0
+deck_tab_mode              = 1
+
+# Special tag (Super+S): a tiled tag shown over the current one
+special_dim = 0.5
+
+# Scratchpad: hidden windows shown floating on demand
+scratchpad_width_ratio  = 0.8
+scratchpad_height_ratio = 0.9
+single_scratchpad       = 1
+
+# ── Focus & windows ─────────────────────────────────────────
+sloppy_focus                      = 0  # 0 = focus on click (Hyprland follow_mouse = 0)
+warp_cursor                       = 1  # cursor jumps to a window focused with the keyboard
+focus_on_activate                 = 1
+focus_cross_monitor               = 1  # Super+arrows reach the other monitor, as in Hyprland
+exchange_cross_monitor            = 1  # moving a window with the keys crosses monitors too
+focus_cross_tag                   = 0
+focus_direction_only_zone_overlap = 1
+enable_floating_snap              = 1  # floating windows snap to edges and each other (extras.lua)
+snap_distance                     = 30
+enable_border_resize              = 1  # drag a window border to resize (resize_on_border)
+border_resize_size                = 10
+drag_tile_to_tile                 = 1  # Super+drag a tiled window onto another: they swap
+drag_tile_small                   = 1
+float_full_to_top                 = 0
+cursor_hide_on_keypress           = 1  # pointer hides while typing (extras.lua)
+cursor_hide_timeout               = 0  # seconds without movement before it hides, 0 = never
+idle_inhibit_when_fullscreen      = 1  # no lock or screens off while a fullscreen window has focus
+idle_inhibit_ignore_visible       = 0
+
+# ── Keyboard ────────────────────────────────────────────────
+# Layout and options belong in local.toml; without them mango uses us.
+repeat_rate  = 25
+repeat_delay = 600
+numlock_on   = 1
+# xkb_rules_layout  = "us,de"
+# xkb_rules_variant = ","
+# xkb_rules_options = "grp:alt_shift_toggle"
+
+# ── Mouse ───────────────────────────────────────────────────
+# One device only: device_rule in local.toml
+mouse_natural_scrolling = 0
+mouse_accel_profile     = 2     # 0 none, 1 flat, 2 adaptive
+mouse_accel_speed       = 0.0   # -1.0 .. 1.0 (Hyprland sensitivity)
+axis_scroll_factor      = 1.0
+
+# ── Trackpad (some settings need a re-login) ────────────────
+tap_to_click                  = 1
+tap_and_drag                  = 1
+drag_lock                     = 1
+trackpad_natural_scrolling    = 0
+trackpad_disable_while_typing = 1
+trackpad_scroll_factor        = 1.0
+gesture_live                  = 1   # gestures move with the fingers (keybindings.toml)
+
+# ── Overview (Super+D) ──────────────────────────────────────
+overview_gap_inner = 5
+overview_gap_outer = 30
+enable_hotarea     = 0   # 1 = pointer in a screen corner opens the overview
+hotarea_corner     = 2   # 0 top left, 1 top right, 2 bottom left, 3 bottom right
+hotarea_size       = 10
+# jump_labels = "HJKLASDFGQWERTYUIOPZXCVBNM"
+
+# ── System ──────────────────────────────────────────────────
+auto_reload_config      = 1   # saving a config file reloads mango
+xwayland_persistence    = 1
+sync_obj_enable         = 1   # helps games; needs a restart
+allow_tearing           = 0   # 1 = games may tear (lower latency), 2 = fullscreen only
+allow_shortcuts_inhibit = 1   # apps (VMs, remote desktop) may grab all keys
+allow_lock_transparent  = 0
+disable_middle_paste    = 0   # 1 = no middle-click paste (wayland apps)

@@ -1,0 +1,140 @@
+# ============================================================
+# windowrules.toml  –  Tag, window and layer rules
+# Every matching rule applies, top to bottom; later ones win.
+# app_id, title and layer_name are regexes: ^...$ = exact match.
+# With both app_id and title, a window must match both.
+# Floating windows open centered unless a rule says otherwise.
+#
+# Find them:  mmsg get focusing-client   (app_id = "appid")
+#             mmsg get all-layers        (layer_name = "name")
+# ============================================================
+
+# ── Tags ────────────────────────────────────────────────────
+# Every tag starts in dwindle, as Hyprland
+[[rule.tag_rule]]
+id          = "*"
+layout_name = "dwindle"
+
+# Example: tag 3 in the scroller layout; no_hide keeps it in waybar when empty
+# [[rule.tag_rule]]
+# id          = 3
+# layout_name = "scroller"
+# no_hide     = 1
+
+# ── Floating windows ────────────────────────────────────────
+[[rule.window_rule]]
+app_id      = "^(mpv|xpdf|.*ristretto.*|nwg-look|nm-applet|nm-connection-editor|.*pavucontrol|file_progress|confirm|dialog|download|notification|error|confirmreset)$"
+is_floating = 1
+
+[[rule.window_rule]]
+title       = "^(Firewall Configuration|Media viewer|Volume Control|Picture-in-Picture|Open File|branchdialog|Confirm to replace files|File Operation Progress|xarchiver.*|btop|satty)$"
+is_floating = 1
+
+# ── Sizes (below 1 = part of the screen, above = pixels) ────
+[[rule.window_rule]]
+app_id = "^download$"
+width  = 0.75
+height = 0.9
+
+[[rule.window_rule]]
+app_id = "^mpv$"
+width  = 0.85
+height = 0.85
+idle_inhibit_when_focus = 1   # no lock while mpv has focus
+
+[[rule.window_rule]]
+app_id = '^(.*ristretto.*|xpdf|com\.gabm\.satty)$'
+width  = 0.98
+height = 0.94
+
+[[rule.window_rule]]
+title  = "^(Open File|Save File)$"
+width  = 0.75
+height = 0.9
+
+[[rule.window_rule]]
+app_id = "pavucontrol$"
+width  = 800
+height = 600
+
+# ── Always on top ───────────────────────────────────────────
+# Password prompt of hyprpolkitagent: never behind other windows
+[[rule.window_rule]]
+app_id      = "^hyprpolkitagent$"
+is_floating = 1
+is_overlay  = 1
+
+# Brave video pop-out: on top and on every tag
+[[rule.window_rule]]
+title      = "^Picture-in-Picture$"
+is_overlay = 1
+is_global  = 1
+
+# ── App-specific ────────────────────────────────────────────
+# Lite XL always opens on tag 5 (and shows it)
+[[rule.window_rule]]
+app_id = '^com\.lite_xl\.LiteXL$'
+tags   = 5
+
+# Bitwarden extension popup
+[[rule.window_rule]]
+app_id      = "^brave"
+title       = "^_crx_nngceckbapebfimnlniiiahkandclblb$"
+is_floating = 1
+width       = 480
+height      = 0.7
+
+# btop / htop (Ctrl+Shift+Esc, Super+Shift+Esc)
+[[rule.window_rule]]
+app_id = "^footclient$"
+title  = "^btop$"
+width  = 0.97
+height = 0.92
+
+# Reboot / power off question (~/.local/bin/power-confirm)
+[[rule.window_rule]]
+app_id      = "^footclient$"
+title       = "^hypr-confirm$"
+is_floating = 1
+width       = 520
+height      = 160
+
+# Updates (Super+U, Super+Y, waybar)
+[[rule.window_rule]]
+app_id      = "^footclient$"
+title       = "^hypr-update$"
+is_floating = 1
+width       = 0.95
+height      = 0.9
+
+# ── More rule options (examples) ────────────────────────────
+# A GUI app started from foot takes the terminal's place until it closes
+# [[rule.window_rule]]
+# app_id  = "^(foot|footclient)$"
+# is_term = 1
+
+# Own opacity for one app
+# [[rule.window_rule]]
+# app_id            = "^brave"
+# unfocused_opacity = 1.0
+
+# Named scratchpad: Super+key shows / hides it (bind in keybindings.toml)
+# [[rule.window_rule]]
+# app_id              = "^scratch$"
+# is_named_scratchpad = 1
+# width               = 0.6
+# height              = 0.6
+
+# ── Layer rules (bars, launchers, notifications) ────────────
+# blur_layer (theme.toml) blurs behind waybar and rofi. Not behind the
+# wallpaper (swaybg), notifications (mako), slurp's selection and the
+# frozen screen of hyprpicker; the last two also without animation,
+# so they don't show up in screenshots.
+[[rule.layer_rule]]
+layer_name = "^(wallpaper|notifications)$"
+no_blur    = 1
+
+[[rule.layer_rule]]
+layer_name   = "^(selection|hyprpicker)$"
+no_blur      = 1
+no_animation = 1
