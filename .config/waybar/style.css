@@ -78,17 +78,51 @@ tooltip label {
 
 /* ── Left ─────────────────────────────────────────────────── */
 
+/* Tags (mango) / workspaces: busy ones blue, the shown one a blue pill */
+#workspaces {
+    background: @norddark;
+    padding: 0px 4px;
+    margin: 4px;
+    border-radius: 15px;
+}
+
+#workspaces button {
+    color: @blue;
+    padding: 0px 6px;
+    border-radius: 15px;
+}
+
+#workspaces button.active {
+    background: @blue;
+    color: @norddarkest;
+}
+
+#workspaces button.urgent {
+    background: @red;
+    color: @white;
+}
+
+#workspaces button:hover {
+    color: @aqua;
+}
+
 /* mango layout, a pill like the taskbar */
 #custom-mango-layout {
     background: @norddark;
     color: @cyan;
     padding: 0px 10px;
-    margin: 4px 0px 4px 4px;
+    margin: 4px 0px;
     border-radius: 15px;
 }
 
 #custom-mango-layout:hover {
     color: @aqua;
+}
+
+/* mango key mode, only shown outside the default mode */
+#custom-mango-keymode {
+    color: @yellow;
+    padding: 0px 4px 0px 8px;
 }
 
 #taskbar {

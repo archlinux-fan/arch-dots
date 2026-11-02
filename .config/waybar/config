@@ -7,7 +7,9 @@
 
 	// Hyprland and mango modules side by side: each stays empty under the other compositor
 	"modules-left": [
+		"ext/workspaces",
 		"custom/mango-layout",
+		"custom/mango-keymode",
 		"wlr/taskbar",
 		"hyprland/submap"
 	],
@@ -70,6 +72,13 @@
 		"tooltip": false
 	},
 
+	// Tags of this monitor (mango) or workspaces (Hyprland): busy ones and the shown one
+	"ext/workspaces": {
+		"format": "{name}",
+		"on-click": "activate",
+		"ignore-hidden": true
+	},
+
 	// ── mango (mmsg; outside mango it finds nothing and the modules stay empty) ──
 
 	// Layout of the tag on this bar's monitor; the tooltip says how it works.
@@ -78,6 +87,7 @@
 		"exec": "mmsg watch all-monitors | jq --unbuffered -c --argjson l \"$(mmsg get layouts)\" '.monitors[] | select(.name == env.WAYBAR_OUTPUT_NAME) | $l.layouts[.layout_index].name | {text: ., alt: .}'",
 		"return-type": "json",
 		"exec-on-event": false,
+		"hide-empty-text": true,
 		"format": "  {}",
 		"tooltip-format": "<b>Layout:</b> {}\n{icon}\n\nLeft click: next layout (Super+N)\nRight click: back to dwindle",
 		"on-click": "mmsg dispatch switch_layout",
@@ -98,6 +108,15 @@
 			"fair": "A grid without empty cells:\nthe columns share the screen fairly",
 			"vertical_fair": "Fair with rows instead of columns"
 		}
+	},
+
+	// Key mode ([bind.<mode>] in keybindings.toml), only while it isn't default
+	"custom/mango-keymode": {
+		"exec": "mmsg watch keymode | jq --unbuffered -r '.keymode | if . == \"default\" then \"\" else . end'",
+		"exec-on-event": false,
+		"hide-empty-text": true,
+		"format": "✌️ {}",
+		"tooltip": false
 	},
 
 	// Keyboard layout, short; the tooltip has the full name
