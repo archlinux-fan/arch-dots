@@ -13,12 +13,26 @@ tag_gather           = 0   # 1 = busy tags are renumbered 1, 2, 3 ... without ga
 tag_carousel         = 0   # 1 = next / previous tag wraps around
 
 # ── Layouts ─────────────────────────────────────────────────
-# Each tag starts in dwindle (tag_rule in windowrules.toml);
-# Super+N cycles through these:
-circle_layout = ["dwindle", "tile", "scroller", "monocle", "grid"]
-# All layouts: tile, scroller, monocle, grid, deck, center_tile, right_tile,
-# vertical_tile, vertical_scroller, vertical_grid, vertical_deck, dwindle,
-# fair, vertical_fair
+# Each tag starts in dwindle (tag_rule in windowrules.toml).
+# Super+N and a click on the layout in waybar go through these in order;
+# delete the lines you don't want (keep at least two). Right click in waybar
+# goes back to dwindle; a layout not in the list continues with the first one.
+circle_layout = [
+    "dwindle",            # every new window splits the focused one in half (Hyprland)
+    "tile",               # master left, the others stacked right
+    "right_tile",         # master right, the others stacked left
+    "center_tile",        # master in the middle, the others left and right
+    "vertical_tile",      # master on top, the others side by side below
+    "scroller",           # windows as columns on a strip wider than the screen (niri)
+    "vertical_scroller",  # the same with rows, scrolls up and down
+    "monocle",            # one window fills the screen, the others as tabs
+    "deck",               # master left, the others as tabs right
+    "vertical_deck",      # master on top, the others as tabs below
+    "grid",               # all windows in an even grid
+    "vertical_grid",      # even grid, filled column by column
+    "fair",               # grid without empty cells, columns share the screen
+    "vertical_fair",      # fair with rows
+]
 
 # Dwindle: binary splits, like Hyprland's dwindle
 dwindle_preserve_split    = 1     # a split keeps its direction when a window closes
