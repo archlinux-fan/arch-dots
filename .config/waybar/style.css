@@ -47,6 +47,7 @@ tooltip label {
 /* Right side: no pills, the same space around every module */
 #tray,
 #language,
+#custom-mango-language,
 #systemd-failed-units,
 #custom-pacman,
 #custom-aur,
@@ -76,6 +77,19 @@ tooltip label {
 }
 
 /* ── Left ─────────────────────────────────────────────────── */
+
+/* mango layout, a pill like the taskbar */
+#custom-mango-layout {
+    background: @norddark;
+    color: @cyan;
+    padding: 0px 10px;
+    margin: 4px 0px 4px 4px;
+    border-radius: 15px;
+}
+
+#custom-mango-layout:hover {
+    color: @aqua;
+}
 
 #taskbar {
     background: @norddark;
@@ -114,7 +128,8 @@ tooltip label {
     background-color: @cyan;
 }
 
-#language {
+#language,
+#custom-mango-language {
     color: @nordbright;
 }
 

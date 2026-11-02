@@ -5,7 +5,9 @@
 
 	"height": 30,
 
+	// Hyprland and mango modules side by side: each stays empty under the other compositor
 	"modules-left": [
+		"custom/mango-layout",
 		"wlr/taskbar",
 		"hyprland/submap"
 	],
@@ -13,6 +15,7 @@
 	"modules-right": [
 		"tray",
 		"hyprland/language",
+		"custom/mango-language",
 		"systemd-failed-units",
 		"custom/pacman",
 		"custom/aur",
@@ -65,6 +68,44 @@
 		"format": "✌️ {}",
 		"max-length": 8,
 		"tooltip": false
+	},
+
+	// ── mango (mmsg; outside mango it finds nothing and the modules stay empty) ──
+
+	// Layout of the tag on this bar's monitor; the tooltip says how it works.
+	// Click and Super+N cycle through circle_layout in ~/.config/mango/general.toml
+	"custom/mango-layout": {
+		"exec": "mmsg watch all-monitors | jq --unbuffered -c --argjson l \"$(mmsg get layouts)\" '.monitors[] | select(.name == env.WAYBAR_OUTPUT_NAME) | $l.layouts[.layout_index].name | {text: ., alt: .}'",
+		"return-type": "json",
+		"exec-on-event": false,
+		"format": "  {}",
+		"tooltip-format": "<b>Layout:</b> {}\n{icon}\n\nLeft click: next layout (Super+N)\nRight click: back to dwindle",
+		"on-click": "mmsg dispatch switch_layout",
+		"on-click-right": "mmsg dispatch setlayout,dwindle",
+		"format-icons": {
+			"dwindle": "Every new window splits the focused one in half,\nside by side or stacked (Hyprland's layout)",
+			"tile": "Master window on the left,\nthe others stacked on the right",
+			"right_tile": "Master window on the right,\nthe others stacked on the left",
+			"center_tile": "Master window in the middle,\nthe others stacked left and right",
+			"vertical_tile": "Master window on top,\nthe others side by side below",
+			"scroller": "Every window is a column on a strip wider than the screen;\nfocus scrolls it (like niri or PaperWM)",
+			"vertical_scroller": "Scroller with rows:\nthe strip scrolls up and down",
+			"monocle": "One window fills the screen,\nthe others wait behind it as tabs",
+			"deck": "Master window on the left,\nthe others as tabs on the right",
+			"vertical_deck": "Master window on top,\nthe others as tabs below",
+			"grid": "All windows in an even grid",
+			"vertical_grid": "All windows in an even grid,\nfilled column by column",
+			"fair": "A grid without empty cells:\nthe columns share the screen fairly",
+			"vertical_fair": "Fair with rows instead of columns"
+		}
+	},
+
+	// Keyboard layout, short; the tooltip has the full name
+	"custom/mango-language": {
+		"exec": "mmsg watch keyboardlayout | jq --unbuffered -c '.layout | {text: (if startswith(\"Slovenian\") then \"SI\" elif startswith(\"Spanish\") then \"ES\" else .[:2] | ascii_upcase end), tooltip: (\"<b>Keyboard:</b> \" + . + \"\\n\\nLeft click or Alt+Shift: next layout\")}'",
+		"return-type": "json",
+		"exec-on-event": false,
+		"on-click": "mmsg dispatch switch_keyboard_layout"
 	},
 
 	"systemd-failed-units": {
@@ -215,9 +256,10 @@
 			"critical": 15
 		},
 		"events": {
-			"on-discharging-warning": "hyprctl notify 2 2500 'rgb(D08770)' fontsize:7 'Low Battery'",
-			"on-discharging-critical": "hyprctl notify 5 5000 'rgb(BF616A)' fontsize:7 'Very Low Battery'",
-			"on-charging-100": "hyprctl notify 2 2500 'rgb(A3BE8C)' fontsize:7 'Battery Full!'"
+			// notify-send (mako) works under Hyprland and mango
+			"on-discharging-warning": "notify-send -a battery 'Low Battery'",
+			"on-discharging-critical": "notify-send -u critical -a battery 'Very Low Battery'",
+			"on-charging-100": "notify-send -a battery 'Battery Full!'"
 		},
 		"format": "{capacity}% {icon}",
 		"format-alt": "{power:.0f}W {icon}",
