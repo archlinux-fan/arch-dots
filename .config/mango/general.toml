@@ -13,25 +13,25 @@ tag_gather           = 0   # 1 = busy tags are renumbered 1, 2, 3 ... without ga
 tag_carousel         = 0   # 1 = next / previous tag wraps around
 
 # ── Layouts ─────────────────────────────────────────────────
-# Each tag starts in dwindle (tag_rule in windowrules.toml).
+# Each tag starts in fair (tag_rule in windowrules.toml).
 # Super+N and a click on the layout in waybar go through these in order;
-# delete the lines you don't want (keep at least two). Right click in waybar
-# goes back to dwindle; a layout not in the list continues with the first one.
+# comment out the ones you don't want (keep at least two). Right click in waybar
+# goes back to fair; a layout not in the list continues with the first one.
 circle_layout = [
-    "dwindle",            # every new window splits the focused one in half (Hyprland)
-    "tile",               # master left, the others stacked right
-    "right_tile",         # master right, the others stacked left
-    "center_tile",        # master in the middle, the others left and right
-    "vertical_tile",      # master on top, the others side by side below
-    "scroller",           # windows as columns on a strip wider than the screen (niri)
-    "vertical_scroller",  # the same with rows, scrolls up and down
-    "monocle",            # one window fills the screen, the others as tabs
-    "deck",               # master left, the others as tabs right
-    "vertical_deck",      # master on top, the others as tabs below
-    "grid",               # all windows in an even grid
-    "vertical_grid",      # even grid, filled column by column
     "fair",               # grid without empty cells, columns share the screen
-    "vertical_fair",      # fair with rows
+#    "dwindle",            # every new window splits the focused one in half (Hyprland)
+    "tile",               # master left, the others stacked right
+#    "right_tile",         # master right, the others stacked left
+#    "center_tile",        # master in the middle, the others left and right
+    "vertical_tile",      # master on top, the others side by side below
+#    "scroller",           # windows as columns on a strip wider than the screen (niri)
+#    "vertical_scroller",  # the same with rows, scrolls up and down
+#    "monocle",            # one window fills the screen, the others as tabs
+#    "deck",               # master left, the others as tabs right
+#    "vertical_deck",      # master on top, the others as tabs below
+#    "grid",               # all windows in an even grid
+#    "vertical_grid",      # even grid, filled column by column
+#    "vertical_fair",      # fair with rows
 ]
 
 # Dwindle: binary splits, like Hyprland's dwindle
@@ -44,28 +44,10 @@ dwindle_smart_resize      = 0
 dwindle_drop_simple_split = 1     # drag-to-tile preview: 2 zones (0 = 4 quadrants)
 dwindle_manual_split      = 0     # 1 = you pick the next split direction
 
-# Master and stack (tile, center_tile, right_tile ...)
+# Master and stack (tile, vertical_tile)
 new_is_master            = 1      # Hyprland master new_status = master
 default_master_factor    = 0.55
 default_master_count     = 1
-center_master_overspread = 0
-center_when_single_stack = 1
-
-# Scroller: columns in a strip wider than the screen (like PaperWM)
-scroller_default_proportion        = 0.8
-scroller_proportion_preset         = [0.5, 0.8, 1.0]
-scroller_ignore_proportion_single  = 1   # a single window fills the screen
-scroller_default_proportion_single = 1.0
-scroller_prefer_overspread         = 1
-scroller_focus_center              = 0
-scroller_prefer_center             = 0
-scroller_structs                   = 20
-edge_scroller_pointer_focus        = 1
-
-# Monocle and deck: one big window, the others as tabs
-monocle_tab_mode           = 1
-monocle_right_button_close = 0
-deck_tab_mode              = 1
 
 # Special tag (Super+S): a tiled tag shown over the current one
 special_dim = 0.5

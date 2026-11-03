@@ -11,9 +11,8 @@ exec_once = [
     # Login screen (tty1 autologin starts mango unlocked)
     "hyprlock",
 
-    # Polkit agent (password prompts); mango imports the environment at the
-    # same moment, so import WAYLAND_DISPLAY first or the service won't start
-    "systemctl --user import-environment WAYLAND_DISPLAY && systemctl --user start hyprpolkitagent",
+    # Polkit agent: password prompts for pkexec (Super+Shift+T/E/M/F) and admin tools
+    "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
 
     # Wallpaper of the active tag on every monitor (swaybg)
     "~/.config/mango/wallpaper.sh",

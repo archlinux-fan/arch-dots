@@ -10,10 +10,10 @@
 # ============================================================
 
 # ── Tags ────────────────────────────────────────────────────
-# Every tag starts in dwindle, as Hyprland
+# Every tag starts in fair: windows share the screen evenly
 [[rule.tag_rule]]
 id          = "*"
-layout_name = "dwindle"
+layout_name = "fair"
 
 # Example: tag 3 in the scroller layout; no_hide keeps it in waybar when empty
 # [[rule.tag_rule]]
@@ -58,9 +58,9 @@ width  = 800
 height = 600
 
 # ── Always on top ───────────────────────────────────────────
-# Password prompt of hyprpolkitagent: never behind other windows
+# Password prompt of the polkit agent: never behind other windows
 [[rule.window_rule]]
-app_id      = "^hyprpolkitagent$"
+app_id      = "^polkit-gnome-authentication-agent-1$"
 is_floating = 1
 is_overlay  = 1
 
