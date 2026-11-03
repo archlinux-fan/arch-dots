@@ -19,7 +19,6 @@ tag_carousel         = 0   # 1 = next / previous tag wraps around
 # goes back to fair; a layout not in the list continues with the first one.
 circle_layout = [
     "fair",               # grid without empty cells, columns share the screen
-#    "dwindle",            # every new window splits the focused one in half (Hyprland)
     "tile",               # master left, the others stacked right
 #    "right_tile",         # master right, the others stacked left
 #    "center_tile",        # master in the middle, the others left and right
@@ -34,20 +33,12 @@ circle_layout = [
 #    "vertical_fair",      # fair with rows
 ]
 
-# Dwindle: binary splits, like Hyprland's dwindle
-dwindle_preserve_split    = 1     # a split keeps its direction when a window closes
-dwindle_split_ratio       = 0.5
-dwindle_smart_split       = 0     # 1 = the new window goes to the cursor's side
-dwindle_horizontal_split  = 1     # side by side: new window right (2 left, 0 cursor)
-dwindle_vertical_split    = 1     # stacked: new window below (2 above, 0 cursor)
-dwindle_smart_resize      = 0
-dwindle_drop_simple_split = 1     # drag-to-tile preview: 2 zones (0 = 4 quadrants)
-dwindle_manual_split      = 0     # 1 = you pick the next split direction
-
 # Master and stack (tile, vertical_tile)
-new_is_master            = 1      # Hyprland master new_status = master
-default_master_factor    = 0.55
-default_master_count     = 1
+# 0: a new window joins the stack, the first one stays master (Brave big, Thunar beside it).
+# In every layout it sets the order: 0 = new windows go last, 1 = first (fair keeps equal sizes)
+new_is_master         = 0
+default_master_factor = 0.6   # master 60 %, stack 40 %; Super+right drag on the border changes it
+default_master_count  = 1
 
 # Special tag (Super+S): a tiled tag shown over the current one
 special_dim = 0.5

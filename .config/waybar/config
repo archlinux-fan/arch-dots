@@ -93,7 +93,6 @@
 		"on-click": "mmsg dispatch switch_layout",
 		"on-click-right": "mmsg dispatch setlayout,fair",
 		"format-icons": {
-			"dwindle": "Every new window splits the focused one in half,\nside by side or stacked (Hyprland's layout)",
 			"tile": "Master window on the left,\nthe others stacked on the right",
 			"right_tile": "Master window on the right,\nthe others stacked on the left",
 			"center_tile": "Master window in the middle,\nthe others stacked left and right",

@@ -36,7 +36,6 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 "SUPER+f"       = "togglefullscreen"
 "SUPER+v"       = "togglefloating"
 "SUPER+c"       = "centerwin"
-"SUPER+k"       = "dwindle_toggle_current_split"   # Hyprland togglesplit
 "SUPER+j"       = "exchange_stack_client,next"     # swap with the next window (closest to swapsplit)
 "SUPER+Tab"     = "focusstack,next"
 
