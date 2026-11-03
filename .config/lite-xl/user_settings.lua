@@ -150,7 +150,7 @@ return {
         ["filemanager"] = "xdg-open"
       },
       ["scale"] = {
-        ["default_scale"] = 1.0,
+        ["default_scale"] = 2.0,
         ["mode"] = "ui",
         ["use_mousewheel"] = false
       },
