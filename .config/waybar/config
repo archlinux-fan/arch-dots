@@ -89,9 +89,9 @@
 		"exec-on-event": false,
 		"hide-empty-text": true,
 		"format": "  {}",
-		"tooltip-format": "<b>Layout:</b> {}\n{icon}\n\nLeft click: next layout (Super+N)\nRight click: back to dwindle",
+		"tooltip-format": "<b>Layout:</b> {}\n{icon}\n\nLeft click: next layout (Super+N)\nRight click: back to fair",
 		"on-click": "mmsg dispatch switch_layout",
-		"on-click-right": "mmsg dispatch setlayout,dwindle",
+		"on-click-right": "mmsg dispatch setlayout,fair",
 		"format-icons": {
 			"dwindle": "Every new window splits the focused one in half,\nside by side or stacked (Hyprland's layout)",
 			"tile": "Master window on the left,\nthe others stacked on the right",
@@ -133,9 +133,6 @@
 		"format-ok": "",
 		"system": true,
 		"user": true,
-		"tooltip": true,
-		"tooltip-format": "<b>Failed system units:</b>\n{system}\n\n<b>Failed user units:</b>\n{user}\n\nRight click: details",
-		"critical-threshold": 1,
 		"on-click-right": "footclient --title='hypr-update' -e sh -c 'echo === SYSTEM FAILED ===; systemctl --failed; echo; echo === USER FAILED ===; systemctl --user --failed; echo; echo Press any key to close window...; read -n 1'"
 	},
 
