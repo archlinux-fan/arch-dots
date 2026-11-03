@@ -69,9 +69,11 @@ tooltip label {
 #wireplumber.source,
 #custom-aur { padding: 0px 8px 0px 3px; }
 
-/* A pill only for what needs attention (failed units, firewall off, critical battery) */
+/* A pill only for what needs attention (failed units, firewall off, webcam off or in use, critical battery) */
 #systemd-failed-units.degraded,
 #custom-firewall.off,
+#custom-webcam.off,
+#custom-webcam.active,
 #battery.critical {
     margin: 4px;
     border-radius: 15px;
@@ -169,19 +171,16 @@ tooltip label {
 }
 
 #systemd-failed-units.degraded,
-#custom-firewall.off {
+#custom-firewall.off,
+#custom-webcam.off {
     background: @red;
     color: @white;
 }
 
-/* Webcam: red and struck through when unloaded, blue as the sound when loaded, red while in use */
-#custom-webcam.off {
-    color: @red;
-    text-decoration: line-through;
-}
-
+/* Webcam: red pill when unloaded, green pill while in use, blue as the sound when loaded */
 #custom-webcam.active {
-    color: @red;
+    background: @green;
+    color: @white;
 }
 
 #custom-webcam.idle {
