@@ -16,11 +16,11 @@
 [var]
 # Screenshot file
 shot   = 'f=$HOME/pictures/screenshots/$(date +%Y%m%d-%H%M%S).png;'
-# Freeze the screen while you select; kill $! thaws it
-freeze = 'hyprpicker -rz & sleep 0.2;'
+# Name of the monitor with focus
+mon    = '$(mmsg get all-monitors|jq -r ".monitors[]|select(.active).name")'
 # Copy the screenshot, show it in a notification
 copy   = 'wl-copy < "$f" && notify-send -i "$f" -a screenshot Screenshot "$f"'
-# All monitors off / on, as in hypridle.conf; a disabled panel (lid) stays off
+# All monitors off / on, as in swayidle.conf; a disabled panel (lid) stays off
 screens_off = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.width>0).name'); do mmsg dispatch sleep_monitor,^$m$; done"
 screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.width>0).name'); do mmsg dispatch wakeup_monitor,^$m$; done"
 
@@ -39,8 +39,8 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 "SUPER+Tab"     = "focusstack,next"
 
 # ── Lock / screens off ──────────────────────────────────────
-"SUPER+l" = "spawn,hyprlock"
-# Screens off after 0.5 s (key release would wake them); hypridle skips its
+"SUPER+l" = "spawn,swaylock"
+# Screens off after 0.5 s (key release would wake them); swayidle skips its
 # media checks until you are back. The first key press turns them on again.
 "SUPER+x" = "spawn_shell,touch /tmp/idle_override; sleep 0.5; $screens_off; mmsg watch all-devices | grep -qm1 type.:.keyboard; $screens_on"
 
@@ -48,8 +48,9 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 "SUPER+CTRL+SHIFT+w" = "spawn_shell,pkill -x waybar; waybar & notify-send -t 5000 -a mango 'Waybar was reloaded'"
 
 # ── Color picker ────────────────────────────────────────────
-# The colour is copied (-a) and shown; Escape cancels without a message
-"SUPER+p" = 'spawn_shell,c=$(hyprpicker -a) && [ -n "$c" ] && notify-send -t 5000 -a mango "Color picked: $c"'
+# Click a point: grim takes that one pixel, as a 40x40 PNG (the square in the notification)
+# and as PPM, whose last 3 bytes od prints as hex; copied and shown. Escape cancels
+"SUPER+p" = 'spawn_shell,p=$(slurp -p) && grim -s 40 -g "$p" /tmp/color.png && c=$(grim -s 1 -g "$p" -t ppm - | tail -c 3 | od -An -tx1 | tr -d " \n") && wl-copy "#$c" && notify-send -i /tmp/color.png -a color "Color picked" "#$c"'
 
 # ============================================================
 # APPLICATIONS  ($term, $files ... are set in env.toml)
@@ -162,11 +163,12 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 # ============================================================
 
 # Print: select a region, save + copy
-"Print"             = 'spawn_shell,$shot $freeze g=$(slurp -d) && grim -g "$g" "$f"; kill $!; $copy'
+"Print"             = 'spawn_shell,$shot g=$(slurp -d) && grim -g "$g" "$f" && $copy'
 # Super+Print: click a window, save + copy
-"SUPER+Print"       = 'spawn_shell,$shot $freeze g=$(mmsg get all-clients | jq -r ".clients[]|select(.is_visible)|\"\(.x),\(.y) \(.width)x\(.height)\"" | slurp -r) && grim -g "$g" "$f"; kill $!; $copy'
-# Shift+Print: select a region and edit it in satty (saves when you save there)
-"SHIFT+Print"       = 'spawn_shell,$shot $freeze g=$(slurp -d) && grim -g "$g" /tmp/shot.png; kill $!; [ -n "$g" ] && satty --filename /tmp/shot.png --output-filename "$f"'
+"SUPER+Print"       = 'spawn_shell,$shot g=$(mmsg get all-clients | jq -r ".clients[]|select(.is_visible)|\"\(.x),\(.y) \(.width)x\(.height)\"" | slurp -r) && grim -g "$g" "$f"; $copy'
+# Shift+Print: frozen screen. grim takes this monitor at once (an open menu stays in the picture),
+# satty shows it over the whole screen to crop; Enter saves + copies, Escape cancels
+"SHIFT+Print"       = 'spawn_shell,$shot grim -o "$mon" /tmp/shot.png && satty -f /tmp/shot.png -o "$f" --fullscreen --init-tool crop --actions-on-enter save-to-clipboard,save-to-file,exit --actions-on-escape exit'
 # Super+Shift+Print: click a monitor, save + copy
 "SUPER+SHIFT+Print" = 'spawn_shell,$shot g=$(slurp -or) && grim -g "$g" "$f"; $copy'
 

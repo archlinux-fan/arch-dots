@@ -1,0 +1,50 @@
+# swaylock: lock and login screen, Nord. Started by mango (login, Super+L, swayidle).
+# Options are swaylock's long options without --, colours rrggbb[aa] (man swaylock).
+# Comments only on their own line.
+
+# Fork once the screen is locked, so the login and swayidle go on
+daemonize
+ignore-empty-password
+show-failed-attempts
+
+# Background nord0, ring always visible in the middle
+color=2e3440
+indicator-idle-visible
+indicator-radius=100
+indicator-thickness=8
+font=Noto Sans
+font-size=22
+separator-color=00000000
+line-uses-inside
+
+# Keyboard layout (more than one in local.toml): plain nord9 text under the ring
+layout-bg-color=00000000
+layout-border-color=00000000
+layout-text-color=81a1c1
+
+# Waiting and typing: nord9 ring, nord8 key press, nord12 backspace
+ring-color=81a1c1
+inside-color=434c5e66
+key-hl-color=88c0d0
+bs-hl-color=d08770
+text-color=d8dee9
+
+# Checking the password: nord10
+ring-ver-color=5e81ac
+inside-ver-color=434c5e66
+text-ver-color=d8dee9
+
+# Wrong password: nord11
+ring-wrong-color=bf616a
+inside-wrong-color=434c5e66
+text-wrong-color=bf616a
+
+# Input cleared (Escape): nord13
+ring-clear-color=ebcb8b
+inside-clear-color=434c5e66
+text-clear-color=ebcb8b
+
+# Caps Lock on: nord13 ring
+ring-caps-lock-color=ebcb8b
+inside-caps-lock-color=434c5e66
+text-caps-lock-color=ebcb8b

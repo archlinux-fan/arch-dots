@@ -1,0 +1,4 @@
+# satty: screenshot editor (Print, Shift+Print in mango keybindings.toml)
+[general]
+# Copy through wl-copy, so the picture stays in the clipboard after satty closes
+copy-command = "wl-copy"

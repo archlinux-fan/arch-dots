@@ -127,14 +127,13 @@ height      = 0.9
 
 # ── Layer rules (bars, launchers, notifications) ────────────
 # blur_layer (theme.toml) blurs behind waybar and rofi. Not behind the
-# wallpaper (swaybg), notifications (mako), slurp's selection and the
-# frozen screen of hyprpicker; the last two also without animation,
-# so they don't show up in screenshots.
+# wallpaper (swaybg), notifications (mako) and slurp's selection; the
+# selection also without animation, so it doesn't show up in screenshots.
 [[rule.layer_rule]]
 layer_name = "^(wallpaper|notifications)$"
 no_blur    = 1
 
 [[rule.layer_rule]]
-layer_name   = "^(selection|hyprpicker)$"
+layer_name   = "^selection$"
 no_blur      = 1
 no_animation = 1
