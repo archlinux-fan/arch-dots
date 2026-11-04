@@ -30,9 +30,10 @@ window#waybar {
     margin: 0px 10px;
 }
 
-/* Hover texts look like the mako notifications */
+/* Hover texts look like the mako notifications. Alpha just under 1: a fully opaque
+   background makes GTK mark the whole tooltip opaque, so its round corners show black */
 tooltip {
-    background-color: @norddarkest;
+    background-color: alpha(@norddarkest, 0.99);
     border: 1px solid @blue;
     border-radius: 8px;
 }
