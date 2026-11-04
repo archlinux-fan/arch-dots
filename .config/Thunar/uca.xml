@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 <action>
-	<icon>foot</icon>
+	<icon>footclient</icon>
 	<name>Open Terminal Here</name>
 	<submenu></submenu>
 	<unique-id>1711826142812712-1</unique-id>
