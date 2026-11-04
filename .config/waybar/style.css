@@ -149,6 +149,7 @@ tooltip label {
     background: @norddark;
     color: @whitest;
 }
+#taskbar button image { margin-right: -8px; }
 
 /* ── Right ────────────────────────────────────────────────── */
 
