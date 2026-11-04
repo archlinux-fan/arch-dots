@@ -60,9 +60,17 @@ Super is the Windows key. All of them, with comments: [.config/mango/keybindings
 
 ## Install by hand
 
-arch-install does this for you. The repo mirrors your home folder (`~`): `.config/mango/config.toml` here belongs
-in `~/.config/mango/config.toml`. [stow](https://www.gnu.org/software/stow/) puts a link there for every file,
-so a change in `~` is a change in the repo:
+arch-install does this for you. The repo mirrors your home folder (`~`): `.config/mango/config.toml` here
+belongs in `~/.config/mango/config.toml`. Copy its files into `~`, without the repo's own README, docs and screenshots:
+
+```bash
+git clone --depth 1 https://github.com/archlinux-fan/arch-dots /tmp/dots
+cp -r /tmp/dots/.config /tmp/dots/.local /tmp/dots/pictures /tmp/dots/.zshenv ~
+```
+
+Want your changes in git? Link the files instead of copying them: [stow](https://www.gnu.org/software/stow/)
+puts a link in `~` for every file, so a change in `~` is a change in the repo
+(arch-install: `dots_link=y` in its settings file):
 
 ```bash
 git clone https://github.com/archlinux-fan/arch-dots ~/.dots
@@ -76,7 +84,8 @@ If a file already exists in `~`, stow stops and names it; move it away and run s
 Personal files (ssh, git name and e-mail, monitors, keyboard layout) belong in a private repo linked the same way.
 `~/.config/mango/local.toml` from there is read by `config.toml` after the shared settings.
 
-GTK 4 apps take the theme, icons, cursor and font from gsettings. They are saved outside the repo, so set them once:
+GTK apps on Wayland take the theme, icons, cursor and font from gsettings, not from `settings.ini`.
+They are saved outside the repo; arch-install sets them, by hand it's once:
 
 ```bash
 gsettings set org.gnome.desktop.interface gtk-theme 'Nordic-bluish-accent-standard-buttons'
