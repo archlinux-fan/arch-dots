@@ -56,14 +56,14 @@ focus_cross_monitor               = 1  # Super+arrows reach the other monitor
 exchange_cross_monitor            = 1  # moving a window with the keys crosses monitors too
 focus_cross_tag                   = 0
 focus_direction_only_zone_overlap = 1
-enable_floating_snap              = 1  # floating windows snap to edges and each other (extras.lua)
+enable_floating_snap              = 1  # floating windows snap to edges and each other
 snap_distance                     = 30
 enable_border_resize              = 1  # drag a window border to resize (resize_on_border)
 border_resize_size                = 10
 drag_tile_to_tile                 = 1  # Super+drag a tiled window onto another: they swap
 drag_tile_small                   = 1
 float_full_to_top                 = 0
-cursor_hide_on_keypress           = 1  # pointer hides while typing (extras.lua)
+cursor_hide_on_keypress           = 1  # pointer hides while typing
 cursor_hide_timeout               = 0  # seconds without movement before it hides, 0 = never
 idle_inhibit_when_fullscreen      = 1  # no lock or screens off while a fullscreen window has focus
 idle_inhibit_ignore_visible       = 0

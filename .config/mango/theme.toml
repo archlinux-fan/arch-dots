@@ -61,7 +61,7 @@ shadows_color        = 0x1d2129ee   # nord0, darker
 
 # ── Animations ──────────────────────────────────────────────
 # Types: slide, zoom, fade, none. Durations in ms.
-# Curves: cubic bezier [x1, y1, x2, y2], the hl.curve values from theme.lua.
+# Curves: cubic bezier [x1, y1, x2, y2], the same as in ~/.config/hypr/theme.lua.
 animations                 = 1
 layer_animations           = 1
 animation_type_open        = "slide"

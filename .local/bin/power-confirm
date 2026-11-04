@@ -1,6 +1,6 @@
 #!/bin/bash
 # Centered "Reboot?" / "Power off?" question in a small floating terminal.
-# Enter confirms, any other key cancels. Used by keybindings.lua and the waybar power icon.
+# Enter confirms, any other key cancels. Used by keybindings.toml and the waybar power icon.
 # Usage: power-confirm reboot|poweroff
 
 case $1 in

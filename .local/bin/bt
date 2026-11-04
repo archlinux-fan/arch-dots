@@ -5,24 +5,27 @@
 #                  (like the airplane key, but Wi-Fi stays on), headphones connect again
 #   bt watch       started by mango: runs "bt headphones" when the music link hangs
 
-# Connected audio devices, not a Bluetooth keyboard or mouse
+# Talks to BlueZ over D-Bus with busctl (systemd), so bluetoothctl isn't needed.
+dev() { busctl call org.bluez "$2" org.bluez.Device1 "$1" >/dev/null; }
+
+# Connected audio devices (Audio Sink UUID), not a Bluetooth keyboard or mouse
 audio() {
-    for d in $(bluetoothctl devices Connected | awk '{print $2}'); do
-        bluetoothctl info "$d" | grep -q "Audio Sink" && echo "$d"
-    done
+    busctl --json=short call org.bluez / org.freedesktop.DBus.ObjectManager GetManagedObjects |
+        jq -r '.data[0] | to_entries[] | .value["org.bluez.Device1"] as $d | select($d.Connected.data
+            and ($d.UUIDs.data | index("0000110b-0000-1000-8000-00805f9b34fb"))) | .key'
 }
 
 case $1 in
     headphones)
         for d in $(audio); do
-            bluetoothctl disconnect "$d" >/dev/null; sleep 3
-            bluetoothctl connect "$d" >/dev/null && notify-send --app-name=bluetooth "Headphones connected again"
+            dev Disconnect "$d"; sleep 3
+            dev Connect "$d" && notify-send --app-name=bluetooth "Headphones connected again"
         done ;;
     restart)
         devices=$(audio)
         rfkill block bluetooth; sleep 2; rfkill unblock bluetooth
-        for i in 1 2 3 4 5; do bluetoothctl show | grep -q "Powered: yes" && break; sleep 1; done
-        for d in $devices; do bluetoothctl connect "$d" >/dev/null; done
+        for i in 1 2 3 4 5; do busctl get-property org.bluez /org/bluez/hci0 org.bluez.Adapter1 Powered | grep -q true && break; sleep 1; done
+        for d in $devices; do dev Connect "$d"; done
         notify-send --app-name=bluetooth "Bluetooth restarted" ;;
     watch)
         # Headphones and BlueZ sometimes start the music link at the same moment:
