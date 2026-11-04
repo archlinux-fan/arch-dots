@@ -66,7 +66,10 @@ default-timeout=2000
 
 # --- Other ---
 # Mako has no automatic width, so short messages get their own
-# hyprland: keybinds (Hyprland and waybar reload, color picker)
+# Keybinds (compositor and waybar reload, color picker): mango, and hyprland for Hyprland users
+[app-name="mango"]
+width=200
+
 [app-name="hyprland"]
 width=200
 
