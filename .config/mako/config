@@ -70,6 +70,10 @@ default-timeout=2000
 [app-name="mango"]
 width=200
 
+# Battery (waybar): low, very low (critical, red), full
+[app-name="battery"]
+width=170
+
 [app-name="bluetooth"]
 width=260
 
