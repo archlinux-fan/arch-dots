@@ -11,9 +11,9 @@ esac
 hint="Enter = yes   ·   any other key = cancel"
 
 # Started from a keybind or waybar: reopen inside a foot window, marked by IN_POPUP.
-# The hypr-confirm window rule floats, sizes and centers it; foot gets that size
+# The mango-confirm window rule floats, sizes and centers it; foot gets that size
 # a moment after the script started.
-[[ $IN_POPUP ]] || exec footclient --title hypr-confirm env IN_POPUP=1 "$0" "$@"
+[[ $IN_POPUP ]] || exec footclient --title mango-confirm env IN_POPUP=1 "$0" "$@"
 
 # Clear, hide cursor, bold question in the middle, hint two lines below.
 draw() {

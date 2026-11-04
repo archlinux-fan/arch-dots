@@ -73,7 +73,6 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 "SUPER+SHIFT+b" = "spawn,$browser --incognito"
 
 # Open only if not running yet
-"SUPER+a" = "spawn_shell,mmsg get all-clients | grep -qi audacious || audacious"
 "SUPER+o" = "spawn_shell,mmsg get all-clients | grep -qi obsidian || obsidian"
 
 # System monitors
@@ -86,8 +85,8 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 "SUPER+CTRL+SHIFT+p" = "spawn,power-confirm poweroff"
 
 # Package updates, as the right click on the counters in waybar
-"SUPER+u" = "spawn,$term --title hypr-update -e $HOME/.config/waybar/scripts/updates.sh upgrade"
-"SUPER+y" = "spawn,$term --title hypr-update -e sh -c 'yay -Sua'"
+"SUPER+u" = "spawn,$term --title mango-update -e $HOME/.config/waybar/scripts/updates.sh upgrade"
+"SUPER+y" = "spawn,$term --title mango-update -e sh -c 'yay -Sua'"
 
 # ============================================================
 # FOCUS AND MOVING WINDOWS
@@ -198,7 +197,7 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 # ── Reload (one key, two actions) ───────────────────────────
 # Saving a config file reloads too. reload_config must come last.
 [bind.default.conflict]
-"SUPER+CTRL+SHIFT+h" = [
+"SUPER+CTRL+SHIFT+m" = [
     "spawn,notify-send -t 5000 -a mango 'mango config reloaded'",
     "reload_config",
 ]
