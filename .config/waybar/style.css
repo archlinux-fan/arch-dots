@@ -46,7 +46,6 @@ tooltip label {
 
 /* Right side: no pills, the same space around every module */
 #tray,
-#language,
 #custom-mango-language,
 #systemd-failed-units,
 #custom-pacman,
@@ -166,7 +165,6 @@ tooltip label {
     background-color: @cyan;
 }
 
-#language,
 #custom-mango-language {
     color: @nordbright;
 }

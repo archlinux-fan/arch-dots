@@ -5,22 +5,18 @@
 
 	"height": 30,
 
-	// Hyprland and mango modules side by side: each stays empty under the other compositor
 	"modules-left": [
-		"custom/mango-keymode",
-		"wlr/taskbar",
-		"hyprland/submap"
+		"wlr/taskbar"
 	],
-	
+
 	"modules-center": [
 		"ext/workspaces",
 		"custom/mango-layout",
-		"custom/mango-keymode",
+		"custom/mango-keymode"
 	],
 
 	"modules-right": [
 		"tray",
-		"hyprland/language",
 		"custom/mango-language",
 		"systemd-failed-units",
 		"custom/pacman",
@@ -63,27 +59,14 @@
 		"spacing": 10
 	},
 
-	// Layout name; format-<lang> shortens known ones
-	"hyprland/language": {
-		"format": "{}",
-		"format-sl": "SI",
-		"format-es": "ES"
-	},
-
-	"hyprland/submap": {
-		"format": "✌️ {}",
-		"max-length": 8,
-		"tooltip": false
-	},
-
-	// Tags of this monitor (mango) or workspaces (Hyprland): busy ones and the shown one
+	// Tags of this monitor: busy ones and the shown one
 	"ext/workspaces": {
 		"format": "{name}",
 		"on-click": "activate",
 		"ignore-hidden": true
 	},
 
-	// ── mango (mmsg; outside mango it finds nothing and the modules stay empty) ──
+	// ── mango (mmsg) ──
 
 	// Layout of the tag on this bar's monitor; the tooltip says how it works.
 	// Click and Super+N cycle through circle_layout in ~/.config/mango/general.toml
@@ -267,7 +250,6 @@
 			"critical": 15
 		},
 		"events": {
-			// notify-send (mako) works under Hyprland and mango
 			"on-discharging-warning": "notify-send -a battery 'Low Battery'",
 			"on-discharging-critical": "notify-send -u critical -a battery 'Very Low Battery'",
 			"on-charging-100": "notify-send -a battery 'Battery Full!'"

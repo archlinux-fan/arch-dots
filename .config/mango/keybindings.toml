@@ -1,6 +1,5 @@
 # ============================================================
 # keybindings.toml  –  Keys, mouse buttons, scroll, gestures
-# Same keys as hypr/keybindings.lua where mango can do it.
 #
 #   "MOD+MOD+key" = "dispatcher,arguments"         (wiki: keys)
 #   spawn        runs a program: quotes, ~ and $VAR work, no | ; &&
@@ -17,7 +16,7 @@
 [var]
 # Screenshot file
 shot   = 'f=$HOME/pictures/screenshots/$(date +%Y%m%d-%H%M%S).png;'
-# Freeze the screen while you select (as hyprshot --freeze); kill $! thaws it
+# Freeze the screen while you select; kill $! thaws it
 freeze = 'hyprpicker -rz & sleep 0.2;'
 # Copy the screenshot, show it in a notification
 copy   = 'wl-copy < "$f" && notify-send -i "$f" -a screenshot Screenshot "$f"'
@@ -32,7 +31,7 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 # ============================================================
 
 "SUPER+q"       = "killclient"
-"SUPER+SHIFT+q" = "killclient,force"               # kill -9 the focused window (Hyprland: hyprctl kill)
+"SUPER+SHIFT+q" = "killclient,force"               # kill -9 the focused window
 "SUPER+f"       = "togglefullscreen"
 "SUPER+v"       = "togglefloating"
 "SUPER+c"       = "centerwin"
@@ -43,7 +42,7 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 "SUPER+l" = "spawn,hyprlock"
 # Screens off after 0.5 s (key release would wake them); hypridle skips its
 # media checks until you are back. The first key press turns them on again.
-"SUPER+x" = "spawn_shell,touch /tmp/hypr_idle_override; sleep 0.5; $screens_off; mmsg watch all-devices | grep -qm1 type.:.keyboard; $screens_on"
+"SUPER+x" = "spawn_shell,touch /tmp/idle_override; sleep 0.5; $screens_off; mmsg watch all-devices | grep -qm1 type.:.keyboard; $screens_on"
 
 # ── Waybar restart ──────────────────────────────────────────
 "SUPER+CTRL+SHIFT+w" = "spawn_shell,pkill -x waybar; waybar & notify-send -t 5000 -a mango 'Waybar was reloaded'"
@@ -172,10 +171,10 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 "SUPER+SHIFT+Print" = 'spawn_shell,$shot g=$(slurp -or) && grim -g "$g" "$f"; $copy'
 
 # ============================================================
-# MANGO EXTRAS  (not in the Hyprland config)
+# MANGO EXTRAS
 # ============================================================
 
-"SUPER+g"       = "toggleglobal"           # window on every tag (like Hyprland pin)
+"SUPER+g"       = "toggleglobal"           # window on every tag
 "SUPER+z"       = "togglemaximizescreen"   # maximize, bar and gaps stay
 "SUPER+n"       = "switch_layout"          # next layout of circle_layout (general.toml)
 "SUPER+d"       = "toggleoverview"         # every window of this monitor; click one

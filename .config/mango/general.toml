@@ -49,10 +49,10 @@ scratchpad_height_ratio = 0.9
 single_scratchpad       = 1
 
 # ── Focus & windows ─────────────────────────────────────────
-sloppy_focus                      = 0  # 0 = focus on click (Hyprland follow_mouse = 0)
+sloppy_focus                      = 0  # 0 = focus on click, 1 = focus follows the mouse
 warp_cursor                       = 1  # cursor jumps to a window focused with the keyboard
 focus_on_activate                 = 1
-focus_cross_monitor               = 1  # Super+arrows reach the other monitor, as in Hyprland
+focus_cross_monitor               = 1  # Super+arrows reach the other monitor
 exchange_cross_monitor            = 1  # moving a window with the keys crosses monitors too
 focus_cross_tag                   = 0
 focus_direction_only_zone_overlap = 1
@@ -81,7 +81,7 @@ numlock_on   = 1
 # One device only: device_rule in local.toml
 mouse_natural_scrolling = 0
 mouse_accel_profile     = 2     # 0 none, 1 flat, 2 adaptive
-mouse_accel_speed       = 0.0   # -1.0 .. 1.0 (Hyprland sensitivity)
+mouse_accel_speed       = 0.0   # -1.0 .. 1.0
 axis_scroll_factor      = 1.0
 
 # ── Trackpad (some settings need a re-login) ────────────────

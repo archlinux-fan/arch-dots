@@ -1,5 +1,5 @@
 #!/bin/bash
-# Wallpaper of the active tag on every monitor, as keybindings.lua does in Hyprland.
+# Wallpaper of the active tag on every monitor.
 # Started by autostart.toml. mmsg prints all monitors at start and after every change
 # (tag switch, monitor plugged in); a monitor gets a new swaybg only when its tag changes.
 

@@ -64,11 +64,11 @@ dark (nord1) logo. A logo colour as third argument keeps the colour as is (botto
 
 ## Use them
 
-`~/.config/hypr/keybindings.lua` picks one wallpaper per workspace (the `wallpapers` list).
-Try one right away:
+`~/.config/mango/wallpaper.sh` picks one wallpaper per tag (the `walls` list).
+Try one right away (Ctrl+C brings the old one back):
 
 ```bash
-hyprctl hyprpaper wallpaper ",$HOME/pictures/wallpapers/webp/arch_nord11_2160p.webp"
+swaybg -m fill -i ~/pictures/wallpapers/webp/arch_nord11_2160p.webp
 ```
 
 Needs `vips` and `rsvg-convert`: `sudo pacman -S libvips librsvg`. The logo comes with Arch itself

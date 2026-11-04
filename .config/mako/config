@@ -66,28 +66,15 @@ default-timeout=2000
 
 # --- Other ---
 # Mako has no automatic width, so short messages get their own
-# Keybinds (compositor and waybar reload, color picker): mango, and hyprland for Hyprland users
+# Keybinds (mango and waybar reload, color picker)
 [app-name="mango"]
-width=200
-
-[app-name="hyprland"]
 width=200
 
 [app-name="bluetooth"]
 width=260
 
 
-# Hyprshot: short text, no thumbnail
-[app-name="Hyprshot"]
-width=230
-border-color=#b48ead
-text-alignment=left
-icons=0
-format=<b>Screenshot done</b>\nSaved to folder and clipboard
-ignore-timeout=1
-default-timeout=2500
-
-# Satty: same look as Hyprshot
+# Satty: short text, no thumbnail
 [app-name="satty"]
 width=160
 border-color=#b48ead

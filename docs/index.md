@@ -15,7 +15,7 @@ screenshots:
 
 # arch-dots
 
-A shared Hyprland desktop for Arch Linux: waybar, rofi, foot, mako, Thunar and Nord themes.
+A shared mango desktop for Arch Linux: waybar, rofi, foot, mako, Thunar and Nord themes.
 It is installed by [arch-install]({{ site.install_url }}). Click a picture to see it large;
 ‹ › or the arrow keys go to the next one.
 

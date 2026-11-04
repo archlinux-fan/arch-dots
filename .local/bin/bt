@@ -3,7 +3,7 @@
 #   bt headphones  headphones connected but silent: connect them again
 #   bt restart     mouse, keyboard or headphones won't connect: Bluetooth off and on
 #                  (like the airplane key, but Wi-Fi stays on), headphones connect again
-#   bt watch       started by Hyprland: runs "bt headphones" when the music link hangs
+#   bt watch       started by mango: runs "bt headphones" when the music link hangs
 
 # Connected audio devices, not a Bluetooth keyboard or mouse
 audio() {

@@ -1,6 +1,6 @@
 # arch-dots
 
-Shared desktop setup (Hyprland, waybar, rofi, foot, zsh, Nord themes) for Arch Linux.
+Shared desktop setup (mango, waybar, rofi, foot, zsh, Nord themes) for Arch Linux.
 Installed by [arch-install](https://github.com/archlinux-fan/arch-install) (`desktop/70-dotfiles.sh`),
 guide: [archlinux-fan.github.io/arch-install](https://archlinux-fan.github.io/arch-install/).
 Screenshots and wallpapers as a website: [archlinux-fan.github.io/arch-dots](https://archlinux-fan.github.io/arch-dots/)
@@ -37,6 +37,6 @@ stow -D -d ~/.dots -t ~ .                # unlink
 
 Personal files (ssh, git name and e-mail, monitors, keyboard) belong in a private repo linked the same way.
 
-`~/.config/hypr/local.lua` from there is loaded last by `hyprland.lua`.
+`~/.config/mango/local.toml` from there is read by `config.toml` after the shared settings.
 
 GTK 4 apps read the theme from gsettings: run `nwg-look` once and press Apply.

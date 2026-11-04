@@ -23,7 +23,7 @@ exec_once = [
     # Notification daemon
     "mako",
 
-    # Lock and screens off when idle (mango version of hypr/hypridle.conf)
+    # Lock and screens off when idle
     "hypridle -c ~/.config/mango/hypridle.conf",
 
     # Foot terminal server, footclient windows open at once
