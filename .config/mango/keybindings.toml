@@ -45,7 +45,8 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 "SUPER+x" = "spawn_shell,touch /tmp/idle_override; sleep 0.5; $screens_off; mmsg watch all-devices | grep -qm1 type.:.keyboard; $screens_on"
 
 # ── Waybar restart ──────────────────────────────────────────
-"SUPER+CTRL+SHIFT+w" = "spawn_shell,pkill -x waybar; waybar & notify-send -t 5000 -a mango 'Waybar was reloaded'"
+# SIGINT, not the default SIGTERM: only then waybar also ends its modules' mmsg watch | jq
+"SUPER+CTRL+SHIFT+w" = "spawn_shell,pkill -INT -x waybar; waybar & notify-send -t 5000 -a mango 'Waybar was reloaded'"
 
 # ── Color picker ────────────────────────────────────────────
 # Click a point: grim takes that one pixel, as a 40x40 PNG (the square in the notification)
