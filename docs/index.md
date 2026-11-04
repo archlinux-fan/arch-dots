@@ -8,16 +8,20 @@ screenshots:
   - { file: ristretto, text: "Ristretto image viewer" }
   - { file: btop, text: "btop; an AUR update" }
   - { file: satty, text: "satty screenshot editor; sound muted" }
-  - { file: lock, text: "hyprlock lock screen" }
+  - { file: swaylock, text: "swaylock lock screen" }
+  - { file: hyprlock, text: "hyprlock lock screen, if you install it instead" }
   - { file: confirm, text: "Reboot / power off asks first (power-confirm); power icon on hover" }
   - { file: brave, text: "Brave with the startpage, vertical tabs collapsed" }
 ---
 
 # arch-dots
 
-A shared mango desktop for Arch Linux: waybar, rofi, foot, mako, Thunar and Nord themes.
-It is installed by [arch-install]({{ site.install_url }}). Click a picture to see it large;
-‹ › or the arrow keys go to the next one.
+The settings behind this desktop for Arch Linux: mango arranges the windows side by side,
+waybar is the bar at the top, rofi the app menu, foot the terminal, all in the Nord colours.
+New to Arch? [arch-install]({{ site.install_url }}) installs it step by step, these settings included.
+The keyboard shortcuts are listed in the [README]({{ site.repo_url }}#keys).
+
+Click a picture to see it large; ‹ › or the arrow keys go to the next one.
 
 ![waybar: keyboard layout, updates, webcam, firewall, sound, mic, Bluetooth, Wi-Fi, clock, battery, power]({{ site.raw }}/screenshots/waybar.png)
 
