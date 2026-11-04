@@ -137,6 +137,7 @@ tooltip label {
 
 #taskbar button {
     color: @blue;
+    background: @norddark;
     padding: 0px 4px;
     border-radius: 15px;
 }
@@ -184,7 +185,7 @@ tooltip label {
 }
 
 #custom-webcam.idle {
-    color: @blue;
+    color: @nordbright;
 }
 
 #custom-firewall.on {

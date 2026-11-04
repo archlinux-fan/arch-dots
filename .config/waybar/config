@@ -7,11 +7,15 @@
 
 	// Hyprland and mango modules side by side: each stays empty under the other compositor
 	"modules-left": [
-		"ext/workspaces",
-		"custom/mango-layout",
 		"custom/mango-keymode",
 		"wlr/taskbar",
 		"hyprland/submap"
+	],
+	
+	"modules-center": [
+		"ext/workspaces",
+		"custom/mango-layout",
+		"custom/mango-keymode",
 	],
 
 	"modules-right": [
@@ -125,6 +129,27 @@
 		"exec-on-event": false,
 		"on-click": "mmsg dispatch switch_keyboard_layout"
 	},
+	
+	// Updates: count from scripts/updates.sh; click lists them, right click installs
+	"custom/pacman": {
+		"format": "  {}",
+		"return-type": "json",
+		"exec": "~/.config/waybar/scripts/updates.sh pacman",
+		"interval": 3600,
+		"on-click": "pkill -SIGRTMIN+8 waybar",
+		"on-click-right": "footclient --title=mango-update -e ~/.config/waybar/scripts/updates.sh upgrade",
+		"signal": 8
+	},
+
+	"custom/aur": {
+		"format": "  {}",
+		"return-type": "json",
+		"exec": "~/.config/waybar/scripts/updates.sh aur",
+		"interval": 3600,
+		"on-click": "pkill -SIGRTMIN+8 waybar",
+		"on-click-right": "footclient --title='mango-update' -e sh -c 'yay -Sua; pkill -SIGRTMIN+8 waybar'",
+		"signal": 8
+	},
 
 	"systemd-failed-units": {
 		"hide-on-ok": true,
@@ -132,7 +157,7 @@
 		"format-ok": "",
 		"system": true,
 		"user": true,
-		"on-click-right": "footclient --title='hypr-update' -e sh -c 'echo === SYSTEM FAILED ===; systemctl --failed; echo; echo === USER FAILED ===; systemctl --user --failed; echo; echo Press any key to close window...; read -n 1'"
+		"on-click-right": "footclient --title='mango-update' -e sh -c 'echo === SYSTEM FAILED ===; systemctl --failed; echo; echo === USER FAILED ===; systemctl --user --failed; echo; echo Press any key to close window...; read -n 1'"
 	},
 
 	// Webcam: driver unloaded (off), in use (active) or idle. Right click loads/unloads the driver.
@@ -140,7 +165,7 @@
 		"exec": "sh -c 'if ! lsmod | grep -q \"^uvcvideo\"; then echo \"{\\\"text\\\":\\\"\\\",\\\"tooltip\\\":\\\"<b>Webcam:</b> off (driver unloaded)\\n\\nRight click: turn on\\\",\\\"class\\\":\\\"off\\\"}\"; elif fuser /dev/video* >/dev/null 2>&1; then echo \"{\\\"text\\\":\\\"\\\",\\\"tooltip\\\":\\\"<b>Webcam:</b> in use\\n\\nRight click: turn off\\\",\\\"class\\\":\\\"active\\\"}\"; else echo \"{\\\"text\\\":\\\"\\\",\\\"tooltip\\\":\\\"<b>Webcam:</b> idle (driver loaded)\\n\\nRight click: turn off\\\",\\\"class\\\":\\\"idle\\\"}\"; fi'",
 		"return-type": "json",
 		"interval": 60,
-		"on-click-right": "footclient --title='hypr-update' -e sh -c 'if lsmod | grep -q uvcvideo; then sudo rmmod uvcvideo; else sudo modprobe uvcvideo; fi ; pkill -SIGRTMIN+9 waybar'",
+		"on-click-right": "footclient --title='mango-update' -e sh -c 'if lsmod | grep -q uvcvideo; then sudo rmmod uvcvideo; else sudo modprobe uvcvideo; fi ; pkill -SIGRTMIN+9 waybar'",
 
 		"signal": 9
 	},
@@ -152,7 +177,7 @@
 		"interval": 60,
 		"tooltip-format": "<b>Firewall:</b> firewalld\n\nMiddle click: settings\nRight click: on / off",
 		"on-click-middle": "firewall-config",
-		"on-click-right": "footclient --title='hypr-update' -e sh -c 'if systemctl is-active firewalld >/dev/null; then sudo systemctl stop firewalld; else sudo systemctl start firewalld; fi ; pkill -SIGRTMIN+10 waybar'",
+		"on-click-right": "footclient --title='mango-update' -e sh -c 'if systemctl is-active firewalld >/dev/null; then sudo systemctl stop firewalld; else sudo systemctl start firewalld; fi ; pkill -SIGRTMIN+10 waybar'",
 		"signal": 10
 	},
 
@@ -186,7 +211,7 @@
 		"tooltip-format-connected": "<b>Bluetooth:</b> {controller_alias}\n\n{device_enumerate}\n\nLeft click: restart Bluetooth\nMiddle click: bluetui\nRight click: connect headphones again",
 		"tooltip-format-enumerate-connected": "<b>{device_alias}</b>",
 		"tooltip-format-enumerate-connected-battery": "<b>{device_alias}:</b> {device_battery_percentage}%",
-		"on-click-middle": "footclient --title hypr-update sh -c 'bluetui'",
+		"on-click-middle": "footclient --title mango-update sh -c 'bluetui'",
 		"on-click": "bt restart",
 		"on-click-right": "bt headphones"
 	},
@@ -233,35 +258,6 @@
 			"on-click-middle": "shift_reset"
 		},
 	},
-	// Updates: count from scripts/updates.sh; click lists them, right click installs
-	"custom/pacman": {
-		"format": "  {}",
-		"return-type": "json",
-		"exec": "~/.config/waybar/scripts/updates.sh pacman",
-		"interval": 3600,
-		"on-click": "pkill -SIGRTMIN+8 waybar",
-		"on-click-right": "footclient --title=hypr-update -e ~/.config/waybar/scripts/updates.sh upgrade",
-		"signal": 8
-	},
-
-	"custom/aur": {
-		"format": "  {}",
-		"return-type": "json",
-		"exec": "~/.config/waybar/scripts/updates.sh aur",
-		"interval": 3600,
-		"on-click": "pkill -SIGRTMIN+8 waybar",
-		"on-click-right": "footclient --title='hypr-update' -e sh -c 'yay -Sua; pkill -SIGRTMIN+8 waybar'",
-		"signal": 8
-	},
-
-	// Middle click reboots, right click powers off; both ask first
-	"custom/power": {
-		"format": "{icon}",
-		"format-icons": {"default": [""]},
-		"tooltip-format": "<b>Power</b>\n\nMiddle click: reboot\nRight click: power off",
-		"on-click-middle": "power-confirm reboot",
-		"on-click-right": "power-confirm poweroff"
-	},
 
 	// No "bat": Waybar finds the battery itself
 	"battery": {
@@ -280,5 +276,14 @@
 		"format-alt": "{power:.0f}W {icon}",
 		"tooltip-format": "<b>Battery:</b> {timeTo}\n\nLeft click: watts",
 		"format-icons": {"charging": [""], "plugged": [""], "default": ["","","","",""]},
+	},
+
+	// Middle click reboots, right click powers off; both ask first
+	"custom/power": {
+		"format": "{icon}",
+		"format-icons": {"default": [""]},
+		"tooltip-format": "<b>Power</b>\n\nMiddle click: reboot\nRight click: power off",
+		"on-click-middle": "power-confirm reboot",
+		"on-click-right": "power-confirm poweroff"
 	}
 }
