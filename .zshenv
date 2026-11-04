@@ -16,5 +16,4 @@ export BROWSER=brave-origin
 export PATH="$HOME/.local/bin:$PATH"
 
 # Fix to force move.some files from $HOME folder to .config
-export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc"
 export PULSE_COOKIE="$HOME/.config/pulse-cookie"
