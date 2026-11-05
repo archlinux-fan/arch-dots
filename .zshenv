@@ -1,4 +1,5 @@
 # ─── Path & Directory Settings ───────────────────────────────────────────────
+# bash reads the same exports from ~/.bash_profile: change both.
 
 # Set the configuration directory (Keep .config clean for Git)
 export ZDOTDIR="$HOME/.config/zsh"

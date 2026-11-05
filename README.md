@@ -5,7 +5,7 @@ whose names start with a dot (hidden files), hence "dotfiles". Here they are for
 
 - **mango**: arranges the windows (tiling: side by side, no overlapping) and holds the keyboard shortcuts
 - **waybar**: the bar at the top, **rofi**: the app menu, **mako**: notifications
-- **foot**: the terminal, **zsh**: the shell inside it
+- **foot**: the terminal, **bash** the shell inside it (or **zsh**, with suggestions from your history)
 - **swaylock**: the lock screen, **Thunar**: files, all in the [Nord](https://www.nordtheme.com/) colours
 
 New to Arch? [arch-install](https://github.com/archlinux-fan/arch-install) installs Arch step by step and puts these files in place
@@ -65,7 +65,7 @@ belongs in `~/.config/mango/config.toml`. Copy its files into `~`, without the r
 
 ```bash
 git clone --depth 1 https://github.com/archlinux-fan/arch-dots /tmp/dots
-cp -r /tmp/dots/.config /tmp/dots/.local /tmp/dots/pictures /tmp/dots/.zshenv ~
+cp -r /tmp/dots/.config /tmp/dots/.local /tmp/dots/pictures /tmp/dots/.bash_profile /tmp/dots/.zshenv ~
 ```
 
 Want your changes in git? Link the files instead of copying them: [stow](https://www.gnu.org/software/stow/)
