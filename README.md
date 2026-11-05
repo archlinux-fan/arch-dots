@@ -99,3 +99,14 @@ gsettings set org.gnome.desktop.interface cursor-size 24
 gsettings set org.gnome.desktop.interface font-name 'Noto Sans 11'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 ```
+
+## License
+
+[MIT](LICENSE): use, change and share it as you like; keep the copyright notice.
+Files from other projects keep their own license:
+
+- [Nordic](https://github.com/EliverLara/Nordic) GTK theme, also in `.config/gtk-4.0`: GPL-3.0
+- [Nordzy](https://github.com/alvatip/Nordzy-icon) icons and [cursors](https://github.com/alvatip/Nordzy-cursors): GPL-3.0
+- Dracula and Nord styles in `.local/share/gtksourceview-4`: MIT, by their authors
+- Lite XL colours, plugins and libraries in `.config/lite-xl`: the licenses of their projects, mostly MIT
+- The Arch Linux logo in the wallpapers belongs to Arch Linux and follows its [trademark policy](https://terms.archlinux.org/docs/trademark-policy/).
