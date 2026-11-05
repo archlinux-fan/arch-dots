@@ -1,2 +1,6 @@
 # Thunar rewrites it in random order on every save; it holds only commented defaults
 .config/Thunar/accels.scm
+
+# xarchiver and ristretto replace their file on every save, which breaks the stow link
+.config/xarchiver/xarchiverrc
+.config/xfce4/xfconf/xfce-perchannel-xml/ristretto.xml
