@@ -84,6 +84,10 @@ If a file already exists in `~`, stow stops and names it; move it away and run s
 Personal files (ssh, git name and e-mail, monitors, keyboard layout) belong in a private repo linked the same way.
 `~/.config/mango/local.toml` from there is read by `config.toml` after the shared settings.
 
+zsh reads its settings in parts from `.config/zsh/conf.d` (history, keys, prompt, aliases for git, pacman, apt, docker ...).
+`zsh_off` in `.config/zsh/.zshrc` leaves parts out (apt, docker and server by default);
+`~/.config/zsh/local.zsh` from the private repo changes that for one computer, e.g. `zsh_off=(apt docker server welcome)`.
+
 GTK apps on Wayland take the theme, icons, cursor and font from gsettings, not from `settings.ini`.
 They are saved outside the repo; arch-install sets them, by hand it's once:
 
