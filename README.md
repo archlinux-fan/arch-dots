@@ -18,18 +18,19 @@ Screenshots and wallpapers as a website: [archlinux-fan.github.io/arch-dots](htt
 waybar: keyboard layout, updates (official repos, AUR), webcam, firewall, sound, mic, Bluetooth, Wi-Fi, clock, battery, power.
 Muted sound or mic turns grey, the update counters go green, orange, red; hover shows what each click does.
 
-| | |
-|---|---|
-| ![fastfetch in foot](screenshots/fastfetch.png) | ![Thunar](screenshots/thunar.png) |
-| fastfetch in foot, Nord palette | Thunar; mic muted, 42 updates listed on hover |
-| ![rofi app launcher](screenshots/rofi.png) | ![Ristretto](screenshots/ristretto.png) |
-| rofi app launcher; webcam driver unloaded | Ristretto image viewer |
-| ![btop](screenshots/btop.png) | ![satty](screenshots/satty.png) |
-| btop; an AUR update | satty screenshot editor; sound muted |
-| ![swaylock lock screen](screenshots/swaylock.png) | ![hyprlock lock screen](screenshots/hyprlock.png) |
-| swaylock lock screen | hyprlock lock screen, if you install it instead |
-| ![Reboot confirmation](screenshots/confirm.png) | ![Brave](screenshots/brave.png) |
-| Reboot / power off asks first (`power-confirm`); power icon on hover | Brave with the startpage, vertical tabs collapsed |
+<!-- HTML, so both columns are half the width whatever the captions -->
+<table>
+<tr><td width="50%"><img src="screenshots/fastfetch.png" alt="fastfetch in foot"></td><td width="50%"><img src="screenshots/thunar.png" alt="Thunar"></td></tr>
+<tr><td>fastfetch in foot, Nord palette</td><td>Thunar; mic muted, 42 updates listed on hover</td></tr>
+<tr><td width="50%"><img src="screenshots/rofi.png" alt="rofi app launcher"></td><td width="50%"><img src="screenshots/ristretto.png" alt="Ristretto"></td></tr>
+<tr><td>rofi app launcher; webcam driver unloaded</td><td>Ristretto image viewer</td></tr>
+<tr><td width="50%"><img src="screenshots/btop.png" alt="btop"></td><td width="50%"><img src="screenshots/satty.png" alt="satty"></td></tr>
+<tr><td>btop; an AUR update</td><td>satty screenshot editor; sound muted</td></tr>
+<tr><td width="50%"><img src="screenshots/swaylock.png" alt="swaylock lock screen"></td><td width="50%"><img src="screenshots/hyprlock.png" alt="hyprlock lock screen"></td></tr>
+<tr><td>swaylock lock screen</td><td>hyprlock lock screen, if you install it instead</td></tr>
+<tr><td width="50%"><img src="screenshots/confirm.png" alt="Reboot confirmation"></td><td width="50%"><img src="screenshots/brave.png" alt="Brave"></td></tr>
+<tr><td>Reboot / power off asks first (<code>power-confirm</code>); power icon on hover</td><td>Brave with the startpage, vertical tabs collapsed</td></tr>
+</table>
 
 Screenshots are 4K (3840x2160); click one for full size.
 
