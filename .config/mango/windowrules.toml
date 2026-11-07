@@ -62,7 +62,7 @@ height = 600
 title       = "^nmtui$"
 is_floating = 1
 width       = 780
-height      = 560
+height      = 630
 
 # ── Always on top ───────────────────────────────────────────
 # Password prompt of the polkit agent: never behind other windows
