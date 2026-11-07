@@ -23,11 +23,11 @@ layout_name = "fair"
 
 # ── Floating windows ────────────────────────────────────────
 [[rule.window_rule]]
-app_id      = "^(mpv|xpdf|.*ristretto.*|nwg-look|.*pavucontrol|file_progress|confirm|dialog|download|notification|error|confirmreset)$"
+app_id      = "^(mpv|xpdf|.*ristretto.*|nwg-look|file_progress|confirm|dialog|download|notification|error|confirmreset)$"
 is_floating = 1
 
 [[rule.window_rule]]
-title       = "^(Firewall Configuration|Media viewer|Volume Control|Picture-in-Picture|Open File|branchdialog|Confirm to replace files|File Operation Progress|xarchiver.*|btop|satty)$"
+title       = "^(Firewall Configuration|Media viewer|Picture-in-Picture|Open File|branchdialog|Confirm to replace files|File Operation Progress|xarchiver.*|btop|satty)$"
 is_floating = 1
 
 # ── Sizes (below 1 = part of the screen, above = pixels) ────
@@ -51,11 +51,6 @@ height = 0.94
 title  = "^(Open File|Save File)$"
 width  = 0.75
 height = 0.9
-
-[[rule.window_rule]]
-app_id = "pavucontrol$"
-width  = 800
-height = 600
 
 # nmtui (waybar Wi-Fi middle click): in the middle, just big enough for Edit Connection
 [[rule.window_rule]]

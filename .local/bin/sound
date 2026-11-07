@@ -13,7 +13,7 @@ if [[ $1 == output ]]; then
     i=$({ for s in "${sinks[@]}"; do
             [[ ${s%%$'\t'*} == "$cur" ]] && echo "${s#*$'\t'}   ·   in use" || echo "${s#*$'\t'}"
           done; echo "Automatic (best connected)"; } |
-        fuzzel --dmenu --index --no-icons --mesg "Sound output" --lines 8 --minimal-lines --width 46) || exit
+        fuzzel --dmenu --index --no-icons --hide-prompt --mesg "Sound output" --lines 8 --minimal-lines --width 46) || exit
     if (( i == ${#sinks[@]} )); then
         wpctl clear-default && notify-send -a sound "Sound: automatic"
     else
