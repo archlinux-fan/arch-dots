@@ -45,9 +45,10 @@
 		"rewrite": {
 			"Thunar File Manager": "  Thunar",
 			"Brave": "  Brave",
-			"Brave Origin": "  Brave",
+			"Brave Origin": " Brave",
+			"Firefox": "  Firefox",
 			"Foot": "  Foot",
-			"Mousepad": "  Mousepad",
+			"Foot Client": "  Foot",
 			"Lite XL": "  Lite XL",
 			// Raw app_id of Lite XL until waybar finds its desktop file (after a waybar restart)
 			"com\\.lite_xl\\.LiteXL": "  Lite XL",
