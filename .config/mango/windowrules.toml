@@ -91,14 +91,6 @@ title  = "^btop$"
 width  = 0.97
 height = 0.92
 
-# Reboot / power off question (~/.local/bin/power-confirm)
-[[rule.window_rule]]
-app_id      = "^footclient$"
-title       = "^mango-confirm$"
-is_floating = 1
-width       = 520
-height      = 160
-
 # Updates (Super+U, Super+Y, waybar)
 [[rule.window_rule]]
 app_id      = "^footclient$"
