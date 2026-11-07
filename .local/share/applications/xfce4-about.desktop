@@ -1,0 +1,6 @@
+[Desktop Entry]
+# Hides "About Xfce" (libxfce4ui, comes with thunar) from fuzzel
+Type=Application
+Name=About Xfce
+Exec=xfce4-about
+NoDisplay=true

@@ -76,10 +76,11 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 # Open only if not running yet
 "SUPER+o" = "spawn_shell,mmsg get all-clients | grep -qi obsidian || obsidian"
 
-# Wi-Fi / Bluetooth menu in fuzzel (~/.local/bin/net-menu), sound output (~/.local/bin/sound)
-"SUPER+ALT+w" = "spawn,net-menu wifi"
-"SUPER+ALT+b" = "spawn,net-menu bt"
-"SUPER+ALT+s" = "spawn,sound output"
+# Wi-Fi / Bluetooth / SSH menu in fuzzel (~/.local/bin/net-menu), sound output (~/.local/bin/sound)
+"SUPER+ALT+w"      = "spawn,net-menu wifi"
+"SUPER+ALT+b"      = "spawn,net-menu bt"
+"SUPER+ALT+Return" = "spawn,net-menu ssh"   # a terminal on another computer (~/.ssh/config)
+"SUPER+ALT+s"      = "spawn,sound output"
 
 # System monitors
 "CTRL+SHIFT+Escape"  = "spawn,$term --title btop -e btop"
