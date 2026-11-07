@@ -193,11 +193,11 @@
 		"format-disabled": "{icon}",
 		"format-off": "{icon}",
 		"format-connected": "{icon} {num_connections}",
-		"tooltip-format": "<b>Bluetooth:</b> {controller_alias}\n\nLeft click: restart Bluetooth\nMiddle click: bluetui\nRight click: connect headphones again",
-		"tooltip-format-connected": "<b>Bluetooth:</b> {controller_alias}\n\n{device_enumerate}\n\nLeft click: restart Bluetooth\nMiddle click: bluetui\nRight click: connect headphones again",
+		"tooltip-format": "<b>Bluetooth:</b> {controller_alias}\n\nLeft click: restart Bluetooth\nMiddle click: devices (Super+Alt+B)\nRight click: connect headphones again",
+		"tooltip-format-connected": "<b>Bluetooth:</b> {controller_alias}\n\n{device_enumerate}\n\nLeft click: restart Bluetooth\nMiddle click: devices (Super+Alt+B)\nRight click: connect headphones again",
 		"tooltip-format-enumerate-connected": "<b>{device_alias}</b>",
 		"tooltip-format-enumerate-connected-battery": "<b>{device_alias}:</b> {device_battery_percentage}%",
-		"on-click-middle": "footclient --title mango-update sh -c 'bluetui'",
+		"on-click-middle": "net-menu bt",
 		"on-click": "bt restart",
 		"on-click-right": "bt headphones"
 	},
@@ -206,14 +206,15 @@
 	"network": {
 		"format-wifi": " {signalStrength}%",
 		"format-alt": " ↓{bandwidthDownBytes} ↑{bandwidthUpBytes}",
-		"tooltip-format": "<b>Network:</b> {ifname}\n<b>IP:</b> {ipaddr}/{cidr}\n<b>Down:</b> {bandwidthDownBits} <b>Up:</b> {bandwidthUpBits}\n\nLeft click: speed\nMiddle click: nm-applet",
-		"tooltip-format-wifi": "<b>Wi-Fi:</b> {essid}\n<b>Wlan card:</b> {ifname}\n<b>IP:</b> {ipaddr}/{cidr}\n<b>Signal:</b> {signaldBm} dBm\n<b>Frequency:</b> {frequency} GHz\n<b>Down:</b> {bandwidthDownBits} <b>Up:</b> {bandwidthUpBits}\n\nLeft click: speed\nMiddle click: nm-applet",
+		// The plain tooltip-format is also used after a left click (speed), so it has the Wi-Fi details
+		"tooltip-format": "<b>Wi-Fi:</b> {essid}\n<b>Wlan card:</b> {ifname}\n<b>IP:</b> {ipaddr}/{cidr}\n<b>Signal:</b> {signaldBm} dBm\n<b>Frequency:</b> {frequency} GHz\n<b>Down:</b> {bandwidthDownBits} <b>Up:</b> {bandwidthUpBits}\n\nLeft click: speed\nMiddle click: Wi-Fi menu (Super+Alt+W)",
+		"tooltip-format-ethernet": "<b>Network:</b> {ifname}\n<b>IP:</b> {ipaddr}/{cidr}\n<b>Down:</b> {bandwidthDownBits} <b>Up:</b> {bandwidthUpBits}\n\nLeft click: speed\nMiddle click: Wi-Fi menu (Super+Alt+W)",
 		"format-disconnected": "",
 		"format-disabled": "",
 		"interval": 2,
 		"format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
 		"format-ethernet": "",
-		"on-click-middle": "nm-applet"
+		"on-click-middle": "net-menu wifi"
 	},
 
 	// Time; the tooltip shows a calendar

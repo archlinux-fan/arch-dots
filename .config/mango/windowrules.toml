@@ -23,7 +23,7 @@ layout_name = "fair"
 
 # ── Floating windows ────────────────────────────────────────
 [[rule.window_rule]]
-app_id      = "^(mpv|xpdf|.*ristretto.*|nwg-look|nm-applet|nm-connection-editor|.*pavucontrol|file_progress|confirm|dialog|download|notification|error|confirmreset)$"
+app_id      = "^(mpv|xpdf|.*ristretto.*|nwg-look|.*pavucontrol|file_progress|confirm|dialog|download|notification|error|confirmreset)$"
 is_floating = 1
 
 [[rule.window_rule]]
