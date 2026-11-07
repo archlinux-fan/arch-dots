@@ -3,6 +3,24 @@
 # The output is the default device (see ~/.config/wireplumber), the mic the default input.
 #   sound up | down | mute
 #   sound mic-up | mic-down | mic-mute
+#   sound output   pick the output in fuzzel; "Automatic" goes back to the best connected one
+
+if [[ $1 == output ]]; then
+    cur=$(wpctl inspect @DEFAULT_AUDIO_SINK@ | awk 'NR==1 {print $2+0}')
+    # Outputs: id and name; a monitor by its own name ([DELL S2725QC])
+    mapfile -t sinks < <(pw-dump | jq -r '.[] | select(.info.props["media.class"] == "Audio/Sink")
+        | .info.props["node.description"] as $d | "\(.id)\t\($d | capture("\\[(?<m>.*)\\]$").m // $d)"')
+    i=$({ for s in "${sinks[@]}"; do
+            [[ ${s%%$'\t'*} == "$cur" ]] && echo "${s#*$'\t'}   ·   in use" || echo "${s#*$'\t'}"
+          done; echo "Automatic (best connected)"; } |
+        fuzzel --dmenu --index --no-icons --mesg "Sound output" --lines 8 --minimal-lines --width 46) || exit
+    if (( i == ${#sinks[@]} )); then
+        wpctl clear-default && notify-send -a sound "Sound: automatic"
+    else
+        wpctl set-default "${sinks[i]%%$'\t'*}" && notify-send -a sound "Sound: ${sinks[i]#*$'\t'}"
+    fi
+    exit
+fi
 
 case $1 in
     up|down|mute) dev=@DEFAULT_AUDIO_SINK@;   name=Volume; app=volume ;;
@@ -13,7 +31,7 @@ case $1 in
     up|mic-up)     wpctl set-mute $dev 0; wpctl set-volume -l 1.0 $dev 5%+ ;;
     down|mic-down) wpctl set-mute $dev 0; wpctl set-volume $dev 5%- ;;
     mute|mic-mute) wpctl set-mute $dev toggle ;;
-    *) echo "Usage: sound up|down|mute|mic-up|mic-down|mic-mute"; exit 1 ;;
+    *) echo "Usage: sound up|down|mute|mic-up|mic-down|mic-mute|output"; exit 1 ;;
 esac
 
 out=$(wpctl get-volume $dev) || exit

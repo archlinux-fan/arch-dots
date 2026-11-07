@@ -172,9 +172,10 @@
 		"format": "{icon} {volume}%",
 		"format-muted": " {volume}%",
 		"format-icons": ["", "", ""],
-		"tooltip-format": "Output: {node_name}\n\nLeft click: mute\nMiddle click: mixer\nScroll: volume",
+		"tooltip-format": "Output: {node_name}\n\nLeft click: mute\nMiddle click: mixer\nRight click: output (Super+Alt+S)\nScroll: volume",
 		"on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-		"on-click-middle": "pavucontrol"
+		"on-click-middle": "pavucontrol",
+		"on-click-right": "sound output"
 	},
 
 	"wireplumber#source": {
