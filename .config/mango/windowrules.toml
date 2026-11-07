@@ -57,6 +57,13 @@ app_id = "pavucontrol$"
 width  = 800
 height = 600
 
+# nmtui (waybar Wi-Fi middle click): in the middle, just big enough for Edit Connection
+[[rule.window_rule]]
+title       = "^nmtui$"
+is_floating = 1
+width       = 780
+height      = 560
+
 # ── Always on top ───────────────────────────────────────────
 # Password prompt of the polkit agent: never behind other windows
 [[rule.window_rule]]

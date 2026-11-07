@@ -214,7 +214,8 @@
 		"interval": 2,
 		"format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
 		"format-ethernet": "",
-		"on-click-middle": "footclient --title=mango-update nmtui",
+		// nmtui draws once for the size at start, so it waits until mango has made the window small (windowrules.toml)
+		"on-click-middle": "footclient --title=nmtui sh -c 'sleep 0.3; exec nmtui'",
 		"on-click-right": "net-menu wifi"
 	},
 
