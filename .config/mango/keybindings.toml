@@ -174,8 +174,8 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 # Super+Print: click a window, save + copy
 "SUPER+Print"       = 'spawn_shell,$shot g=$(mmsg get all-clients | jq -r ".clients[]|select(.is_visible)|\"\(.x),\(.y) \(.width)x\(.height)\"" | slurp -r) && grim -g "$g" "$f"; $copy'
 # Shift+Print: frozen screen. grim takes this monitor at once (an open menu stays in the picture),
-# satty shows it over the whole screen to crop; Enter saves + copies, Escape cancels
-"SHIFT+Print"       = 'spawn_shell,$shot grim -o "$mon" /tmp/shot.png && satty -f /tmp/shot.png -o "$f" --fullscreen --init-tool crop --actions-on-enter save-to-clipboard,save-to-file,exit --actions-on-escape exit'
+# satty opens it in a floating window (as big as ristretto, windowrules.toml) to crop; Enter saves + copies, Escape cancels
+"SHIFT+Print"       = 'spawn_shell,$shot grim -o "$mon" /tmp/shot.png && satty -f /tmp/shot.png -o "$f" --init-tool crop --actions-on-enter save-to-clipboard,save-to-file,exit --actions-on-escape exit'
 # Super+Shift+Print: click a monitor, save + copy
 "SUPER+SHIFT+Print" = 'spawn_shell,$shot g=$(slurp -or) && grim -g "$g" "$f"; $copy'
 

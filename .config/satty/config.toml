@@ -1,4 +1,5 @@
 # satty: screenshot editor (Print, Shift+Print in mango keybindings.toml)
 [general]
-# Copy through wl-copy, so the picture stays in the clipboard after satty closes
-copy-command = "wl-copy"
+# Copy through wl-copy, so the picture stays in the clipboard after satty closes;
+# -t image/png, else wl-copy offers it as text (no xdg-utils to guess the type) and pasting gives nothing
+copy-command = "wl-copy -t image/png"
