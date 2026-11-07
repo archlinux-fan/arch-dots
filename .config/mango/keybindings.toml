@@ -18,8 +18,8 @@
 shot   = 'f=$HOME/pictures/screenshots/$(date +%Y%m%d-%H%M%S).png;'
 # Name of the monitor with focus
 mon    = '$(mmsg get all-monitors|jq -r ".monitors[]|select(.active).name")'
-# Copy the screenshot, show it in a notification
-copy   = 'wl-copy < "$f" && notify-send -i "$f" -a screenshot Screenshot "$f"'
+# Copy the screenshot (as image/png: wl-copy guesses text without xdg-utils), show it in a notification
+copy   = 'wl-copy -t image/png < "$f" && notify-send -i "$f" -a screenshot Screenshot "$f"'
 # All monitors off / on, as in swayidle.conf; a disabled panel (lid) stays off
 screens_off = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.width>0).name'); do mmsg dispatch sleep_monitor,^$m$; done"
 screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.width>0).name'); do mmsg dispatch wakeup_monitor,^$m$; done"
