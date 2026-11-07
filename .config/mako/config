@@ -14,6 +14,9 @@ text-alignment=center
 default-timeout=5000
 ignore-timeout=0
 
+# Middle click: the notification's actions (its buttons) as a fuzzel menu
+on-button-middle=exec makoctl menu -n "$id" fuzzel --dmenu --no-icons --mesg Actions
+
 # Nord0 background, Nord4 text, Nord8 border
 background-color=#2E3440
 text-color=#d8dee9
