@@ -265,11 +265,12 @@
 		"format-icons": {"charging": [""], "plugged": [""], "default": ["","","","",""]},
 	},
 
-	// Middle click reboots, right click powers off; both ask first
+	// Left click locks, middle click reboots, right click powers off; all ask first
 	"custom/power": {
 		"format": "{icon}",
 		"format-icons": {"default": [""]},
-		"tooltip-format": "<b>Power</b>\n\nMiddle click: reboot\nRight click: power off",
+		"tooltip-format": "<b>Power</b>\n\nLeft click: lock (Super+L)\nMiddle click: reboot\nRight click: power off",
+		"on-click": "power-confirm lock",
 		"on-click-middle": "power-confirm reboot",
 		"on-click-right": "power-confirm poweroff"
 	}

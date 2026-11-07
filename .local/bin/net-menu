@@ -19,6 +19,8 @@ devices() {
 
 case $1 in
     wifi)
+        # A list older than 30 s makes nmcli wait ~4 s for a scan, so show the last list now and scan for the next time
+        nmcli dev wifi rescan 2>/dev/null &
         # SSID with signal, each SSID once (nmcli lists every access point), the connected one first; IN-USE is * or a space
         declare -A seen; ssids=(); secs=(); lines=()
         while IFS=: read -r inuse signal security ssid; do
@@ -28,7 +30,7 @@ case $1 in
             line="$signal%   $ssid"; [[ $security ]] || line+="   ·   open"
             [[ $inuse == "*" ]] && { line+="   ·   connected (pick to disconnect)"; on=$ssid; }
             lines+=("$line")
-        done < <(nmcli -g IN-USE,SIGNAL,SECURITY,SSID dev wifi list | sort -t: -k1,1r -k2,2nr)
+        done < <(nmcli -g IN-USE,SIGNAL,SECURITY,SSID dev wifi list --rescan no | sort -t: -k1,1r -k2,2nr)
         i=$(printf '%s\n' "${lines[@]}" | menu "Wi-Fi") || exit
         ssid=${ssids[i]}
         # Connected network: disconnect (stays off until picked again or the next boot)

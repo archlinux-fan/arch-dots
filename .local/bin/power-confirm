@@ -1,15 +1,16 @@
 #!/bin/bash
-# "Reboot?" / "Power off?" as a small fuzzel menu (Nord, ~/.config/fuzzel/fuzzel.ini),
+# "Lock?" / "Reboot?" / "Power off?" as a small fuzzel menu (Nord, ~/.config/fuzzel/fuzzel.ini),
 # Cancel selected first: Enter or a click picks, Escape cancels.
 # Used by keybindings.toml and the waybar power icon.
-# Usage: power-confirm reboot|poweroff
+# Usage: power-confirm lock|reboot|poweroff
 
 case $1 in
-    reboot)   question="Reboot?" ;;
-    poweroff) question="Power off?" ;;
+    lock)     question="Lock?";      cmd=swaylock ;;
+    reboot)   question="Reboot?";    cmd="systemctl reboot" ;;
+    poweroff) question="Power off?"; cmd="systemctl poweroff" ;;
     *)        exit 1 ;;
 esac
 
 choice=$(printf 'Cancel\nYes\n' |
     fuzzel --dmenu --hide-prompt --no-icons --mesg "$question" --lines 2 --width 22)
-[[ $choice == Yes ]] && systemctl "$1"
+[[ $choice == Yes ]] && $cmd
