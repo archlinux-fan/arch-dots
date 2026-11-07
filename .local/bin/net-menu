@@ -1,12 +1,21 @@
 #!/bin/bash
 # Wi-Fi and Bluetooth in a fuzzel menu (Nord, ~/.config/fuzzel/fuzzel.ini).
 #   net-menu wifi  networks from nmcli, strongest first: pick one to connect,
-#                  a new secured one asks for its password
+#                  a new secured one asks for its password; pick the connected one to disconnect
 #   net-menu bt    paired devices from BlueZ (busctl, as ~/.local/bin/bt):
-#                  pick one to connect, or to disconnect it when connected
-# Started by keybindings.toml (Super+Alt+W / Super+Alt+B) and a middle click on Wi-Fi / Bluetooth in waybar.
+#                  pick one to connect, or to disconnect it when connected;
+#                  "Pair new device" searches 10 s, then pairs, trusts and connects the picked one
+#                  (no PIN entry: headphones, mice, speakers work, a keyboard asking for a PIN doesn't)
+# Started by keybindings.toml (Super+Alt+W / Super+Alt+B) and waybar (Wi-Fi right click, Bluetooth middle click).
 
-menu() { fuzzel --dmenu --index --no-icons --mesg "$1" --placeholder "Type to filter" --lines 10 --minimal-lines --width 40; }
+menu() { fuzzel --dmenu --index --no-icons --mesg "$1" --placeholder "Type to filter" --lines 10 --minimal-lines --width 46; }
+
+# BlueZ devices matching a jq filter on $d: object path, connected, name
+devices() {
+    busctl --json=short call org.bluez / org.freedesktop.DBus.ObjectManager GetManagedObjects |
+        jq -r ".data[0] | to_entries[] | .value[\"org.bluez.Device1\"] as \$d | select(\$d) | select($1)
+            | \"\(.key)\t\(\$d.Connected.data)\t\(\$d.Alias.data)\""
+}
 
 case $1 in
     wifi)
@@ -16,11 +25,18 @@ case $1 in
             ssid=${ssid//\\:/:}
             [[ -z $ssid || ${seen[$ssid]} ]] && continue
             seen[$ssid]=1; ssids+=("$ssid"); secs+=("$security")
-            line="$signal%   $ssid"; [[ $security ]] || line+="   ·   open"; [[ $inuse == "*" ]] && line+="   ·   connected"
+            line="$signal%   $ssid"; [[ $security ]] || line+="   ·   open"
+            [[ $inuse == "*" ]] && { line+="   ·   connected (pick to disconnect)"; on=$ssid; }
             lines+=("$line")
         done < <(nmcli -g IN-USE,SIGNAL,SECURITY,SSID dev wifi list | sort -t: -k1,1r -k2,2nr)
         i=$(printf '%s\n' "${lines[@]}" | menu "Wi-Fi") || exit
         ssid=${ssids[i]}
+        # Connected network: disconnect (stays off until picked again or the next boot)
+        if [[ $ssid == "$on" ]]; then
+            nmcli dev disconnect "$(nmcli -g DEVICE,TYPE dev | sed -n '/:wifi$/{s///p;q}')" >/dev/null &&
+                notify-send -a wifi "Disconnected from $ssid"
+            exit
+        fi
         # Known network: its saved profile; new one: password if secured
         if nmcli -g NAME con show | grep -Fxq "$ssid"; then
             out=$(nmcli con up id "$ssid" 2>&1)
@@ -31,15 +47,31 @@ case $1 in
             out=$(nmcli dev wifi connect "$ssid" 2>&1)
         fi && notify-send -a wifi "Connected to $ssid" || notify-send -u critical -a wifi "$ssid: not connected" "$out" ;;
     bt)
-        # Paired devices: object path, connected, name
-        mapfile -t devs < <(busctl --json=short call org.bluez / org.freedesktop.DBus.ObjectManager GetManagedObjects |
-            jq -r '.data[0] | to_entries[] | .value["org.bluez.Device1"] as $d | select($d.Paired.data)
-                | "\(.key)\t\($d.Connected.data)\t\($d.Alias.data)"')
-        (( ${#devs[@]} )) || { notify-send -a bluetooth "No paired Bluetooth devices"; exit; }
-        i=$(for d in "${devs[@]}"; do
+        mapfile -t devs < <(devices '$d.Paired.data')
+        i=$({ for d in "${devs[@]}"; do
                 IFS=$'\t' read -r path con name <<< "$d"
                 [[ $con == true ]] && echo "$name   ·   connected (pick to disconnect)" || echo "$name"
-            done | menu "Bluetooth") || exit
+            done; echo "Pair new device"; } | menu "Bluetooth") || exit
+        if (( i == ${#devs[@]} )); then
+            notify-send -a bluetooth "Searching for 10 s" "Put the device in pairing mode"
+            # BlueZ stops searching when the program that started it quits, so python holds it for 10 s
+            python3 -c 'import dbus, time
+dbus.Interface(dbus.SystemBus().get_object("org.bluez", "/org/bluez/hci0"), "org.bluez.Adapter1").StartDiscovery()
+time.sleep(10)'
+            # New devices with a name (unnamed ones only show their address)
+            mapfile -t devs < <(devices '($d.Paired.data | not) and $d.Name')
+            (( ${#devs[@]} )) || { notify-send -a bluetooth "No new Bluetooth devices found"; exit; }
+            i=$(printf '%s\n' "${devs[@]}" | cut -f3 | menu "Pair new device") || exit
+            IFS=$'\t' read -r path con name <<< "${devs[i]}"
+            if busctl --timeout=60 call org.bluez "$path" org.bluez.Device1 Pair &&
+                busctl set-property org.bluez "$path" org.bluez.Device1 Trusted b true; then
+                busctl call org.bluez "$path" org.bluez.Device1 Connect 2>/dev/null
+                notify-send -a bluetooth "$name paired"
+            else
+                notify-send -u critical -a bluetooth "$name: not paired"
+            fi
+            exit
+        fi
         IFS=$'\t' read -r path con name <<< "${devs[i]}"
         if [[ $con == true ]]; then
             busctl call org.bluez "$path" org.bluez.Device1 Disconnect && notify-send -a bluetooth "$name disconnected"

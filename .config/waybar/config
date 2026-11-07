@@ -207,14 +207,15 @@
 		"format-wifi": " {signalStrength}%",
 		"format-alt": " ↓{bandwidthDownBytes} ↑{bandwidthUpBytes}",
 		// The plain tooltip-format is also used after a left click (speed), so it has the Wi-Fi details
-		"tooltip-format": "<b>Wi-Fi:</b> {essid}\n<b>Wlan card:</b> {ifname}\n<b>IP:</b> {ipaddr}/{cidr}\n<b>Signal:</b> {signaldBm} dBm\n<b>Frequency:</b> {frequency} GHz\n<b>Down:</b> {bandwidthDownBits} <b>Up:</b> {bandwidthUpBits}\n\nLeft click: speed\nMiddle click: Wi-Fi menu (Super+Alt+W)",
-		"tooltip-format-ethernet": "<b>Network:</b> {ifname}\n<b>IP:</b> {ipaddr}/{cidr}\n<b>Down:</b> {bandwidthDownBits} <b>Up:</b> {bandwidthUpBits}\n\nLeft click: speed\nMiddle click: Wi-Fi menu (Super+Alt+W)",
+		"tooltip-format": "<b>Wi-Fi:</b> {essid}\n<b>Wlan card:</b> {ifname}\n<b>IP:</b> {ipaddr}/{cidr}\n<b>Signal:</b> {signaldBm} dBm\n<b>Frequency:</b> {frequency} GHz\n<b>Down:</b> {bandwidthDownBits} <b>Up:</b> {bandwidthUpBits}\n\nLeft click: speed\nMiddle click: nmtui\nRight click: Wi-Fi menu (Super+Alt+W)",
+		"tooltip-format-ethernet": "<b>Network:</b> {ifname}\n<b>IP:</b> {ipaddr}/{cidr}\n<b>Down:</b> {bandwidthDownBits} <b>Up:</b> {bandwidthUpBits}\n\nLeft click: speed\nMiddle click: nmtui\nRight click: Wi-Fi menu (Super+Alt+W)",
 		"format-disconnected": "",
 		"format-disabled": "",
 		"interval": 2,
 		"format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
 		"format-ethernet": "",
-		"on-click-middle": "net-menu wifi"
+		"on-click-middle": "footclient --title=mango-update nmtui",
+		"on-click-right": "net-menu wifi"
 	},
 
 	// Time; the tooltip shows a calendar

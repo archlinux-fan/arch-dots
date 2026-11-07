@@ -5,11 +5,11 @@
 # Usage: power-confirm reboot|poweroff
 
 case $1 in
-    reboot)   question="Reboot?";    yes="Reboot" ;;
-    poweroff) question="Power off?"; yes="Power off" ;;
+    reboot)   question="Reboot?" ;;
+    poweroff) question="Power off?" ;;
     *)        exit 1 ;;
 esac
 
-choice=$(printf 'Cancel\n%s\n' "$yes" |
+choice=$(printf 'Cancel\nYes\n' |
     fuzzel --dmenu --hide-prompt --no-icons --mesg "$question" --lines 2 --width 22)
-[[ $choice == "$yes" ]] && systemctl "$1"
+[[ $choice == Yes ]] && systemctl "$1"
