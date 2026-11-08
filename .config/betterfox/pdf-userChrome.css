@@ -1,2 +1,4 @@
+:root { --accent: #81a1c1; }
+
 /* PDF profile: only the document, no tabs or address bar */
 #navigator-toolbox { display: none !important; }

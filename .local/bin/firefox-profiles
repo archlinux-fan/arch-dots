@@ -50,9 +50,11 @@ for n in "${profiles[@]}" pdf; do
         [ -f "$bf/bookmarks/$n.jsonlz4" ] && install -Dm644 "$bf/bookmarks/$n.jsonlz4" "$d/bookmarkbackups/bookmarks-2000-01-01.jsonlz4"
     fi
     cat "$bf/user.js" "$bf/overrides.js" > "$d/user.js"
+    # Nord theme, for profiles with their own <profile>-userChrome.css
+    [ -f "$bf/$n-userChrome.css" ] && mkdir -p "$d/chrome" && cat "$bf/$n-userChrome.css" "$bf/nord-userChrome.css" > "$d/chrome/userChrome.css"
     if [[ $n == pdf ]]; then
         cat "$bf/pdf.js" >> "$d/user.js"
-        install -Dm644 "$bf/pdf-userChrome.css" "$d/chrome/userChrome.css"
+        install -Dm644 "$bf/pdf-userContent.css" "$d/chrome/userContent.css"
         rm -f "$d/extensions/$ublock.xpi"
     else
         add "$d" "$ublock" ublock-origin

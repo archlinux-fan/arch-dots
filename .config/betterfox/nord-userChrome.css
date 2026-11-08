@@ -1,0 +1,38 @@
+/* Nord like Thunar (Nordic GTK theme); --accent comes from <profile>-userChrome.css */
+:root {
+  --toolbox-background-color: #2b313c !important;
+  --toolbox-background-color-inactive: #2b313c !important;
+  --toolbox-text-color: var(--accent) !important;
+  --toolbox-text-color-inactive: var(--accent) !important;
+  --toolbar-background-color: #2b313c !important;
+  --toolbar-text-color: var(--accent) !important;
+  --toolbarbutton-icon-fill: var(--accent) !important;
+  --toolbar-field-background-color: #3b4252 !important;
+  --toolbar-field-background-color-focus: #3b4252 !important;
+  --toolbar-field-text-color: #d8dee9 !important;
+  --toolbar-field-text-color-focus: #d8dee9 !important;
+  --toolbar-field-border-color-focus: var(--accent) !important;
+  --sidebar-background-color: #3b4252 !important;
+  --sidebar-text-color: #d8dee9 !important;
+  --sidebar-border-color: #232831 !important;
+  --tab-background-color-selected: var(--accent) !important;
+  --tabpanel-background-color: #3b4252 !important;
+  --chrome-content-separator-color: #232831 !important;
+  --panel-background-color: #2b313c !important;
+  --panel-text-color: var(--accent) !important;
+  --panel-border-color: #232831 !important;
+  --focus-outline-color: var(--accent) !important;
+  --color-accent-primary: var(--accent) !important;
+  --tab-border-radius: 8px !important;
+}
+
+/* Selected pinned tab: only a ring, the favicon stays visible */
+.tabbrowser-tab[pinned][selected] .tab-background {
+  background-color: #434c5e !important;
+  outline: 2px solid var(--accent) !important;
+  outline-offset: -2px !important;
+}
+
+/* The selected tab is filled with the accent, so its text is dark */
+.tabbrowser-tab[selected] .tab-label,
+.tabbrowser-tab[selected] .tab-close-button { color: #2b313c !important; }
