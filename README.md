@@ -111,7 +111,7 @@ A private repo can list its own profiles in `~/.config/betterfox/profiles`:
 main=personal
 profiles=(personal work)
 bitwarden=(personal work)
-english=(personal work)                # British English menus and spell check, see english.js
+english=(personal work)                # English spell check, see english.js
 remove=(default default-release)
 ```
 
