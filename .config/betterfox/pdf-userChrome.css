@@ -1,0 +1,2 @@
+/* PDF profile: only the document, no tabs or address bar */
+#navigator-toolbox { display: none !important; }

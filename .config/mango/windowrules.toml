@@ -83,6 +83,13 @@ is_global  = 1
 app_id = '^com\.lite_xl\.LiteXL$'
 tags   = 5
 
+# PDFs in Firefox (firefox-pdf.desktop, --name sets the app_id); float as big as ristretto
+[[rule.window_rule]]
+app_id      = '^firefox-pdf$'
+is_floating = 1
+width       = 0.98
+height      = 0.94
+
 # btop / htop (Ctrl+Shift+Esc, Super+Shift+Esc)
 [[rule.window_rule]]
 app_id = "^footclient$"

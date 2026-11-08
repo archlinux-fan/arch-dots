@@ -1,0 +1,70 @@
+#!/bin/bash
+# Creates the Firefox profiles, writes their user.js and adds extensions.
+# Run it with Firefox closed, as often as you like (also after updating Betterfox).
+# Everyone gets "default" and "pdf"; ~/.config/betterfox/profiles (private repo) can change the lists below.
+
+main=default        # profile of a plain "firefox"
+profiles=(default)  # get uBlock Origin; pdf is always made, without extensions
+bitwarden=()        # get Bitwarden too
+remove=()           # deleted, with all their data
+
+bf=~/.config/betterfox
+ff=~/.config/mozilla/firefox
+ini=$ff/profiles.ini
+install=4F96D1932A9F858E  # Firefox's id for /usr/lib/firefox
+ublock=uBlock0@raymondhill.net
+bw='{446900e4-71c2-419f-a6a7-df9c091e268b}'
+
+[ -f "$bf/profiles" ] && . "$bf/profiles"
+pgrep -x firefox >/dev/null && { echo "Close Firefox first."; exit 1; }
+
+# Profile folder by name
+path() { awk -F= -v n="$1" '$1=="Name"{m=$2} $1=="Path"&&m==n{print $2; exit}' "$ini" 2>/dev/null; }
+
+# Extension in the profile, allowed in private windows; args: profile folder, id, addons.mozilla.org name
+add() {
+    local f=$1/extension-preferences.json
+    mkdir -p "$1/extensions"
+    [ -f "$1/extensions/$2.xpi" ] || curl -fsSLo "$1/extensions/$2.xpi" \
+        "https://addons.mozilla.org/firefox/downloads/latest/$3/latest.xpi" || { echo "$3: download failed"; return; }
+    [ -s "$f" ] || echo '{}' > "$f"
+    jq --arg id "$2" '.[$id] = {permissions: ((.[$id].permissions // []) + ["internal:privateBrowsingAllowed"] | unique),
+        origins: (.[$id].origins // []), data_collection: (.[$id].data_collection // [])}' "$f" > "$f.new" && mv "$f.new" "$f"
+}
+
+for n in "${remove[@]}"; do
+    [[ " ${profiles[*]} pdf " == *" $n "* ]] && continue
+    p=$(path "$n")
+    [ -n "$p" ] || continue
+    rm -rf "${ff:?}/$p"
+    awk -v RS= -v ORS='\n\n' -v n="$n" '$0 !~ "(^|\n)Name=" n "(\n|$)"' "$ini" > "$ini.new" && mv "$ini.new" "$ini"
+done
+
+for n in "${profiles[@]}" pdf; do
+    [ -n "$(path "$n")" ] || firefox --headless --CreateProfile "$n" >/dev/null 2>&1
+    d=$ff/$(path "$n")
+    # Only before the first start: start page, toolbars and bookmarks of the private repo
+    if [ ! -e "$d/prefs.js" ]; then
+        [ -f "$bf/seed/$n.js" ] && cp "$bf/seed/$n.js" "$d/prefs.js"
+        [ -f "$bf/bookmarks/$n.jsonlz4" ] && install -Dm644 "$bf/bookmarks/$n.jsonlz4" "$d/bookmarkbackups/bookmarks-2000-01-01.jsonlz4"
+    fi
+    cat "$bf/user.js" "$bf/overrides.js" > "$d/user.js"
+    if [[ $n == pdf ]]; then
+        cat "$bf/pdf.js" >> "$d/user.js"
+        install -Dm644 "$bf/pdf-userChrome.css" "$d/chrome/userChrome.css"
+        rm -f "$d/extensions/$ublock.xpi"
+    else
+        add "$d" "$ublock" ublock-origin
+        [[ " ${bitwarden[*]} " == *" $n "* ]] && add "$d" "$bw" bitwarden-password-manager
+    fi
+done
+
+# The profile a plain "firefox" opens
+p=$(path "$main")
+sed -i "/^\[Install$install\]/,/^$/d" "$ini"
+printf '[Install%s]\nDefault=%s\nLocked=1\n\n' "$install" "$p" >> "$ini"
+printf '[%s]\nDefault=%s\nLocked=1\n\n' "$install" "$p" > "$ff/installs.ini"
+
+# PDFs open in the pdf profile; a linked mimeapps.list already says so
+[ -L ~/.config/mimeapps.list ] || gio mime application/pdf firefox-pdf.desktop >/dev/null
+echo "Firefox profiles ready: ${profiles[*]} pdf"

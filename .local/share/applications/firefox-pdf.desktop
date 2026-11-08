@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Firefox PDF
+Exec=firefox -P pdf --new-window --name firefox-pdf %u
+MimeType=application/pdf;
+NoDisplay=true

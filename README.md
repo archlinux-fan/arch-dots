@@ -101,6 +101,21 @@ gsettings set org.gnome.desktop.interface font-name 'Noto Sans 11'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 ```
 
+## Firefox
+
+`firefox-profiles` (arch-install runs it) makes the profiles `default` with uBlock Origin and `pdf` for PDF files, without extensions, tabs or toolbars, and writes [Betterfox](https://github.com/yokoffing/Betterfox) with `.config/betterfox/overrides.js` into them. Run it again, with Firefox closed, after changing those files.
+
+A private repo can list its own profiles in `~/.config/betterfox/profiles`:
+
+```bash
+main=personal
+profiles=(personal work)
+bitwarden=(personal work)
+remove=(default default-release)
+```
+
+`seed/<profile>.js` (first start only) and `bookmarks/<profile>.jsonlz4` next to it are used when a profile is created.
+
 ## License
 
 [MIT](LICENSE): use, change and share it as you like; keep the copyright notice.
