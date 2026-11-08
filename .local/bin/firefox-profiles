@@ -6,6 +6,7 @@
 main=default        # profile of a plain "firefox"
 profiles=(default)  # get uBlock Origin; pdf is always made, without extensions
 bitwarden=()        # get Bitwarden too
+english=()          # British English menus and spell check (english.js)
 remove=()           # deleted, with all their data
 
 bf=~/.config/betterfox
@@ -14,6 +15,7 @@ ini=$ff/profiles.ini
 install=4F96D1932A9F858E  # Firefox's id for /usr/lib/firefox
 ublock=uBlock0@raymondhill.net
 bw='{446900e4-71c2-419f-a6a7-df9c091e268b}'
+amo=https://addons.mozilla.org/firefox/downloads/latest
 
 [ -f "$bf/profiles" ] && . "$bf/profiles"
 pgrep -x firefox >/dev/null && { echo "Close Firefox first."; exit 1; }
@@ -21,12 +23,11 @@ pgrep -x firefox >/dev/null && { echo "Close Firefox first."; exit 1; }
 # Profile folder by name
 path() { awk -F= -v n="$1" '$1=="Name"{m=$2} $1=="Path"&&m==n{print $2; exit}' "$ini" 2>/dev/null; }
 
-# Extension in the profile, allowed in private windows; args: profile folder, id, addons.mozilla.org name
+# Extension in the profile, allowed in private windows; args: profile folder, id, download address
 add() {
     local f=$1/extension-preferences.json
     mkdir -p "$1/extensions"
-    [ -f "$1/extensions/$2.xpi" ] || curl -fsSLo "$1/extensions/$2.xpi" \
-        "https://addons.mozilla.org/firefox/downloads/latest/$3/latest.xpi" || { echo "$3: download failed"; return; }
+    [ -f "$1/extensions/$2.xpi" ] || curl -fsSLo "$1/extensions/$2.xpi" "$3" || { echo "$3: download failed"; return; }
     [ -s "$f" ] || echo '{}' > "$f"
     jq --arg id "$2" '.[$id] = {permissions: ((.[$id].permissions // []) + ["internal:privateBrowsingAllowed"] | unique),
         origins: (.[$id].origins // []), data_collection: (.[$id].data_collection // [])}' "$f" > "$f.new" && mv "$f.new" "$f"
@@ -54,8 +55,15 @@ for n in "${profiles[@]}" pdf; do
         install -Dm644 "$bf/pdf-userChrome.css" "$d/chrome/userChrome.css"
         rm -f "$d/extensions/$ublock.xpi"
     else
-        add "$d" "$ublock" ublock-origin
-        [[ " ${bitwarden[*]} " == *" $n "* ]] && add "$d" "$bw" bitwarden-password-manager
+        add "$d" "$ublock" "$amo/ublock-origin/latest.xpi"
+        [[ " ${bitwarden[*]} " == *" $n "* ]] && add "$d" "$bw" "$amo/bitwarden-password-manager/latest.xpi"
+        if [[ " ${english[*]} " == *" $n "* ]]; then
+            cat "$bf/english.js" >> "$d/user.js"
+            add "$d" marcoagpinto@mail.telepac.pt "$amo/british-english-dictionary-2/latest.xpi"
+            # The language pack must match the Firefox version, addons.mozilla.org only has the newest
+            add "$d" langpack-en-GB@firefox.mozilla.org \
+                "https://releases.mozilla.org/pub/firefox/releases/$(firefox --version | awk '{print $NF}')/linux-x86_64/xpi/en-GB.xpi"
+        fi
     fi
 done
 
