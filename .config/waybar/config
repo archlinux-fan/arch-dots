@@ -44,7 +44,9 @@
 		"on-click-right": "minimize",
 		"rewrite": {
 			"Thunar File Manager": "  Thunar",
-			"Firefox": "  Firefox",
+			"Firefox": "  Firefox",
+			"Mozilla Firefox": "  Firefox",
+			"Firefox PDF": "  PDF",
 			"Foot": "  Foot",
 			"Foot Client": "  Foot",
 			"Lite XL": "  Lite XL",
