@@ -2,6 +2,8 @@
 user_pref("browser.safebrowsing.downloads.remote.enabled", false);
 user_pref("network.trr.mode", 5);
 user_pref("signon.rememberSignons", false);
+// Translations run on this computer; no popup, the icon in the address bar stays
+user_pref("browser.translations.automaticallyPopup", false);
 // Extensions placed by firefox-profiles start enabled
 user_pref("extensions.autoDisableScopes", 0);
 

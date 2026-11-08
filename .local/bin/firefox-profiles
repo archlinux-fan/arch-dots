@@ -67,4 +67,9 @@ printf '[%s]\nDefault=%s\nLocked=1\n\n' "$install" "$p" > "$ff/installs.ini"
 
 # PDFs open in the pdf profile; a linked mimeapps.list already says so
 [ -L ~/.config/mimeapps.list ] || gio mime application/pdf firefox-pdf.desktop >/dev/null
+
+# New tab shows a local homepage: Firefox has no setting for it, so two files next to the program (sudo only if they differ)
+for f in firefox.cfg defaults/pref/autoconfig.js; do
+    cmp -s "$bf/${f##*/}" "/usr/lib/firefox/$f" || sudo install -Dm644 "$bf/${f##*/}" "/usr/lib/firefox/$f"
+done
 echo "Firefox profiles ready: ${profiles[*]} pdf"

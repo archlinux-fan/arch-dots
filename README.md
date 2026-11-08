@@ -103,7 +103,7 @@ gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
 ## Firefox
 
-`firefox-profiles` (arch-install runs it) makes the profiles `default` with uBlock Origin and `pdf` for PDF files, without extensions, tabs or toolbars, and writes [Betterfox](https://github.com/yokoffing/Betterfox) with `.config/betterfox/overrides.js` into them. Run it again, with Firefox closed, after changing those files.
+`firefox-profiles` (arch-install runs it) makes the profiles `default` with uBlock Origin and `pdf` for PDF files, without extensions, tabs or toolbars, and writes [Betterfox](https://github.com/yokoffing/Betterfox) with `.config/betterfox/overrides.js` into them. Run it again, with Firefox closed, after changing those files. It also puts `firefox.cfg` next to Firefox (asks for sudo when that changes), so a new tab shows the homepage if that is a local file.
 
 A private repo can list its own profiles in `~/.config/betterfox/profiles`:
 

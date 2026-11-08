@@ -62,6 +62,7 @@ enable_border_resize              = 1  # drag a window border to resize (resize_
 border_resize_size                = 10
 drag_tile_to_tile                 = 1  # Super+drag a tiled window onto another: they swap
 drag_tile_small                   = 1
+drag_corner                       = 4  # Super+right drag resizes from the corner nearest the cursor
 float_full_to_top                 = 0
 cursor_hide_on_keypress           = 1  # pointer hides while typing
 cursor_hide_timeout               = 0  # seconds without movement before it hides, 0 = never
