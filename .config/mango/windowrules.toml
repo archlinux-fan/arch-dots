@@ -71,7 +71,7 @@ app_id      = "^polkit-gnome-authentication-agent-1$"
 is_floating = 1
 is_overlay  = 1
 
-# Brave video pop-out: on top and on every tag
+# Firefox video pop-out: on top and on every tag
 [[rule.window_rule]]
 title      = "^Picture-in-Picture$"
 is_overlay = 1
@@ -82,14 +82,6 @@ is_global  = 1
 [[rule.window_rule]]
 app_id = '^com\.lite_xl\.LiteXL$'
 tags   = 5
-
-# Bitwarden extension popup
-[[rule.window_rule]]
-app_id      = "^brave"
-title       = "^_crx_nngceckbapebfimnlniiiahkandclblb$"
-is_floating = 1
-width       = 480
-height      = 0.7
 
 # btop / htop (Ctrl+Shift+Esc, Super+Shift+Esc)
 [[rule.window_rule]]
@@ -114,7 +106,7 @@ height      = 0.9
 
 # Own opacity for one app
 # [[rule.window_rule]]
-# app_id            = "^brave"
+# app_id            = "^firefox"
 # unfocused_opacity = 1.0
 
 # Named scratchpad: Super+key shows / hides it (bind in keybindings.toml)

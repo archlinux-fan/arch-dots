@@ -11,7 +11,7 @@ local editor      = "lite-xl"
 --local editor      = "lite-xl ~/.config/lite-xl/ws/"
 local editor2     = "mousepad"
 local fileManager = "thunar"
-local browser     = "brave-origin"
+local browser     = "firefox"
 local menu        = "rofi -combi-modi window,drun,run -show combi -modi combi"
 
 -- ── Wallpaper variables ──────────────────────────────────────
@@ -128,9 +128,9 @@ hl.bind(mainMod .. " + SHIFT + F", hl.dsp.exec_cmd(
     'pkexec env WAYLAND_DISPLAY="$WAYLAND_DISPLAY" XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" DISPLAY="$DISPLAY" firewall-config'
 ))
 
--- Brave (profiles per key can be set in local.lua)
+-- Firefox (profiles per key can be set in local.lua)
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
-hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd(browser .. " --incognito"))
+hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd(browser .. " --private-window"))
 
 -- Audacious – open only if not already running
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd(

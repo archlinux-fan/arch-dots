@@ -21,8 +21,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("hyprpaper")
 
     -- Clipboard persistence – keeps clipboard alive after app closes.
-    -- The --ignore-empty flag avoids a freeze when copying in Brave
-    -- (pair with Brave flag: --ozone-platform-hint=wayland).
     hl.exec_cmd("wl-clip-persist --clipboard regular")
 
     -- Notification daemon

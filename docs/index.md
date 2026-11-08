@@ -11,7 +11,6 @@ screenshots:
   - { file: swaylock, text: "swaylock lock screen" }
   - { file: hyprlock, text: "hyprlock lock screen, if you install it instead" }
   - { file: confirm, text: "Reboot / power off asks first (power-confirm); power icon on hover" }
-  - { file: brave, text: "Brave with the startpage, vertical tabs collapsed" }
 ---
 
 # arch-dots

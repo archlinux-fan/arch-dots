@@ -34,7 +34,7 @@ circle_layout = [
 ]
 
 # Master and stack (tile, vertical_tile)
-# 0: a new window joins the stack, the first one stays master (Brave big, Thunar beside it).
+# 0: a new window joins the stack, the first one stays master (Firefox big, Thunar beside it).
 # In every layout it sets the order: 0 = new windows go last, 1 = first (fair keeps equal sizes)
 new_is_master         = 0
 default_master_factor = 0.6   # master 60 %, stack 40 %; Super+right drag on the border changes it

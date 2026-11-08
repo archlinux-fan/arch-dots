@@ -44,8 +44,6 @@
 		"on-click-right": "minimize",
 		"rewrite": {
 			"Thunar File Manager": "  Thunar",
-			"Brave": "  Brave",
-			"Brave Origin": " Brave",
 			"Firefox": "  Firefox",
 			"Foot": "  Foot",
 			"Foot Client": "  Foot",

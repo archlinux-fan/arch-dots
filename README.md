@@ -28,8 +28,8 @@ Muted sound or mic turns grey, the update counters go green, orange, red; hover 
 <tr><td>btop; an AUR update</td><td>satty screenshot editor; sound muted</td></tr>
 <tr><td width="50%"><img src="screenshots/swaylock.png" alt="swaylock lock screen"></td><td width="50%"><img src="screenshots/hyprlock.png" alt="hyprlock lock screen"></td></tr>
 <tr><td>swaylock lock screen</td><td>hyprlock lock screen, if you install it instead</td></tr>
-<tr><td width="50%"><img src="screenshots/confirm.png" alt="Reboot confirmation"></td><td width="50%"><img src="screenshots/brave.png" alt="Brave"></td></tr>
-<tr><td>Reboot / power off asks first (<code>power-confirm</code>); power icon on hover</td><td>Brave with the startpage, vertical tabs collapsed</td></tr>
+<tr><td width="50%"><img src="screenshots/confirm.png" alt="Reboot confirmation"></td></tr>
+<tr><td>Reboot / power off asks first (<code>power-confirm</code>); power icon on hover</td></tr>
 </table>
 
 Screenshots are 4K (3840x2160); click one for full size.

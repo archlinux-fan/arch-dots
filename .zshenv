@@ -11,7 +11,7 @@ export HISTFILE="$HOME/.local/share/zsh/zsh_history"
 export EDITOR=nano
 export VISUAL=nano
 export TERMINAL=foot
-export BROWSER=brave-origin
+export BROWSER=firefox
 
 # Update PATH
 export PATH="$HOME/.local/bin:$PATH"

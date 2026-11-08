@@ -5,7 +5,7 @@
 export EDITOR=nano
 export VISUAL=nano
 export TERMINAL=foot
-export BROWSER=brave-origin
+export BROWSER=firefox
 
 # Own scripts (bt, power-confirm ...), also for waybar and mango
 export PATH="$HOME/.local/bin:$PATH"

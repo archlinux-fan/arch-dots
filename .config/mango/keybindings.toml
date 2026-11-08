@@ -69,9 +69,9 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 "SUPER+SHIFT+m" = "spawn,$root $editor2"
 "SUPER+SHIFT+f" = "spawn,$root firewall-config"
 
-# Brave ($browser: local.toml can set a profile)
+# Firefox ($browser: local.toml can set a profile)
 "SUPER+b"       = "spawn,$browser"
-"SUPER+SHIFT+b" = "spawn,$browser --incognito"
+"SUPER+SHIFT+b" = "spawn,$browser --private-window"
 
 # Open only if not running yet
 "SUPER+o" = "spawn_shell,mmsg get all-clients | grep -qi obsidian || obsidian"
@@ -183,7 +183,7 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 # MANGO EXTRAS
 # ============================================================
 
-"SUPER+g"       = "toggleglobal"           # window on every tag
+# "SUPER+g"     = "toggleglobal"
 "SUPER+z"       = "togglemaximizescreen"   # maximize, bar and gaps stay
 "SUPER+n"       = "switch_layout"          # next layout of circle_layout (general.toml)
 "SUPER+d"       = "toggleoverview"         # every window of this monitor; click one

@@ -87,8 +87,8 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    name          = "brave-youtube-idle",
-    match         = { class = "brave.*", title = ".*YouTube.*" },
+    name          = "firefox-youtube-idle",
+    match         = { class = "firefox.*", title = ".*YouTube.*" },
     idle_inhibit  = "fullscreen",
 })
 
@@ -103,7 +103,7 @@ hl.window_rule({
     pin    = true,
 })
 
--- Brave video pop-out stays visible on every workspace
+-- Firefox video pop-out stays visible on every workspace
 hl.window_rule({
     name  = "picture-in-picture",
     match = { title = "^(Picture-in-Picture)$" },
@@ -117,14 +117,6 @@ hl.window_rule({
     name      = "litexl-workspace-5",
     match     = { class = "^com\\.lite_xl\\.LiteXL$" },
     workspace = "5",
-})
-
-hl.window_rule({
-    name  = "bitwarden-popup",
-    match = { class = "brave.*", title = "_crx_nngceckbapebfimnlniiiahkandclblb" },
-    float = true,
-    size  = { 480, "monitor_h*0.7" },
-    center = true,
 })
 
 hl.window_rule({
