@@ -17,6 +17,9 @@ exec_once = [
     # Wallpaper of the active tag on every monitor (swaybg)
     "~/.config/mango/wallpaper.sh",
 
+    # Bitwarden pop-out of Firefox floats, a window rule can't match it
+    "~/.config/mango/float-bitwarden.sh",
+
     # Clipboard keeps its content after the app that copied it closes
     "wl-clip-persist --clipboard regular",
 
