@@ -40,7 +40,7 @@ Muted sound or mic turns grey, the update counters go green, orange, red; hover 
 
 Screenshots are 4K (3840x2160); click one for full size.
 
-Wallpapers in all 16 Nord colours, and the script that makes them: [pictures/wallpapers](pictures/wallpapers/).
+Wallpapers in all 16 Nord colours, and the script that makes them: [wallpapers](wallpapers/).
 
 ## Keys
 
@@ -70,11 +70,13 @@ Super is the Windows key. All of them, with comments: [.config/mango/keybindings
 ## Install by hand
 
 arch-install does this for you. The repo mirrors your home folder (`~`): `.config/mango/config.toml` here
-belongs in `~/.config/mango/config.toml`. Copy its files into `~`, without the repo's own README, docs and screenshots:
+belongs in `~/.config/mango/config.toml`. Copy its files into `~`, without the repo's own README, docs and screenshots.
+The wallpapers are not linked or copied into `~`; mango reads them from `~/.dots/wallpapers`:
 
 ```bash
 git clone --depth 1 https://github.com/archlinux-fan/arch-dots /tmp/dots
-cp -r /tmp/dots/.config /tmp/dots/.local /tmp/dots/pictures /tmp/dots/.bash_profile /tmp/dots/.zshenv ~
+cp -r /tmp/dots/.config /tmp/dots/.local /tmp/dots/.bash_profile /tmp/dots/.zshenv ~
+mkdir -p ~/.dots && cp -r /tmp/dots/wallpapers ~/.dots
 ```
 
 Want your changes in git? Link the files instead of copying them: [stow](https://www.gnu.org/software/stow/)

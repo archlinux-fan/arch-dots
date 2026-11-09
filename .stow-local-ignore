@@ -7,5 +7,7 @@
 # Per-machine local settings files stay out of ~
 settings\.local\.json
 ^/screenshots
+^/showcase
+^/wallpapers
 # GitHub Pages site
 ^/docs

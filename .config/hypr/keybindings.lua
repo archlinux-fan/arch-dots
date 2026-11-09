@@ -16,9 +16,9 @@ local menu        = "rofi -combi-modi window,drun,run -show combi -modi combi"
 
 -- ── Wallpaper variables ──────────────────────────────────────
 local home = os.getenv("HOME")
-local wp   = home .. "/pictures/wallpapers/webp/"
+local wp   = home .. "/.dots/wallpapers/webp/"
 
--- Nord colours, made by ~/pictures/wallpapers/make-wallpaper.sh
+-- Nord colours, made by ~/.dots/wallpapers/make-wallpaper.sh
 local wallpapers = {
     wp .. "arch_nord1_2160p.webp",   -- 1 polar night
     wp .. "arch_nord13_2160p.webp",  -- 2 yellow
@@ -28,7 +28,7 @@ local wallpapers = {
     wp .. "arch_nord8_2160p.webp",   -- 6 cyan
     wp .. "arch_nord12_2160p.webp",  -- 7 orange
     wp .. "arch_nord15_2160p.webp",  -- 8 purple
-    wp .. "arch_nord6_light_2160p.webp",  -- 9 white
+    wp .. "arch_nord6_2160p.webp",   -- 9 white
     wp .. "arch_nord7_2160p.webp",   -- 0 frost
 }
 

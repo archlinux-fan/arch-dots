@@ -3,10 +3,10 @@
 # Started by autostart.toml. mmsg prints all monitors at start and after every change
 # (tag switch, monitor plugged in); a monitor gets a new swaybg only when its tag changes.
 
-wp=~/pictures/wallpapers/webp/arch_nord
-# Nord colours for tags 1-10, made by ~/pictures/wallpapers/make-wallpaper.sh:
+wp=~/.dots/wallpapers/webp/arch_nord
+# Nord colours for tags 1-10, made by ~/.dots/wallpapers/make-wallpaper.sh:
 # polar night, yellow, blue, green, red, cyan, orange, purple, white, frost
-walls=(1 13 10 14 11 8 12 15 6_light 7)
+walls=(1 10_tonelogo 12_darklogo 8_darklogo 15_darklogo 13_darklogo 11 9_darklogo 5_darklogo 7_darklogo)
 
 declare -A tag pid
 mmsg watch all-monitors |
