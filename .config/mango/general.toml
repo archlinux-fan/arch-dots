@@ -95,7 +95,7 @@ trackpad_disable_while_typing = 1
 trackpad_scroll_factor        = 1.0
 gesture_live                  = 1   # gestures move with the fingers (keybindings.toml)
 
-# ── Overview (Super+D) ──────────────────────────────────────
+# ── Overview (Super+Tab, 3 fingers) ─────────────────────────
 overview_gap_inner = 5
 overview_gap_outer = 30
 enable_hotarea     = 0   # 1 = pointer in a screen corner opens the overview

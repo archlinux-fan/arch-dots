@@ -36,7 +36,6 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 "SUPER+v"       = "togglefloating"
 "SUPER+c"       = "centerwin"
 "SUPER+j"       = "exchange_stack_client,next"     # swap with the next window (closest to swapsplit)
-"SUPER+Tab"     = "focusstack,next"
 
 # ── Lock / screens off ──────────────────────────────────────
 "SUPER+l" = "spawn,swaylock"
@@ -186,8 +185,7 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 # "SUPER+g"     = "toggleglobal"
 "SUPER+z"       = "togglemaximizescreen"   # maximize, bar and gaps stay
 "SUPER+n"       = "switch_layout"          # next layout of circle_layout (general.toml)
-"SUPER+d"       = "toggleoverview"         # every window of this monitor; click one
-"SUPER+SHIFT+d" = "togglejump"             # overview, press the letter on a window
+"SUPER+Tab"     = "togglejump"             # F3 on MX Keys: overview, press the letter on a window
 "ALT+Tab"       = "switcher,next"          # thumbnails; let go of Alt to pick
 "ALT+SHIFT+Tab" = "switcher,prev"
 "SUPER+s"       = "toggle_special_tag"     # show / hide the special tag
