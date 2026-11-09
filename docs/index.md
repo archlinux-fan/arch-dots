@@ -36,4 +36,4 @@ Muted sound or mic turns grey, the update counters go green, orange, red; hover 
 {% for s in page.screenshots %}  <li><figure><a href="{{ site.raw }}/screenshots/{{ s.file }}.png"><img src="{{ '/assets/thumbs/' | append: s.file | append: '.webp' | relative_url }}" alt="{{ s.text }}" loading="lazy"></a><figcaption>{{ s.text }}</figcaption></figure></li>
 {% endfor %}</ul>
 
-Screenshots are 4K (3840x2160). Wallpapers in all 16 Nord colours: [Wallpapers]({{ '/wallpapers.html' | relative_url }}).
+Screenshots are 4K (3840x2160). Wallpapers in all 16 Nord colours: [Wallpapers]({{ '/wallpapers.html' | relative_url }}). Want another colour or size? [Make your own]({{ site.generator_url }}).

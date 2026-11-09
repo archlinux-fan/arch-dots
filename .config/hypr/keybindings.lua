@@ -18,7 +18,7 @@ local menu        = "rofi -combi-modi window,drun,run -show combi -modi combi"
 local home = os.getenv("HOME")
 local wp   = home .. "/.dots/wallpapers/webp/"
 
--- Nord colours, made by ~/.dots/wallpapers/make-wallpaper.sh
+-- Nord colours
 local wallpapers = {
     wp .. "arch_nord1_2160p.webp",   -- 1 polar night
     wp .. "arch_nord13_2160p.webp",  -- 2 yellow

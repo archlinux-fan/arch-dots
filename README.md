@@ -40,7 +40,7 @@ Muted sound or mic turns grey, the update counters go green, orange, red; hover 
 
 Screenshots are 4K (3840x2160); click one for full size.
 
-Wallpapers in all 16 Nord colours, and the script that makes them: [wallpapers](wallpapers/).
+Wallpapers in all 16 Nord colours: [wallpapers](wallpapers/). Want another colour or size? [Make your own](https://archlinux-fan.github.io/arch-wallpaper/).
 
 ## Keys
 
