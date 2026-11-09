@@ -33,6 +33,10 @@
   outline-offset: -2px !important;
 }
 
+/* Unpinned tabs and bookmarks: Zen's dark theme text color, not the accent */
+.tabbrowser-tab:not([pinned], [selected]) .tab-label,
+#PersonalToolbar .bookmark-item > .toolbarbutton-text { color: rgba(255, 255, 255, .8) !important; }
+
 /* The selected tab is filled with the accent, so its text is dark */
 .tabbrowser-tab[selected] .tab-label,
 .tabbrowser-tab[selected] .tab-close-button { color: #2b313c !important; }
