@@ -39,9 +39,9 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 
 # ── Lock / screens off ──────────────────────────────────────
 "SUPER+l" = "spawn,swaylock"
-# Screens off after 0.5 s (key release would wake them); swayidle skips its
-# media checks until you are back. The first key press turns them on again.
-"SUPER+x" = "spawn_shell,touch /tmp/idle_override; sleep 0.5; $screens_off; mmsg watch all-devices | grep -qm1 type.:.keyboard; $screens_on"
+# Screens off after 0.5 s (key release would wake them), never locks (swayidle.conf).
+# The first key press turns them on again.
+"SUPER+x" = "spawn_shell,touch /tmp/idle_override; sleep 0.5; $screens_off; mmsg watch all-devices | grep -qm1 type.:.keyboard; $screens_on; rm -f /tmp/idle_override"
 
 # ── Waybar restart ──────────────────────────────────────────
 # SIGINT, not the default SIGTERM: only then waybar also ends its modules' mmsg watch | jq
