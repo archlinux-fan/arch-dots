@@ -6,7 +6,7 @@
 wp=~/.dots/wallpapers/webp/arch_nord
 # Nord colours for tags 1-10:
 # polar night, yellow, blue, green, red, cyan, orange, purple, white, frost
-walls=(1 10 12_darklogo 8_darklogo 15_darklogo 13_darklogo 11 9_darklogo 5_darklogo 7_darklogo)
+walls=(1 9_darklogo 12_darklogo 8_darklogo 15_darklogo 13_darklogo 11 10 5_darklogo 7_darklogo)
 
 declare -A tag pid
 mmsg watch all-monitors |
