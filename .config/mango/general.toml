@@ -67,7 +67,7 @@ drag_warp_cursor                  = 0  # the cursor stays where it is while resi
 float_full_to_top                 = 0
 cursor_hide_on_keypress           = 1  # pointer hides while typing
 cursor_hide_timeout               = 0  # seconds without movement before it hides, 0 = never
-idle_inhibit_when_fullscreen      = 1  # no lock or screens off while a fullscreen window has focus
+idle_inhibit_when_fullscreen      = 0  # a paused fullscreen video doesn't keep the screens on; a playing one does by itself
 idle_inhibit_ignore_visible       = 0
 
 # ── Keyboard ────────────────────────────────────────────────

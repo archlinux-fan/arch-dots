@@ -255,8 +255,8 @@
 			"critical": 15
 		},
 		"events": {
-			"on-discharging-warning": "notify-send -a battery 'Low Battery'",
-			"on-discharging-critical": "notify-send -u critical -a battery 'Very Low Battery'",
+			"on-discharging-warning": "notify-send -a battery -i ~/.local/share/icons/Nordzy/status/scalable/notification-battery-low.svg 'Low Battery'",
+			"on-discharging-critical": "notify-send -u critical -a battery -i ~/.local/share/icons/Nordzy/status/scalable/notification-battery-empty.svg 'Very Low Battery'",
 			"on-charging-100": "notify-send -a battery 'Battery Full!'"
 		},
 		"format": "{capacity}% {icon}",

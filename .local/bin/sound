@@ -15,16 +15,16 @@ if [[ $1 == output ]]; then
           done; echo "Automatic (best connected)"; } |
         fuzzel --dmenu --index --no-icons --hide-prompt --mesg "Sound output" --lines 8 --minimal-lines --width 46) || exit
     if (( i == ${#sinks[@]} )); then
-        wpctl clear-default && notify-send -a sound "Sound: automatic"
+        wpctl clear-default && notify-send -a sound -i $HOME/.local/share/icons/Nordzy/status/scalable/notification-audio-volume-high.svg "Sound: automatic"
     else
-        wpctl set-default "${sinks[i]%%$'\t'*}" && notify-send -a sound "Sound: ${sinks[i]#*$'\t'}"
+        wpctl set-default "${sinks[i]%%$'\t'*}" && notify-send -a sound -i $HOME/.local/share/icons/Nordzy/status/scalable/notification-audio-volume-high.svg "Sound: ${sinks[i]#*$'\t'}"
     fi
     exit
 fi
 
 case $1 in
-    up|down|mute) dev=@DEFAULT_AUDIO_SINK@;   name=Volume; app=volume ;;
-    mic-*)        dev=@DEFAULT_AUDIO_SOURCE@; name=Mic;    app=mic-volume ;;
+    up|down|mute) dev=@DEFAULT_AUDIO_SINK@;   name=Volume; app=volume;     icon=notification-audio-volume ;;
+    mic-*)        dev=@DEFAULT_AUDIO_SOURCE@; name=Mic;    app=mic-volume; icon=notification-microphone-sensitivity ;;
 esac
 
 case $1 in
@@ -36,5 +36,9 @@ esac
 
 out=$(wpctl get-volume $dev) || exit
 v=$(awk '{printf "%d", $2*100}' <<< "$out")
-case $out in *MUTED*) text="$name: muted" ;; *) text="$name: $v%" ;; esac
-notify-send -h string:x-canonical-private-synchronous:$app -h int:value:$v -t 2000 --app-name=$app "$text"
+# Icon: a light Nordzy notification-* one, by full path (mako finds no names in Nordzy's folders): muted, or low / medium / high by the level
+case $out in
+    *MUTED*) text="$name: muted"; l=muted ;;
+    *) text="$name: $v%"; l=high; ((v < 67)) && l=medium; ((v < 34)) && l=low; ((v == 0)) && l=muted ;;
+esac
+notify-send -h string:x-canonical-private-synchronous:$app -h int:value:$v -t 2000 -i $HOME/.local/share/icons/Nordzy/status/scalable/$icon-$l.svg --app-name=$app "$text"

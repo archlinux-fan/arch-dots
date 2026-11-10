@@ -37,7 +37,7 @@ case $1 in
         # Connected network: disconnect (stays off until picked again or the next boot)
         if [[ $ssid == "$on" ]]; then
             nmcli dev disconnect "$(nmcli -g DEVICE,TYPE dev | sed -n '/:wifi$/{s///p;q}')" >/dev/null &&
-                notify-send -a wifi "Disconnected from $ssid"
+                notify-send -a wifi -i $HOME/.local/share/icons/Nordzy/status/scalable/notification-network-wireless-disconnected.svg "Disconnected from $ssid"
             exit
         fi
         # Known network: its saved profile; new one: password if secured
@@ -48,7 +48,8 @@ case $1 in
             out=$(nmcli dev wifi connect "$ssid" password "$pass" 2>&1)
         else
             out=$(nmcli dev wifi connect "$ssid" 2>&1)
-        fi && notify-send -a wifi "Connected to $ssid" || notify-send -u critical -a wifi "$ssid: not connected" "$out" ;;
+        fi && notify-send -a wifi -i $HOME/.local/share/icons/Nordzy/status/scalable/notification-network-wireless-connected.svg "Connected to $ssid" ||
+            notify-send -u critical -a wifi -i $HOME/.local/share/icons/Nordzy/status/scalable/notification-network-wireless-disconnected.svg "$ssid: not connected" "$out" ;;
     bt)
         mapfile -t devs < <(devices '$d.Paired.data')
         i=$({ for d in "${devs[@]}"; do

@@ -37,7 +37,8 @@ default-timeout=0
 
 # --- OSD: volume, mic, brightness ---
 [app-name="volume"]
-width=140
+width=210
+max-icon-size=24
 history=0
 border-color=#81a1c1
 progress-color=over #81a1c155
@@ -49,7 +50,8 @@ text-color=#bf616a
 progress-color=over #bf616a22
 
 [app-name="mic-volume"]
-width=140
+width=210
+max-icon-size=24
 history=0
 border-color=#a3be8c
 progress-color=over #a3be8c22
@@ -61,7 +63,8 @@ text-color=#bf616a
 progress-color=over #bf616a22
 
 [app-name="brightness"]
-width=140
+width=210
+max-icon-size=24
 history=0
 border-color=#ebcb8b
 progress-color=over #ebcb8b22
@@ -75,7 +78,15 @@ width=200
 
 # Battery (waybar): low, very low (critical, red), full
 [app-name="battery"]
-width=170
+width=220
+max-icon-size=32
+
+# Wi-Fi menu and sound output: icon as small as the text
+[app-name="wifi"]
+max-icon-size=32
+
+[app-name="sound"]
+max-icon-size=32
 
 [app-name="bluetooth"]
 width=260

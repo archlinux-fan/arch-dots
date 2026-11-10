@@ -40,7 +40,6 @@ height = 0.9
 app_id = "^mpv$"
 width  = 0.85
 height = 0.85
-idle_inhibit_when_focus = 1   # no lock while mpv has focus
 
 [[rule.window_rule]]
 app_id = '^(.*ristretto.*|xpdf|com\.gabm\.satty)$'

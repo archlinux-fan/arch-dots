@@ -38,7 +38,8 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 "SUPER+j"       = "exchange_stack_client,next"     # swap with the next window (closest to swapsplit)
 
 # ── Lock / screens off ──────────────────────────────────────
-"SUPER+l" = "spawn,swaylock"
+# Lock; screens off 15 s later, on again with any key or mouse move
+"SUPER+l" = 'spawn_shell,swaylock && sleep 15 && pidof swaylock >/dev/null && { $screens_off; mmsg watch all-devices | grep -qm1 "type.:\""; $screens_on; }'
 # Screens off after 0.5 s (key release would wake them), never locks (swayidle.conf).
 # The first key press turns them on again.
 "SUPER+x" = "spawn_shell,touch /tmp/idle_override; sleep 0.5; $screens_off; mmsg watch all-devices | grep -qm1 type.:.keyboard; $screens_on; rm -f /tmp/idle_override"

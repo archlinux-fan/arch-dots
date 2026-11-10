@@ -17,4 +17,6 @@ esac
 busctl call org.freedesktop.login1 /org/freedesktop/login1/session/auto org.freedesktop.login1.Session \
     SetBrightness ssu backlight "${d##*/}" "$n"
 b=$(( (n*100 + m/2) / m ))
-notify-send -h string:x-canonical-private-synchronous:brightness -h int:value:$b -t 2000 --app-name=brightness "Brightness: $b%"
+# Icon (Nordzy): off / low / medium / high / full
+l=full; ((b < 100)) && l=high; ((b < 67)) && l=medium; ((b < 34)) && l=low; ((b == 0)) && l=off
+notify-send -h string:x-canonical-private-synchronous:brightness -h int:value:$b -t 2000 -i $HOME/.local/share/icons/Nordzy/status/scalable/notification-display-brightness-$l.svg --app-name=brightness "Brightness: $b%"
