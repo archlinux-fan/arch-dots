@@ -56,6 +56,13 @@ app_id = "pavucontrol$"
 width  = 800
 height = 600
 
+# rtorrent (double-click a .torrent, rtorrent.desktop): floating, 2/3 of the screen
+[[rule.window_rule]]
+app_id      = "^rtorrent$"
+is_floating = 1
+width       = 0.66
+height      = 0.66
+
 # nmtui (waybar Wi-Fi middle click): in the middle, just big enough for Edit Connection
 [[rule.window_rule]]
 title       = "^nmtui$"

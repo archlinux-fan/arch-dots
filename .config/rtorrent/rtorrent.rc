@@ -1,0 +1,26 @@
+# rtorrent: torrents in foot. Start: rtorrent file.torrent, or double-click a .torrent in Thunar
+# (rtorrent.desktop). Keys: arrows; → on a torrent, File list, Space = priority (off = skip),
+# Ctrl+S start, Ctrl+D stop, Ctrl+Q quit. All options: /usr/share/doc/rtorrent/rtorrent.rc
+execute.nothrow = sh, -c, "mkdir -p ~/videos ~/.local/share/rtorrent/watch"
+directory.default.set = ~/videos
+# Torrents are remembered between starts and continue where they stopped
+session.path.set = ~/.local/share/rtorrent
+# No lock: closing the foot window leaves a stale one that blocks the next start.
+# rtorrent.desktop starts only one rtorrent.
+session.use_lock.set = no
+# A .torrent double-clicked while rtorrent runs lands here and starts
+directory.watch.added = ~/.local/share/rtorrent/watch/, load.start
+
+# Colours: names of the terminal palette, which foot sets to Nord (foot.ini)
+ui.color.title.set      = "bold blue"
+ui.color.footer.set     = "bold black on blue"
+ui.color.label.set      = "cyan"
+ui.color.info.set       = "white"
+ui.color.alarm.set      = "bold red"
+ui.color.focus.set      = "black on cyan"
+ui.color.complete.set   = "green"
+ui.color.seeding.set    = "bold green"
+ui.color.incomplete.set = "yellow"
+ui.color.leeching.set   = "bold yellow"
+ui.color.stopped.set    = "red"
+ui.color.queued.set     = "magenta"

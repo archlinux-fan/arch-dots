@@ -53,6 +53,7 @@
 			// Raw app_id of Lite XL until waybar finds its desktop file (after a waybar restart)
 			"com\\.lite_xl\\.LiteXL": "  Lite XL",
 			"Steam": "  Steam",
+			"rtorrent": "  rtorrent",
 		}
 	},
 

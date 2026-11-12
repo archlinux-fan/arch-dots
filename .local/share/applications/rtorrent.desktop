@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=rtorrent
+Comment=Torrents in a terminal
+Icon=qbittorrent
+# Not running: rtorrent in foot (with the torrent, if any); running: the torrent into its watch folder (rtorrent.rc)
+Exec=sh -c "pidof rtorrent >/dev/null && { [ \\$# = 0 ] || cp \\"\\$1\\" ~/.local/share/rtorrent/watch/; } || exec foot --app-id rtorrent -T rtorrent rtorrent \\"\\$@\\"" sh %f
+MimeType=application/x-bittorrent;
+Categories=Network;FileTransfer;
