@@ -30,11 +30,25 @@ case "$mode" in
         exit
         ;;
     pacman)
-        # Like checkupdates: sync a copy of the database, never the real one ("pacman -Sy"
-        # without -u leaves the system half updated). fakeroot fakes the root pacman wants;
-        # the download sandbox (user alpm) needs real root, so it's off for this copy.
-        mkdir -p "$db" && ln -sfn /var/lib/pacman/local "$db/local"
-        list=$(fakeroot -- pacman -Sy --dbpath "$db" --logfile /dev/null --disable-sandbox >/dev/null 2>&1 && pacman -Qu --dbpath "$db")
+        # Like checkupdates, on a copy of the database, never the real one ("pacman -Sy" without
+        # -u leaves the system half updated): each repo's .db from the first mirror that answers,
+        # then pacman compares it with the installed packages. No root, no fakeroot.
+        mkdir -p "$db/sync" && ln -sfn /var/lib/pacman/local "$db/local"
+        err=""
+        for r in $(pacman-conf --repo-list); do
+            for u in $(pacman-conf -r "$r" Server); do
+                # Own temp name ($$), so two checks at once (a click while waybar checks) don't clash
+                curl -fsSL --max-time 60 -o "$db/sync/$r.db.$$" "$u/$r.db" &&
+                    mv "$db/sync/$r.db.$$" "$db/sync/$r.db" && continue 2
+            done
+            err+="$r.db: no mirror answered"$'\n'
+        done
+        # A failed check shows ?, not a false 0
+        if [ -n "$err" ]; then
+            jq -cn --arg e "$err" '{text: "?", alt: "?", class: "white", tooltip: "<b>Updates:</b> check failed\n\n\($e | @html)\nLeft click: try again"}'
+            exit
+        fi
+        list=$(pacman -Qu --dbpath "$db")
         name="official repos (pacman)"
         threshhold_yellow=10
         threshhold_red=30
