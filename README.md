@@ -62,7 +62,7 @@ Super is the Windows key. All of them, with comments: [.config/mango/keybindings
 | Super+Ctrl+1 … 0 | move the window to tag 1 … 10 |
 | Super+L | lock the screen |
 | Super+U | install updates |
-| Print / Shift+Print | screenshot of a region / of the frozen screen, to draw on in satty |
+| Print / Shift+Print | screenshot of a region / of a region of the frozen screen, to draw on in swappy |
 | Super+P | pick a colour anywhere on the screen |
 | Super+Ctrl+Shift+R / P | reboot / power off (asks first) |
 | Alt+Shift | next keyboard layout, if you set two (example in `general.toml`) |

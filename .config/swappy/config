@@ -1,0 +1,15 @@
+# swappy: draw on a screenshot (Shift+Print, ~/.local/bin/shot-freeze).
+# Ctrl+S (Save) saves into save_dir, Ctrl+C (Copy) only copies; Escape closes.
+# Keys: b brush, t text, r rectangle, o ellipse, a arrow, d blur, Ctrl+z undo. All options: man swappy
+[Default]
+save_dir=$HOME/pictures/screenshots
+save_filename_format=%Y%m%d-%H%M%S.png
+show_panel=true
+line_size=4
+text_size=18
+text_font=Noto Sans
+paint_mode=arrow
+early_exit=false
+fill_shape=false
+# Nord red
+custom_color=rgba(191,97,106,1)

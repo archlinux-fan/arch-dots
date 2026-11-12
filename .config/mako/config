@@ -98,21 +98,6 @@ max-icon-size=40
 text-alignment=left
 
 
-# Satty: short text, no thumbnail
-[app-name="satty"]
-width=160
-border-color=#b48ead
-text-alignment=left
-icons=0
-ignore-timeout=1
-default-timeout=2500
-
-[app-name="satty" body~="File saved.*"]
-format=<b>Screenshot done</b>\nSaved to folder
-
-[app-name="satty" body~="Copied to clipboard.*"]
-format=<b>Screenshot done</b>\nCopied to clipboard
-
 [app-name="Spotify"]
 width=300
 border-color=#a3be8c

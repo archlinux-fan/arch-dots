@@ -27,7 +27,7 @@ app_id      = "^(mpv|xpdf|.*ristretto.*|nwg-look|.*pavucontrol|file_progress|con
 is_floating = 1
 
 [[rule.window_rule]]
-title       = "^(Firewall Configuration|Media viewer|Volume Control|Picture-in-Picture|Open File|branchdialog|Confirm to replace files|File Operation Progress|xarchiver.*|btop|satty)$"
+title       = "^(Firewall Configuration|Media viewer|Volume Control|Picture-in-Picture|Open File|branchdialog|Confirm to replace files|File Operation Progress|xarchiver.*|btop)$"
 is_floating = 1
 
 # ── Sizes (below 1 = part of the screen, above = pixels) ────
@@ -42,7 +42,7 @@ width  = 0.85
 height = 0.85
 
 [[rule.window_rule]]
-app_id = '^(.*ristretto.*|xpdf|com\.gabm\.satty)$'
+app_id = '^(.*ristretto.*|xpdf)$'
 width  = 0.98
 height = 0.94
 
@@ -55,6 +55,11 @@ height = 0.9
 app_id = "pavucontrol$"
 width  = 800
 height = 600
+
+# Shift+Print (shot-freeze): mpv shows the frozen screen at once, without the open animation
+[[rule.window_rule]]
+title        = "^freeze$"
+no_animation = 1
 
 # rtorrent (double-click a .torrent, rtorrent.desktop): floating, 2/3 of the screen
 [[rule.window_rule]]

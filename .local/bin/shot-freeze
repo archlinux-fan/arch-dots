@@ -1,0 +1,18 @@
+#!/bin/bash
+# Shift+Print (mango keybindings.toml): screenshot of the frozen screen.
+# grim takes the focused monitor at once (an open menu stays in the picture), mpv shows that
+# picture full screen, so the screen looks frozen; slurp picks a region of it (Escape cancels).
+# swappy opens the region to draw on: its Save button (Ctrl+S) saves, Copy (Ctrl+C) copies, nothing else.
+
+mon=$(mmsg get all-monitors | jq -r '.monitors[]|select(.active).name')
+grim -o "$mon" /tmp/shot.png || exit
+
+# Window title "freeze": no open animation (windowrules.toml)
+mpv --no-config --title=freeze --fs --osc=no --osd-level=0 --image-display-duration=inf \
+    --input-default-bindings=no --really-quiet /tmp/shot.png &
+sleep 0.3
+g=$(slurp -d) && grim -g "$g" /tmp/shot-region.png
+kill $!
+[ -n "$g" ] || exit
+
+swappy -f /tmp/shot-region.png
