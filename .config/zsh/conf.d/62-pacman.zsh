@@ -3,7 +3,7 @@
 # upgrade that can break the system.
 alias pacin="sudo pacman -S"
 alias pacup="sudo pacman -Syu"
-alias pacupi='sudo pacman -Sy && echo "" && printf "\e[1;37m%-20s   %s\e[0m\n" "Package" "Description" && pacman -Qu | cut -d" " -f1 | xargs -r pacman -Si | awk -F": " "/^Name/ {name=\$2} /^Description/ {printf \"%-20s   %s\n\", name, \$2}" && echo "" && sudo pacman -Su'
+alias pacupi='~/.config/waybar/scripts/updates.sh upgrade'   # the updates with descriptions, then pacman -Syu
 alias pacrm="sudo pacman -Rns"
 alias paccl="sudo pacman -Sc"     # old versions out of the cache; -Scc would also drop the current ones
 alias pacco="pacman -Qtdq"

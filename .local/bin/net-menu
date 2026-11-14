@@ -9,7 +9,8 @@
 #   net-menu ssh   hosts from ~/.ssh/config (no patterns, no git hosting): pick one to log in, in foot
 # Started by keybindings.toml (Super+Alt+W / B / Return) and waybar (Wi-Fi right click, Bluetooth middle click).
 
-menu() { fuzzel --dmenu --index --no-icons --mesg "$1" --placeholder "Type to filter" --lines 10 --minimal-lines --width 46; }
+# --only-match: Enter on text that matches nothing picks nothing (the index would be -1, bash's last entry)
+menu() { fuzzel --dmenu --index --only-match --no-icons --mesg "$1" --placeholder "Type to filter" --lines 10 --minimal-lines --width 46; }
 
 # BlueZ devices matching a jq filter on $d: object path, connected, name
 devices() {

@@ -11,8 +11,11 @@ exec_once = [
     # Login screen (tty1 autologin starts mango unlocked)
     "swaylock",
 
-    # Polkit agent: password prompts for pkexec (Super+Shift+T/E/M/F) and admin tools
+    # Polkit agent: password prompts for pkexec (Super+Shift+T/E/F) and admin tools
     "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
+
+    # Folder of the screenshots (Print keys, swappy's Save); neither creates it
+    "mkdir -p ~/pictures/screenshots",
 
     # Wallpaper of the active tag on every monitor (swaybg)
     "~/.config/mango/wallpaper.sh",

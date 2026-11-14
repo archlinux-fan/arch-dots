@@ -20,9 +20,6 @@ shot   = 'f=$HOME/pictures/screenshots/$(date +%Y%m%d-%H%M%S).png;'
 mon    = '$(mmsg get all-monitors|jq -r ".monitors[]|select(.active).name")'
 # Copy the screenshot (as image/png: wl-copy guesses text without xdg-utils), show it in a notification
 copy   = 'wl-copy -t image/png < "$f" && notify-send -i "$f" -a screenshot Screenshot "$f"'
-# All monitors off / on, as in swayidle.conf; a disabled panel (lid) stays off
-screens_off = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.width>0).name'); do mmsg dispatch sleep_monitor,^$m$; done"
-screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.width>0).name'); do mmsg dispatch wakeup_monitor,^$m$; done"
 
 [bind.default]
 
@@ -37,12 +34,11 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 "SUPER+c"       = "centerwin"
 "SUPER+j"       = "exchange_stack_client,next"     # swap with the next window (closest to swapsplit)
 
-# ── Lock / screens off ──────────────────────────────────────
+# ── Lock / screens off  (~/.local/bin/screens, also used by swayidle.conf) ──
 # Lock; screens off 15 s later, on again with any key or mouse move
-"SUPER+l" = 'spawn_shell,swaylock && sleep 15 && pidof swaylock >/dev/null && { $screens_off; mmsg watch all-devices | grep -qm1 "type.:\""; $screens_on; }'
-# Screens off after 0.5 s (key release would wake them), never locks (swayidle.conf).
-# The first key press turns them on again.
-"SUPER+x" = "spawn_shell,touch /tmp/idle_override; sleep 0.5; $screens_off; mmsg watch all-devices | grep -qm1 type.:.keyboard; $screens_on; rm -f /tmp/idle_override"
+"SUPER+l" = "spawn,screens lock"
+# Screens off, never locks; the first key press turns them on again
+"SUPER+x" = "spawn,screens hold"
 
 # ── Waybar restart ──────────────────────────────────────────
 # SIGINT, not the default SIGTERM: only then waybar also ends its modules' mmsg watch | jq
@@ -51,7 +47,7 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 # ── Color picker ────────────────────────────────────────────
 # Click a point: grim takes that one pixel, as a 40x40 PNG (the square in the notification)
 # and as PPM, whose last 3 bytes od prints as hex; copied and shown. Escape cancels
-"SUPER+p" = 'spawn_shell,p=$(slurp -p) && grim -s 40 -g "$p" /tmp/color.png && c=$(grim -s 1 -g "$p" -t ppm - | tail -c 3 | od -An -tx1 | tr -d " \n") && wl-copy "#$c" && notify-send -i /tmp/color.png -a color "Color picked" "#$c"'
+"SUPER+p" = 'spawn_shell,i=$XDG_RUNTIME_DIR/color.png; p=$(slurp -p) && grim -s 40 -g "$p" $i && c=$(grim -s 1 -g "$p" -t ppm - | tail -c 3 | od -An -tx1 | tr -d " \n") && wl-copy "#$c" && notify-send -i $i -a color "Color picked" "#$c"'
 
 # ============================================================
 # APPLICATIONS  ($term, $files ... are set in env.toml)
@@ -60,21 +56,16 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 "SUPER+Return" = "spawn,$term"
 "SUPER+t"      = "spawn,$files"
 "SUPER+e"      = "spawn,$editor"
-"SUPER+m"      = "spawn,$editor2"
 "SUPER+space"  = "spawn,$menu"
 
 # As root
 "SUPER+SHIFT+t" = "spawn,$root $files"
 "SUPER+SHIFT+e" = "spawn,$root $editor"
-"SUPER+SHIFT+m" = "spawn,$root $editor2"
 "SUPER+SHIFT+f" = "spawn,$root firewall-config"
 
 # Firefox ($browser: local.toml can set a profile)
 "SUPER+b"       = "spawn,$browser"
 "SUPER+SHIFT+b" = "spawn,$browser --private-window"
-
-# Open only if not running yet
-"SUPER+o" = "spawn_shell,mmsg get all-clients | grep -qi obsidian || obsidian"
 
 # Wi-Fi / Bluetooth / SSH menu in fuzzel (~/.local/bin/net-menu), sound output (~/.local/bin/sound)
 "SUPER+ALT+w"      = "spawn,net-menu wifi"
@@ -82,18 +73,15 @@ screens_on  = "for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.wid
 "SUPER+ALT+Return" = "spawn,net-menu ssh"   # a terminal on another computer (~/.ssh/config)
 "SUPER+ALT+s"      = "spawn,sound output"
 
-# System monitors
-"CTRL+SHIFT+Escape"  = "spawn,$term --title btop -e btop"
-"SUPER+SHIFT+Escape" = "spawn,$term --title btop -e htop"
-"SUPER+CTRL+Escape"  = "spawn,$term --title fastfetch -e sh -c 'fastfetch; read -n 1'"
+# System monitor
+"CTRL+SHIFT+Escape" = "spawn,$term --title btop -e btop"
 
 # Reboot / power off, with a question (~/.local/bin/power-confirm, also in waybar)
 "SUPER+CTRL+SHIFT+r" = "spawn,power-confirm reboot"
 "SUPER+CTRL+SHIFT+p" = "spawn,power-confirm poweroff"
 
-# Package updates, as the right click on the counters in waybar
+# Package updates, as the right click on the counter in waybar
 "SUPER+u" = "spawn,$term --title mango-update -e $HOME/.config/waybar/scripts/updates.sh upgrade"
-"SUPER+y" = "spawn,$term --title mango-update -e sh -c 'yay -Sua'"
 
 # ============================================================
 # FOCUS AND MOVING WINDOWS

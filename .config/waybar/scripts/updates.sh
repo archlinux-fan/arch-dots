@@ -19,14 +19,16 @@ db=~/.cache/pacman-updates
 
 case "$mode" in
     upgrade)
-        # Waybar right click and Super+U. The list with descriptions comes from the copy;
-        # pacman -Syu needs no password (sudoers), anything else does.
+        # Waybar right click, Super+U and the pacupi alias. The list with descriptions comes
+        # from the copy; pacman -Syu needs no password (sudoers), anything else does.
         "$0" pacman >/dev/null
         printf '\n\e[1;37m%-20s   %s\e[0m\n' Package Description
         pacman -Qu --dbpath "$db" | cut -d' ' -f1 | xargs -r pacman -Si --dbpath "$db" |
             awk -F': ' '/^Name/ {name=$2} /^Description/ {printf "%-20s   %s\n", name, $2}'
         echo; sudo pacman -Syu
         pkill -SIGRTMIN+8 waybar
+        # The window closes with the script: pacman's last lines (.pacnew, errors) stay readable
+        read -n1 -rsp $'\nPress any key ...'; echo
         exit
         ;;
     pacman)

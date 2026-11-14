@@ -131,6 +131,8 @@
 	"custom/aur": {
 		"format": "  {}",
 		"return-type": "json",
+		// Hidden without yay
+		"exec-if": "command -v yay >/dev/null",
 		"exec": "~/.config/waybar/scripts/updates.sh aur",
 		"interval": 3600,
 		"on-click": "pkill -SIGRTMIN+8 waybar",

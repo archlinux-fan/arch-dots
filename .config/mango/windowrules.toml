@@ -101,14 +101,14 @@ is_floating = 1
 width       = 0.98
 height      = 0.94
 
-# btop / htop (Ctrl+Shift+Esc, Super+Shift+Esc)
+# btop (Ctrl+Shift+Esc)
 [[rule.window_rule]]
 app_id = "^footclient$"
 title  = "^btop$"
 width  = 0.97
 height = 0.92
 
-# Updates (Super+U, Super+Y, waybar)
+# Updates (Super+U, waybar)
 [[rule.window_rule]]
 app_id      = "^footclient$"
 title       = "^mango-update$"
@@ -135,7 +135,7 @@ height      = 0.9
 # height              = 0.6
 
 # ── Layer rules (bars, launchers, notifications) ────────────
-# blur_layer (theme.toml) blurs behind waybar and rofi. Not behind the
+# blur_layer (theme.toml) blurs behind waybar and fuzzel. Not behind the
 # wallpaper (swaybg), notifications (mako) and slurp's selection; the
 # selection also without animation, so it doesn't show up in screenshots.
 [[rule.layer_rule]]

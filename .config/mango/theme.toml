@@ -40,7 +40,7 @@ dim_unfocused_color = 0x2e344055
 
 # ── Blur (behind see-through windows and bars) ──────────────
 blur                   = 1
-blur_layer             = 1   # waybar, rofi ...; exceptions in windowrules.toml
+blur_layer             = 1   # waybar, fuzzel ...; exceptions in windowrules.toml
 blur_optimized         = 1   # blurs the wallpaper only: much cheaper, keep it on
 blur_params_radius     = 6
 blur_params_num_passes = 3

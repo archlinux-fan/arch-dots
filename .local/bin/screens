@@ -1,0 +1,40 @@
+#!/bin/bash
+# Screens off and lock, for swayidle (~/.config/mango/swayidle.conf) and Super+L / Super+X.
+#   screens off | on   all screens off / on; a panel disabled by the lid stays off
+#   screens idle       idle for 10 min: waits while mpv or Firefox (YouTube) plays, a paused one
+#                      doesn't count; then screens off and, 30 s later, locked
+#   screens back       activity: ends that wait, screens on
+#   screens lock       Super+L: lock, screens off 15 s later, on again with any key or mouse move
+#   screens hold       Super+X: screens off until a key is pressed, never locked meanwhile
+
+run=$XDG_RUNTIME_DIR/screens
+all() { for m in $(mmsg get all-monitors | jq -r '.monitors[]|select(.width>0).name'); do mmsg dispatch "$1,^$m$"; done; }
+playing() { pactl -f json list sink-inputs | jq -e 'any(.[]; .corked == false and (.properties["application.name"] | test("mpv|firefox"; "i")))' >/dev/null; }
+# "back" empties the file and a newer "idle" writes its own number: either ends this wait
+waiting() { [[ $(cat "$run.wait" 2>/dev/null) == $$ ]]; }
+
+case $1 in
+    off) all sleep_monitor ;;
+    on)  all wakeup_monitor ;;
+    idle)
+        [[ -e $run.hold ]] && exit
+        echo $$ > "$run.wait"
+        while playing; do sleep 30; waiting || exit; done
+        all sleep_monitor; sleep 30
+        waiting && { pidof swaylock >/dev/null || swaylock; } ;;
+    back)
+        : > "$run.wait"
+        [[ -e $run.hold ]] || { sleep 2; all wakeup_monitor; } ;;
+    lock)
+        swaylock && sleep 15 && pidof swaylock >/dev/null || exit
+        all sleep_monitor
+        mmsg watch all-devices | grep -qm1 'type.:"'
+        all wakeup_monitor ;;
+    hold)
+        # The key release would wake the screens: off after 0.5 s
+        touch "$run.hold"; trap 'rm -f "$run.hold"' EXIT
+        sleep 0.5; all sleep_monitor
+        mmsg watch all-devices | grep -qm1 'type.:.keyboard'
+        all wakeup_monitor ;;
+    *) echo "Usage: screens off|on|idle|back|lock|hold"; exit 1 ;;
+esac
