@@ -7,7 +7,7 @@ screenshots:
   - { file: fuzzel, text: "fuzzel app launcher" }
   - { file: ristretto, text: "Ristretto image viewer" }
   - { file: btop, text: "btop" }
-  - { file: satty, text: "satty screenshot editor; sound muted" }
+  - { file: swappy, text: "swappy screenshot editor (Shift+Print)" }
   - { file: swaylock, text: "swaylock lock screen" }
   - { file: hyprlock, text: "hyprlock lock screen, if you install it instead" }
   - { file: confirm, text: "Reboot / power off asks first in fuzzel (power-confirm)" }

@@ -24,8 +24,8 @@ Muted sound or mic turns grey, the update counters go green, orange, red; hover 
 <tr><td>fastfetch in foot, Nord palette</td><td>Thunar; mic muted, 42 updates listed on hover</td></tr>
 <tr><td width="50%"><img src="screenshots/fuzzel.png" alt="fuzzel app launcher"></td><td width="50%"><img src="screenshots/ristretto.png" alt="Ristretto"></td></tr>
 <tr><td>fuzzel app launcher</td><td>Ristretto image viewer</td></tr>
-<tr><td width="50%"><img src="screenshots/btop.png" alt="btop"></td><td width="50%"><img src="screenshots/satty.png" alt="satty"></td></tr>
-<tr><td>btop</td><td>satty screenshot editor; sound muted</td></tr>
+<tr><td width="50%"><img src="screenshots/btop.png" alt="btop"></td><td width="50%"><img src="screenshots/swappy.png" alt="swappy"></td></tr>
+<tr><td>btop</td><td>swappy screenshot editor (Shift+Print)</td></tr>
 <tr><td width="50%"><img src="screenshots/swaylock.png" alt="swaylock lock screen"></td><td width="50%"><img src="screenshots/hyprlock.png" alt="hyprlock lock screen"></td></tr>
 <tr><td>swaylock lock screen</td><td>hyprlock lock screen, if you install it instead</td></tr>
 <tr><td width="50%"><img src="screenshots/confirm.png" alt="Reboot confirmation"></td><td width="50%"><img src="screenshots/firefox.png" alt="Firefox"></td></tr>
