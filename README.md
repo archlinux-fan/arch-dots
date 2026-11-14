@@ -132,7 +132,7 @@ remove=(default default-release)
 [MIT](LICENSE): use, change and share it as you like; keep the copyright notice.
 Files from other projects keep their own license:
 
-- [Nordic](https://github.com/EliverLara/Nordic) GTK theme, also in `.config/gtk-4.0`: GPL-3.0
+- [Nordic](https://github.com/EliverLara/Nordic) GTK theme: GPL-3.0
 - [Nordzy](https://github.com/alvatip/Nordzy-icon) icons and [cursors](https://github.com/alvatip/Nordzy-cursors): GPL-3.0
 - Dracula and Nord styles in `.local/share/gtksourceview-4`: MIT, by their authors
 - Lite XL colours, plugins and libraries in `.config/lite-xl`: the licenses of their projects, mostly MIT
