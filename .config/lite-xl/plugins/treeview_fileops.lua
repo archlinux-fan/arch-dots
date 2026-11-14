@@ -176,15 +176,21 @@ function Files.delete(item)
     end)
 end
 
+-- true if a program of that name is in PATH
+local function in_path(name)
+  for dir in (os.getenv("PATH") or ""):gmatch("[^:]+") do
+    if system.get_file_info(dir .. "/" .. name) then return true end
+  end
+  return false
+end
+
 function Files.terminal()
   for _, t in ipairs({ config.plugins.treeview_fileops.terminal, os.getenv("TERMINAL") }) do
     if t and t ~= "" then return t end
   end
   for _, name in ipairs({ "foot", "kitty", "alacritty", "wezterm", "ghostty", "konsole",
                           "gnome-terminal", "xfce4-terminal", "tilix", "xterm" }) do
-    for dir in (os.getenv("PATH") or ""):gmatch("[^:]+") do
-      if system.get_file_info(dir .. "/" .. name) then return name end
-    end
+    if in_path(name) then return name end
   end
 end
 
@@ -225,6 +231,15 @@ for name, safe in pairs({ ["treeview:rename"] = Files.rename, ["treeview:delete"
     cmd.perform = function(item)
       if type(item) == "table" and item.depth and item.depth > 0 then safe(item) end
     end
+  end
+end
+
+-- "Open in System" runs xdg-open (xdg-utils); without it gio, part of glib,
+-- opens the file with the same default apps
+local open_in_system = command.map["treeview:open-in-system"]
+if open_in_system and PLATFORM == "Linux" and not in_path("xdg-open") and in_path("gio") then
+  open_in_system.perform = function(item)
+    system.exec("gio open '" .. item.abs_filename:gsub("'", "'\\''") .. "'")
   end
 end
 

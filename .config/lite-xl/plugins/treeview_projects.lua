@@ -652,7 +652,13 @@ function Tree:sync(switch)
     end
   end
   for p in pairs(want) do
-    if not core.project_dir_by_name(p) then core.add_project_directory(p) end
+    -- a folder that is gone or can't be read makes add_project_directory fail
+    -- half way: what it left goes, and the tree is without that folder
+    if not core.project_dir_by_name(p) and not pcall(core.add_project_directory, p) then
+      for i = #core.project_directories, 1, -1 do
+        if core.project_directories[i].name == p then table.remove(core.project_directories, i) end
+      end
+    end
   end
   -- stable order for find-file and project search results
   table.sort(core.project_directories, function(a, b) return a.name < b.name end)
@@ -745,7 +751,7 @@ end
 -- second, without new strings or tables while nothing changes.
 core.add_thread(function()
   local files, count, key = setmetatable({}, { __mode = "k" }), -1, nil -- doc -> abs_filename
-  while true do
+  local function check()
     if cfg().enabled then
       local changed = #core.docs ~= count or Entries:get().key ~= key
       for _, doc in ipairs(core.docs) do changed = changed or files[doc] ~= doc.abs_filename end
@@ -756,7 +762,11 @@ core.add_thread(function()
       end
     end
     Tabs:update()
-    coroutine.yield(0.25)
+  end
+  while true do
+    -- an error must not end this loop, or the tree stops following the files:
+    -- core.try logs it and the next check comes a little later
+    coroutine.yield(core.try(check) and 0.25 or 5)
   end
 end)
 
@@ -768,6 +778,10 @@ function Tree:open_entry(path)
   if not is_dir(path) then return core.error("Folder does not exist: %s", path) end
   self.browse[path] = true
   self:sync(Entries:get().project_set[path])
+  if not core.project_dir_by_name(path) then -- no rights to read it: back to a closed row
+    self.browse[path] = nil
+    return core.error("Cannot read folder: %s", path)
+  end
   entry_view(path):set_open("", true)
 end
 

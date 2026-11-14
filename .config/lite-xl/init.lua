@@ -41,6 +41,18 @@ if os.getenv("WAYLAND_DISPLAY") then
   end
 end
 
+------------------------------ Dialogs ---------------------------------------
+
+-- While a question is open (Save changes? Delete?) it keeps the focus, and a file opened
+-- then would go into the question's own locked pane: an error, and a crash when the file
+-- comes from another lite-xl (double click in Thunar). It opens in the main pane instead.
+local RootView = require "core.rootview"
+local active_node = RootView.get_active_node_default
+function RootView:get_active_node_default()
+  local node = active_node(self)
+  return node.locked and self:get_primary_node() or node
+end
+
 ------------------------------- Fonts ----------------------------------------
 
 -- customize fonts:
