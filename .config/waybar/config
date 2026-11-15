@@ -117,11 +117,12 @@
 		"on-click": "mmsg dispatch switch_keyboard_layout"
 	},
 	
-	// Updates: count from scripts/updates.sh; click lists them, right click installs
+	// Updates: count from scripts/updates.sh; click checks again, right click installs.
+	// nm-online: at boot waybar starts before Wi-Fi, so wait for it (else ? or 0 for an hour)
 	"custom/pacman": {
 		"format": "  {}",
 		"return-type": "json",
-		"exec": "~/.config/waybar/scripts/updates.sh pacman",
+		"exec": "nm-online -q -t 60; ~/.config/waybar/scripts/updates.sh pacman",
 		"interval": 3600,
 		"on-click": "pkill -SIGRTMIN+8 waybar",
 		"on-click-right": "footclient --title=mango-update -e ~/.config/waybar/scripts/updates.sh upgrade",
@@ -133,7 +134,7 @@
 		"return-type": "json",
 		// Hidden without yay
 		"exec-if": "command -v yay >/dev/null",
-		"exec": "~/.config/waybar/scripts/updates.sh aur",
+		"exec": "nm-online -q -t 60; ~/.config/waybar/scripts/updates.sh aur",
 		"interval": 3600,
 		"on-click": "pkill -SIGRTMIN+8 waybar",
 		"on-click-right": "footclient --title='mango-update' -e sh -c 'yay -Sua; pkill -SIGRTMIN+8 waybar'",
