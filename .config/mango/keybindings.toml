@@ -35,8 +35,8 @@ copy   = 'wl-copy -t image/png < "$f" && notify-send -i "$f" -a screenshot Scree
 "SUPER+j"       = "exchange_stack_client,next"     # swap with the next window (closest to swapsplit)
 
 # ── Lock / screens off  (~/.local/bin/screens, also used by swayidle.conf) ──
-# Lock; screens off 15 s later, on again with any key or mouse move
-"SUPER+l" = "spawn,screens lock"
+# Lock; screens off after 30 s without input (swayidle.conf)
+"SUPER+l" = "spawn,swaylock"
 # Screens off, never locks; the first key press turns them on again
 "SUPER+x" = "spawn,screens hold"
 

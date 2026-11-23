@@ -8,8 +8,9 @@
 
 [global]
 exec_once = [
-    # Login screen (tty1 autologin starts mango unlocked)
-    "swaylock",
+    # Login screen (tty1 autologin starts mango unlocked).
+    # -C (the same config) only tells it apart: swayidle.conf turns screens off only for plain "swaylock"
+    "swaylock -C ~/.config/swaylock/config",
 
     # Polkit agent: password prompts for pkexec (Super+Shift+T/E/F) and admin tools
     "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
