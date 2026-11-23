@@ -11,6 +11,6 @@ case $1 in
     *)        exit 1 ;;
 esac
 
-choice=$(printf 'Cancel\nYes\n' |
+choice=$(printf 'Yes\nCancel\n' |
     fuzzel --dmenu --hide-prompt --no-icons --mesg "$question" --lines 2 --width 22)
 [[ $choice == Yes ]] && $cmd
