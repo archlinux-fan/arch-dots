@@ -22,15 +22,15 @@ layout-bg-color=00000000
 layout-border-color=00000000
 layout-text-color=81a1c1
 
-# Waiting and typing: nord9 ring, nord8 key press, nord12 backspace
-ring-color=81a1c1
+# Waiting and typing: nord10 ring, nord8 key press, nord12 backspace
+ring-color=5e81ac
 inside-color=434c5e66
 key-hl-color=88c0d0
 bs-hl-color=d08770
 text-color=d8dee9
 
-# Checking the password: nord10
-ring-ver-color=5e81ac
+# Checking the password: nord8
+ring-ver-color=88c0d0
 inside-ver-color=434c5e66
 text-ver-color=d8dee9
 
@@ -39,12 +39,15 @@ ring-wrong-color=bf616a
 inside-wrong-color=434c5e66
 text-wrong-color=bf616a
 
-# Input cleared (Escape): nord13
-ring-clear-color=ebcb8b
+# Input cleared (Escape): nord6 (white)
+ring-clear-color=eceff4
 inside-clear-color=434c5e66
-text-clear-color=ebcb8b
+text-clear-color=eceff4
 
-# Caps Lock on: nord13 ring
+# Caps Lock on: nord13 ring (needs indicator-caps-lock, else only the text)
+indicator-caps-lock
 ring-caps-lock-color=ebcb8b
 inside-caps-lock-color=434c5e66
 text-caps-lock-color=ebcb8b
+caps-lock-key-hl-color=eceff4
+caps-lock-bs-hl-color=d08770

@@ -4,7 +4,7 @@
 #   screens idle       idle for 10 min: waits while mpv or Firefox (YouTube) plays, a paused one
 #                      doesn't count; then screens off and, 30 s later, locked
 #   screens back       activity: ends that wait, screens on
-#   screens lock       Super+L: lock, screens off 15 s later, on again with any key or mouse move
+#   screens lock       Super+L: lock, screens off after 15 s without input, on again with any key or mouse move
 #   screens hold       Super+X: screens off until a key is pressed, never locked meanwhile
 
 run=$XDG_RUNTIME_DIR/screens
@@ -26,7 +26,10 @@ case $1 in
         : > "$run.wait"
         [[ -e $run.hold ]] || { sleep 2; all wakeup_monitor; } ;;
     lock)
-        swaylock && sleep 15 && pidof swaylock >/dev/null || exit
+        swaylock || exit
+        # Each key or mouse move starts the 15 s again
+        while timeout 15 mmsg watch all-devices | grep -qm1 'type.:"'; do :; done
+        pidof swaylock >/dev/null || exit
         all sleep_monitor
         mmsg watch all-devices | grep -qm1 'type.:"'
         all wakeup_monitor ;;
